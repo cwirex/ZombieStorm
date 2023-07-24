@@ -1,23 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
+using System.Threading;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
-{
-    [SerializeField] List<GameObject> weaponPrefabs;
-    [SerializeField] Player player;
+namespace Assets.Scripts.Weapon {
+    public abstract class Weapon : MonoBehaviour {
+        [SerializeField] protected GameObject pfBullet;
+        protected WeaponStats Stats;
 
-    private GameObject currentWeaponGO;
-    private IWeapon weapon;
+        protected float nextFireTime = 0f;
+        protected Transform Thread;
 
-    private void Awake() {
-        currentWeaponGO = Instantiate(weaponPrefabs[0], transform);
-        weapon = currentWeaponGO.GetComponent<IWeapon>();
-    }
+        private void Awake() {
+            Thread = transform.Find("Thread");
+            if (Thread == null) {
+                Thread = transform;
+            }
+        }
+        public virtual void Shoot() {
+            if(Time.time > nextFireTime) {
+                Vector3 bulletSpawnPosition = Thread.position;
+                GameObject bulletGO = Instantiate(pfBullet, bulletSpawnPosition, Thread.rotation);
+                Bullet bullet = bulletGO.GetComponent<Bullet>();
+                bullet.SetDamage(Stats.Damage);
+                Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
+                bulletRigidbody.velocity = Thread.forward * Stats.BulletSpeed;
+                Destroy(bulletGO, Stats.Range);
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        player.EquipWeapon(weapon);
+                nextFireTime = Time.time + Stats.FireRate;
+            }   
+        }
     }
 }

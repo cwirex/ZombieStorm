@@ -1,3 +1,4 @@
+using Assets.Scripts.Weapon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Camera currentCamera;
-    [SerializeField] private Weapon weapon;
+    [SerializeField] private WeaponManager weapon;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private LayerMask obstaclesLayer;
 
-    private IWeapon currentWeapon;
+    private Weapon currentWeapon;
     private float health = 100f;
     private bool isWalking = false;
     private Vector3 facingDir = Vector3.zero;
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
         float playerHight = 2f;
         return Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHight, playerRadius, moveDir, moveDistance, obstaclesLayer);
     }
-    internal void EquipWeapon(IWeapon weapon) {
+    internal void EquipWeapon(Weapon weapon) {
         currentWeapon = weapon;
     }
     internal void TakeDamage(float damage) {

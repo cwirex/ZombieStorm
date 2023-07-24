@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    [SerializeField] private int health = 100;
+    [SerializeField] private float health = 100;
     [SerializeField] private float damage = 10f;
 
-    public void Damage(int damage) {
+    public void Damage(float damage) {
         health -= damage;
-        if (health < 0) Kill();
+        if (health < 0.1)   // float precision 
+            Kill();
     }
 
     public void Kill() {
