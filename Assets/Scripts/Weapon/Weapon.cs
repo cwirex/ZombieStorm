@@ -26,7 +26,7 @@ namespace Assets.Scripts.Weapon {
                 bulletRigidbody.velocity = Thread.forward * Stats.BulletSpeed;
                 Destroy(bulletGO, Stats.Range);
 
-                nextFireTime = Time.time + Stats.FireRate;
+                nextFireTime = Time.time + 1f / Stats.FireRate;
             }   
         }
     }

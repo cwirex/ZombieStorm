@@ -10,7 +10,7 @@ namespace Assets.Scripts.Weapon {
         private static WeaponStats BaseStats() {
             float dmg = 20f;
             float range = 5f;
-            float fireRate = 0.25f;
+            float fireRate = 4f;
             float bulletSpeed = 20f;
             return new WeaponStats(dmg, range, fireRate, bulletSpeed);
         }
@@ -23,18 +23,19 @@ namespace Assets.Scripts.Weapon {
             WeaponStats stats = BaseStats();
             stats.Damage *= 1.2f;
             stats.BulletSpeed *= 1.1f;
-            stats.FireRate /= 3f;   // 3 times faster
+            stats.FireRate *= 3f;   // 3 times faster
             return stats;
         }
 
         public static WeaponStats Shotgun() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 0.5f;
+            stats.Damage *= 0.5f;   // lower dmg on single bullet
             stats.BulletSpeed *= 0.7f;
-            stats.FireRate *= 3f; // 3 times slower
+            stats.FireRate /= 3f; // 3 times slower
             stats.Range = 1f;
 
             return stats;
         }
+
     }
 }

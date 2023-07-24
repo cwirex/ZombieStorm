@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Weapon {
     /// <summary>
-    /// Concrete implementation of Weapon (Shotgun)
+    /// Concrete implementation of Weapon
     /// </summary>
     public class Shotgun : Weapon {
         [SerializeField] float spreadAngle = 30f;
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Weapon {
                     Destroy(bulletGO, Stats.Range);
                 }
 
-                nextFireTime = Time.time + Stats.FireRate;
+                nextFireTime = Time.time + 1f / Stats.FireRate;
             }
         }
     }
