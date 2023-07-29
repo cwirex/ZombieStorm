@@ -37,5 +37,16 @@ namespace Assets.Scripts.Weapon {
             return stats;
         }
 
+
+        public static WeaponStats SniperRifle() {
+            WeaponStats stats = BaseStats();
+            stats.Damage *= 20f;
+            stats.FireRate /= 10f;
+            stats.BulletSpeed = 0f; // RAY
+            stats.Range = 100f;
+
+            return stats;
+        }
+
     }
 }
