@@ -18,9 +18,9 @@ public class Bullet : MonoBehaviour
             // Hit a wall
             Destroy(gameObject);
         }
-        if(collider.TryGetComponent<Enemy>(out Enemy enemy)) {
+        if(collider.TryGetComponent<NormalZombie>(out NormalZombie enemy)) {
             // Hit an enemy
-            enemy.Damage(BulletDamage);
+            enemy.TakeDamage(BulletDamage);
             Destroy(gameObject);
 
             if(BulletDamage == 0) {

@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamagable
+public class NormalZombie : Enemy
 {
-    void TakeDamage(float  damage);
-    void Die();
+
 }

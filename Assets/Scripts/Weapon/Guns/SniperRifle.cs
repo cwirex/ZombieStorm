@@ -26,7 +26,7 @@ namespace Assets.Scripts.Weapon {
                 // apply damage to all enemies (in front of a wall)
                 foreach (var hit in hits) {
                     if (hit.collider.TryGetComponent(out IDamagable damagable)) {
-                        damagable.Damage(Stats.Damage);
+                        damagable.TakeDamage(Stats.Damage);
                     } 
                     else if (hit.collider.TryGetComponent(out Obstacle obstacle)) {
                         trailEndpoint = hit.point;  // stop ray on a wall
