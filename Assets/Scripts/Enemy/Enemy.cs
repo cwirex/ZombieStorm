@@ -31,11 +31,15 @@ public abstract class Enemy : MonoBehaviour, IDamagable
 
     protected virtual void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent(out Player player)) {
-            // Calculate direction (from which hit came from)
-            Vector3 direction = player.transform.position - transform.position;
-            direction.Normalize();
-
-            player.TakeDamage(Damage, direction);
+            AttackPlayer(player);
         }
+    }
+
+    protected virtual void AttackPlayer(Player player) {
+        // Calculate direction (from which hit came from)
+        Vector3 direction = player.transform.position - transform.position;
+        direction.Normalize();
+
+        player.TakeDamage(Damage, direction);
     }
 }

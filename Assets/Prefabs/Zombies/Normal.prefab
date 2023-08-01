@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  Damage: 10
+  Damage: 50
   MovementSpeed: 3.5
 --- !u!65 &2417881069764623800
 BoxCollider:
