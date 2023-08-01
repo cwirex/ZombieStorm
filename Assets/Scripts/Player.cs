@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
 {
-    [SerializeField] private float maxHealth = 200f;
+    [SerializeField] private float maxHealth = 1000f;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotateSpeed = 10f;
 
-    [SerializeField] private GameInput gameInput;
+    [SerializeField] internal GameInput gameInput;
     [SerializeField] private Camera currentCamera;
-    [SerializeField] private WeaponManager weapon;
+    [SerializeField] private WeaponManager weaponManager;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private LayerMask obstaclesLayer;
 
@@ -41,6 +41,11 @@ public class Player : MonoBehaviour, IDamagable
         } else if(args.variant == InteractVariant.Interact) {
             print("Interact!");
 
+        } else if(args.variant == InteractVariant.SelectWeaponNext) {
+            weaponManager?.SwapWeapon(true);
+
+        } else if(args.variant == InteractVariant.SelectWeaponPrevious) {
+            weaponManager?.SwapWeapon(false);
         }
         
     }
