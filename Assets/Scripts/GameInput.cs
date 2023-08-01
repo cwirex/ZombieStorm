@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEditor.UIElements.ToolbarMenu;
 
 
@@ -15,21 +16,27 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
         playerInputActions.Player.Interact.performed += Interact_performed;
         playerInputActions.Player.Shoot.performed += Shoot_performed;
+        playerInputActions.Player.Shoot.canceled += Shoot_canceled;
         playerInputActions.Player.SelectWeapon.performed += SelectWeapon_performed;
     }
 
-    private void Shoot_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
-        var args = new InteractEventArgs(InteractVariant.Shoot);
+    private void Shoot_canceled(InputAction.CallbackContext context) {
+        var args = new InteractEventArgs(InteractVariant.ShootCanceled);
+        InvokeEventHandler(args);
+    }
+
+    private void Shoot_performed(InputAction.CallbackContext obj) {
+        var args = new InteractEventArgs(InteractVariant.ShootPerformed);
         InvokeEventHandler(args);
 
     }
 
-    private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+    private void Interact_performed(InputAction.CallbackContext obj) {
         var args = new InteractEventArgs(InteractVariant.Interact);
         InvokeEventHandler(args);
     }
 
-    private void SelectWeapon_performed(UnityEngine.InputSystem.InputAction.CallbackContext context) {
+    private void SelectWeapon_performed(InputAction.CallbackContext context) {
         float scrollInput = context.ReadValue<float>();
         bool scrolledUp = scrollInput > 0f;
         InteractVariant variant = scrolledUp ? InteractVariant.SelectWeaponNext : InteractVariant.SelectWeaponPrevious;
@@ -52,7 +59,8 @@ public class GameInput : MonoBehaviour
 
 public enum InteractVariant {
     Interact, 
-    Shoot, 
+    ShootPerformed,
+    ShootCanceled,
     SelectWeaponNext,
     SelectWeaponPrevious,
 }

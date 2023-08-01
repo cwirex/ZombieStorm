@@ -35,9 +35,10 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     private void OnPlayerInteract(object sender, InteractEventArgs args) {
-        if(args.variant == InteractVariant.Shoot) {
-            currentWeapon.Shoot();
-
+        if(args.variant == InteractVariant.ShootPerformed) {
+            currentWeapon.OnShootPerformed();
+        } else if(args.variant == InteractVariant.ShootCanceled) {
+            currentWeapon.OnShootCanceled();
         } else if(args.variant == InteractVariant.Interact) {
             print("Interact!");
 

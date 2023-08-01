@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Threading;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Weapon {
 
         protected float nextFireTime = 0f;
         protected Transform Thread;
+        protected bool isShooting = false;
 
         private void Awake() {
             Thread = transform.Find("Thread");
@@ -16,6 +18,13 @@ namespace Assets.Scripts.Weapon {
                 Thread = transform;
             }
         }
+
+        protected virtual void Update() {
+            if (isShooting) {
+                Shoot();
+            }
+        }
+
         public virtual void Shoot() {
             if(Time.time > nextFireTime) {
                 Vector3 bulletSpawnPosition = Thread.position;
@@ -28,6 +37,15 @@ namespace Assets.Scripts.Weapon {
 
                 nextFireTime = Time.time + 1f / Stats.FireRate;
             }   
+        }
+
+        internal virtual void OnShootPerformed() {
+            Shoot();
+            isShooting = true;
+        }
+
+        internal virtual void OnShootCanceled() {
+            isShooting = false;
         }
     }
 }

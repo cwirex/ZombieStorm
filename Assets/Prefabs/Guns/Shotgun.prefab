@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8360425018851787759}
   - component: {fileID: 7429195370561559178}
   - component: {fileID: 1506405356922654869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: p1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4970030818946360867}
   - component: {fileID: 4535292125522075896}
   - component: {fileID: 7827083366726426225}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: h1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6194726239392552786}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Thread
   m_TagString: Thread
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 3151188052904839222}
   - component: {fileID: 7372846679265978651}
   - component: {fileID: 235703761881857018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8250695915558218493}
   - component: {fileID: 6942408308219845750}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 3251828450248373226}
   - component: {fileID: 7193795496830031135}
   - component: {fileID: 7211843013952305840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 3790149006350542327}
   - component: {fileID: 8689217410852665478}
   - component: {fileID: 3521780482080472791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: p2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

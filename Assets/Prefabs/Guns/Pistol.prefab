@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2489136937774393062}
   - component: {fileID: 1628464379093920000}
   - component: {fileID: 2727424988472667106}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5389398158899448337}
   - component: {fileID: 8119065376551796261}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 9032652632281572846}
   - component: {fileID: 5474117247875998229}
   - component: {fileID: 8768600319603779212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 1854611198469904398}
   - component: {fileID: 1490286804382508986}
   - component: {fileID: 7520490449300786946}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5017313715998569603}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Thread
   m_TagString: Thread
   m_Icon: {fileID: 0}

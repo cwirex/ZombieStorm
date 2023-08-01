@@ -8,9 +8,9 @@ namespace Assets.Scripts.Weapon {
     public static class WeaponStatsRepository { 
 
         private static WeaponStats BaseStats() {
-            float dmg = 20f;
+            float dmg = 30f;
             float range = 5f;
-            float fireRate = 4f;
+            float fireRate = 2f;
             float bulletSpeed = 20f;
             return new WeaponStats(dmg, range, fireRate, bulletSpeed);
         }
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Weapon {
 
         public static WeaponStats SniperRifle() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 20f;
+            stats.Damage *= 10f;
             stats.FireRate /= 10f;
             stats.BulletSpeed = 0f; // RAY
             stats.Range = 100f;

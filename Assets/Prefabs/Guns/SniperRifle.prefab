@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8944401755509282950}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Thread
   m_TagString: Thread
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 8490347067579281579}
   - component: {fileID: 1680773910326334502}
   - component: {fileID: 1390735113236230737}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SniperRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 1721689447847222331}
   - component: {fileID: 7585400956399957683}
   - component: {fileID: 2888447054372735904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
