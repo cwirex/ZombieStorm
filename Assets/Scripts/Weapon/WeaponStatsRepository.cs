@@ -66,5 +66,13 @@ namespace Assets.Scripts.Weapon {
             return stats;
         }
 
+        public static WeaponStats RPG() {
+            WeaponStats stats = BaseStats();
+            stats.Damage *= 5f;
+            stats.BulletSpeed *= 0.7f;
+            stats.FireRate *= 0.2f;
+            return stats;
+        }
+
     }
 }

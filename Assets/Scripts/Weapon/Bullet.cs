@@ -7,13 +7,13 @@ using UnityEngine;
 /// </summary>
 public class Bullet : MonoBehaviour
 {
-    private float BulletDamage;
+    protected float BulletDamage;
 
-    public void SetDamage(float damage) {
+    public virtual void SetDamage(float damage) {
         BulletDamage = damage;
     }
 
-    private void OnTriggerEnter(Collider collider) {
+    protected virtual void OnTriggerEnter(Collider collider) {
         if(collider.TryGetComponent(out Enemy enemy)) {
             // Hit an enemy
             enemy.TakeDamage(BulletDamage);
