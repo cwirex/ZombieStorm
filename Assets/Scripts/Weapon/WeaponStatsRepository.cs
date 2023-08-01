@@ -48,5 +48,23 @@ namespace Assets.Scripts.Weapon {
             return stats;
         }
 
+        public static WeaponStats SMG() {
+            WeaponStats stats = BaseStats();
+            stats.Damage *= 0.8f;
+            stats.BulletSpeed *= 0.9f;
+            stats.FireRate *= 5f;
+            stats.Range = 1.1f;
+            return stats;
+        }
+
+        public static WeaponStats LMG() {
+            WeaponStats stats = SMG();
+            stats.Damage *= 1.4f;
+            stats.BulletSpeed *= 1.3f;
+            stats.FireRate *= 1.2f;
+            stats.Range *= 3;
+            return stats;
+        }
+
     }
 }
