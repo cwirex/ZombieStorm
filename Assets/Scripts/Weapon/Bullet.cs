@@ -19,12 +19,12 @@ public class Bullet : MonoBehaviour
             enemy.TakeDamage(BulletDamage);
             Destroy(gameObject);
 
-            if(BulletDamage == 0) {
-                Debug.LogWarning("Bullet damage is 0!");
+            if(BulletDamage <= 0) {
+                Debug.LogWarning("Bullet damage is <= 0!");
             }
         }
         if (collider.TryGetComponent(out Explosive explosive)){
-            explosive.TriggerExplosion(0f);
+            explosive.TriggerExplosion();
         }
         if (collider.GetComponent<Obstacle>() != null) {
             // Hit a wall

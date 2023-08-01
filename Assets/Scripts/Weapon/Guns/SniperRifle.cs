@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngineInternal;
 
 namespace Assets.Scripts.Weapon {
     /// <summary>
@@ -28,6 +29,9 @@ namespace Assets.Scripts.Weapon {
                     if (hit.collider.TryGetComponent(out IDamagable damagable)) {
                         damagable.TakeDamage(Stats.Damage);
                     } 
+                    else if(hit.collider.TryGetComponent(out Explosive explosive)) {
+                        explosive.TriggerExplosion();
+                    }
                     else if (hit.collider.TryGetComponent(out Obstacle obstacle)) {
                         trailEndpoint = hit.point;  // stop ray on a wall
                         break;

@@ -10,7 +10,7 @@ public class Explosive : MonoBehaviour
     [SerializeField] private float chainExplosionDelay = 0.25f;
 
     private bool HasExploded = false;
-    public void TriggerExplosion(float delay) {
+    public void TriggerExplosion(float delay=0f) {
         if (!HasExploded) {
             if (delay == 0f) {
                 Explode();
