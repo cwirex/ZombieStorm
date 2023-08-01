@@ -14,11 +14,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collider) {
-        if(collider.GetComponent<Obstacle>() != null) {
-            // Hit a wall
-            Destroy(gameObject);
-        }
-        if(collider.TryGetComponent<NormalZombie>(out NormalZombie enemy)) {
+        if(collider.TryGetComponent(out Enemy enemy)) {
             // Hit an enemy
             enemy.TakeDamage(BulletDamage);
             Destroy(gameObject);
@@ -26,6 +22,13 @@ public class Bullet : MonoBehaviour
             if(BulletDamage == 0) {
                 Debug.LogWarning("Bullet damage is 0!");
             }
+        }
+        if (collider.TryGetComponent(out Explosive explosive)){
+            explosive.TriggerExplosion(0f);
+        }
+        if (collider.GetComponent<Obstacle>() != null) {
+            // Hit a wall
+            Destroy(gameObject);
         }
     }
 }

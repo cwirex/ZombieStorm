@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour {
     private Weapon weapon;
 
     private void Awake() {
-        GameObject currentWeaponGO = Instantiate(weaponPrefabs[2], transform);
+        GameObject currentWeaponGO = Instantiate(weaponPrefabs[1], transform);
         weapon = currentWeaponGO.GetComponent<Weapon>();
     }
 

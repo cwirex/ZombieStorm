@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float maxHealth = 200f;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotateSpeed = 10f;
 
@@ -17,12 +17,13 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask obstaclesLayer;
 
     private Weapon currentWeapon;
-    private float health = 100f;
+    private float health;
     private bool isWalking = false;
     private Vector3 facingDir = Vector3.zero;
     private Rigidbody rb;
 
     private void Start() {
+        health = maxHealth;
         gameInput.eventHandler += OnPlayerInteract;
         healthBar.SetMaxHealth(maxHealth);
         rb = GetComponent<Rigidbody>();
@@ -70,14 +71,6 @@ public class Player : MonoBehaviour
                 transform.position += moveDirZ * moveSpeed * Time.deltaTime;
             }
         }
-
-        /*
-        // Rotate player to match movement direction
-        if (moveDir != Vector3.zero) {   // remember facing direction
-            facingDir = moveDir;
-        }
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-        */
     }
     private bool isPlayerColliding(Vector3 moveDir) {
         float moveDistance = moveSpeed * Time.deltaTime;
@@ -96,16 +89,6 @@ public class Player : MonoBehaviour
         }
         healthBar.SetHealth(health);
     }
-    internal void TakeDamage(float damage, Vector3 direction) {
-        health -= damage;
-        healthBar.SetHealth(health);
-        ApplyKnockbackForce(direction, damage);
-
-        if (health <= 0f) {
-            // Die
-        }
-        
-    }
     private void ApplyKnockbackForce(Vector3 direction, float damage) {
         float knockbackPower = 10f;
         float knockback = damage * knockbackPower;
@@ -115,4 +98,19 @@ public class Player : MonoBehaviour
         return isWalking;
     }
 
+    void IDamagable.TakeDamage(float damage) {
+        health -= damage;
+        healthBar.SetHealth(health);
+        if (health <= 0f) {
+            Die();
+        }
+    }
+    internal void TakeDamage(float damage, Vector3 direction) {
+        ApplyKnockbackForce(direction, damage);
+        TakeDamage(damage);
+    }
+
+    public void Die() {
+        print("Player.Die()");
+    }
 }
