@@ -36,10 +36,17 @@ public abstract class Enemy : MonoBehaviour, IDamagable
     }
 
     protected virtual void AttackPlayer(Player player) {
-        // Calculate direction (from which hit came from)
-        Vector3 direction = player.transform.position - transform.position;
-        direction.Normalize();
+        if(player.gameObject.TryGetComponent(out IDamagable damagable)) {
+            // Calculate direction (from which hit came from)
+            Vector3 direction = player.transform.position - transform.position;
+            direction.Normalize();
+            damagable.TakeDamage(Damage, direction);
+        } else {
+            Debug.LogWarning("Couldn't get Player's IDamagle component to apply damage from Enemy");
+        }
+    }
 
-        player.TakeDamage(Damage, direction);
+    public virtual void TakeDamage(float damage, Vector3 direction) {
+        throw new System.NotImplementedException();
     }
 }

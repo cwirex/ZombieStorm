@@ -6,9 +6,10 @@ public class PlayerAnimator : MonoBehaviour
 {
     private const string IS_WALKING = "IsWalking";
     private Animator animator;
-    [SerializeField] Player player;
+    private Player player;
 
-    void Awake() {
+    void Start() {
+        player = gameObject.GetComponentInParent<Player>();
         animator = GetComponent<Animator>();
     }
 
