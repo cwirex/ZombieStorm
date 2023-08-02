@@ -27,7 +27,8 @@ namespace Assets.Scripts.Weapon {
                 // apply damage to all enemies (in front of a wall)
                 foreach (var hit in hits) {
                     if (hit.collider.TryGetComponent(out IDamagable damagable)) {
-                        damagable.TakeDamage(Stats.Damage);
+                        Vector3 direction = (trailEndpoint - trailStartpoint).normalized;
+                        damagable.TakeDamage(Stats.Damage, direction);
                     } 
                     else if(hit.collider.TryGetComponent(out Explosive explosive)) {
                         explosive.TriggerExplosion();
