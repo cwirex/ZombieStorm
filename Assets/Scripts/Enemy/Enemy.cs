@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Enemy : MonoBehaviour, IDamagable
+public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
 {
     [SerializeField] protected float Health = 100;
     [SerializeField] protected float Damage = 10f;
     [SerializeField] protected float MovementSpeed = 3.5f;
     protected NavMeshAgent agent;
 
+    public Rigidbody rb { get; set; }
+
     protected virtual void Start() {
         agent = GetComponent<NavMeshAgent>();
         SetMovementSpeed(MovementSpeed);
+        rb = GetComponent<Rigidbody>();
     }
 
     protected virtual void SetMovementSpeed(float speed) {
@@ -47,6 +50,12 @@ public abstract class Enemy : MonoBehaviour, IDamagable
     }
 
     public virtual void TakeDamage(float damage, Vector3 direction) {
-        throw new System.NotImplementedException();
+        float knockBackBaseForce = 100f;
+        ApplyKnockbackForce(direction, knockBackBaseForce * damage / (MovementSpeed*MovementSpeed));
+        TakeDamage(damage);
+    }
+
+    public void ApplyKnockbackForce(Vector3 direction, float force) {
+        rb.AddForce(direction * force, ForceMode.Impulse);
     }
 }

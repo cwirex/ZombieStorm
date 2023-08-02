@@ -11,20 +11,25 @@ public class Bullet : MonoBehaviour
 
     public virtual void SetDamage(float damage) {
         BulletDamage = damage;
+        if (BulletDamage <= 0) {
+            Debug.LogWarning("Bullet damage is <= 0!");
+        }
     }
 
     protected virtual void OnTriggerEnter(Collider collider) {
         if(collider.TryGetComponent(out Enemy enemy)) {
-            // Hit an enemy
-            enemy.TakeDamage(BulletDamage);
-            Destroy(gameObject);
-
-            if(BulletDamage <= 0) {
-                Debug.LogWarning("Bullet damage is <= 0!");
+            if(gameObject.TryGetComponent(out Rigidbody rb)){
+                Vector3 direction = rb.velocity.normalized;
+                enemy.TakeDamage(BulletDamage, direction);
+            } else {
+                enemy.TakeDamage(BulletDamage);
             }
+            
+            Destroy(gameObject);
         }
         if (collider.TryGetComponent(out Explosive explosive)){
-            explosive.TriggerExplosion();
+            float delay = 0.1f;
+            explosive.TriggerExplosion(delay);
         }
         if (collider.GetComponent<Obstacle>() != null) {
             // Hit a wall

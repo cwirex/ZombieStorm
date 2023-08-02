@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8783900595795302355}
   - component: {fileID: 2417881069764623800}
   - component: {fileID: 2026811335574568766}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c8b94f4525be5409e7dfd4e4a6a86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 250
   Damage: 50
   MovementSpeed: 3.5
 --- !u!65 &2417881069764623800
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6772132154449783354}
   - component: {fileID: 3212085389285628384}
   - component: {fileID: 3348451957804729247}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4868209355590021979}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ZombieVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

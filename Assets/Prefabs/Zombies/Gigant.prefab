@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2417881069764623800}
   - component: {fileID: 2026811335574568766}
   - component: {fileID: 620257346920542168}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gigant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ Rigidbody:
   m_GameObject: {fileID: 2774681883900447588}
   serializedVersion: 4
   m_Mass: 300
-  m_Drag: 7
+  m_Drag: 5
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d440a83f8fb2210418294c1f04b86688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 400
+  Health: 1200
   Damage: 300
   MovementSpeed: 2
 --- !u!1 &3674756723175987831
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6772132154449783354}
   - component: {fileID: 3212085389285628384}
   - component: {fileID: 3348451957804729247}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 2048787926861458108}
   - component: {fileID: 5901455951024326906}
   - component: {fileID: 8710282383433047111}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4868209355590021979}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ZombieVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 6475407112299434187}
   - component: {fileID: 53969361384309572}
   - component: {fileID: 1575157196305808487}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
