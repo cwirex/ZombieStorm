@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GigantBomberZombie : Enemy
 {
@@ -15,6 +16,16 @@ public class GigantBomberZombie : Enemy
             return;
         } HasExploded = true;
 
+        NavMeshAgent navAgent = GetComponent<NavMeshAgent>();
+        if (navAgent != null) {
+            navAgent.enabled = false;
+        }
+        float explosionDelay = 1.2f;
+        StartCoroutine(Explode(explosionDelay));
+    }
+
+    private IEnumerator Explode(float delay) {
+        yield return new WaitForSeconds(delay);
         List<Explosive> otherExplosives = new List<Explosive>();
         var surroundingObjects = Physics.OverlapSphere(transform.position, ExplosionRadius);
         foreach (var surroundingObject in surroundingObjects) {

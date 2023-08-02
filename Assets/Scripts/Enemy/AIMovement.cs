@@ -19,7 +19,7 @@ public class AIMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerTransform != null) {
+        if(playerTransform != null && agent.isActiveAndEnabled) {
             agent.destination = playerTransform.position;
         }
     }
