@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapon {
@@ -73,6 +74,5 @@ namespace Assets.Scripts.Weapon {
             stats.FireRate *= 0.2f;
             return stats;
         }
-
     }
 }

@@ -36,11 +36,22 @@ public class Player : MonoBehaviour
     }
 
     internal void EquipWeapon(Weapon weapon) {
+        if(interactController == null) {
+            interactController = GetComponent<InteractController>();
+        }
         interactController.EquipWeapon(weapon);
     }
 
     
     public bool IsWalking() {
         return playerMovement.IsWalking();
+    }
+
+    public void TakeDamage(float damage) {
+        healthController.TakeDamage(damage);
+    }
+
+    public void TakeDamage(float damage, Vector3 direction) {
+        healthController.TakeDamage(damage, direction);
     }
 }

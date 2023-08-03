@@ -15,10 +15,12 @@ public class WeaponManager : MonoBehaviour {
     private Weapon weapon;
     private List<GameObject> weapons = new List<GameObject>();
     private int currentWeaponIndex = 0;
-    
+
+    private void Awake() {
+        InstantiateWeapons();
+    }
     void Start()
     {
-        InstantiateWeapons();
         SelectWeapon(currentWeaponIndex);
     }
 
@@ -35,7 +37,7 @@ public class WeaponManager : MonoBehaviour {
         currentWeaponIndex = weaponIndex;
         weapons[weaponIndex].SetActive(true);
         weapon = weapons[weaponIndex].GetComponent<Weapon>();
-        player.EquipWeapon(weapon);
+        player?.EquipWeapon(weapon);
     }
 
     /// <summary>
