@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 1200
-  Damage: 300
-  MovementSpeed: 2
+  Damage: 260
+  MovementSpeed: 2.1
 --- !u!1 &3674756723175987831
 GameObject:
   m_ObjectHideFlags: 0

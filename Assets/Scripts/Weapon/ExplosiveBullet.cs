@@ -21,9 +21,7 @@ public class ExplosiveBullet : Bullet
                 if (surroundingObject.TryGetComponent<Rigidbody>(out var rb)) {    // Is any other RigidBody
                     rb.AddExplosionForce(ExplosionForce, transform.position, ExplosionRadius, 0f, ForceMode.Impulse);
                     if (surroundingObject.TryGetComponent<IDamagable>(out var damagable)) {
-                        float distance = Vector3.Distance(transform.position, surroundingObject.transform.position);
-                        float explosionDamageRatioFromDistance = ExplosionRadius / (1 + distance * distance);
-                        float damage = BulletDamage * explosionDamageRatioFromDistance;
+                        float damage = BulletDamage;
 
                         damagable.TakeDamage(damage);
                     }
@@ -41,7 +39,8 @@ public class ExplosiveBullet : Bullet
             foreach (var explosive in otherExplosives) {
                 explosive.TriggerExplosion();
             }
-            // TODO display explosion effect
+            var controller = FindObjectOfType<ExplosionController>();
+            controller?.MakeSmallExplosion(transform.position);
             Destroy(gameObject);
         }
     }

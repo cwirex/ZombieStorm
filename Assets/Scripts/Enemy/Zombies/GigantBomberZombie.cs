@@ -25,6 +25,7 @@ public class GigantBomberZombie : Enemy
     }
 
     private IEnumerator Explode(float delay) {
+        rb.mass *= 99f;
         yield return new WaitForSeconds(delay);
         List<Explosive> otherExplosives = new List<Explosive>();
         var surroundingObjects = Physics.OverlapSphere(transform.position, ExplosionRadius);
@@ -51,10 +52,13 @@ public class GigantBomberZombie : Enemy
                 }
             }
         }
+
+        var controller = FindObjectOfType<ExplosionController>();
+        controller?.MakeLargeExplosion(transform.position);
+
         foreach (var explosive in otherExplosives) {
             explosive.TriggerExplosion();
         }
-        // TODO display explosion effect
         Destroy(gameObject);
     }
 }

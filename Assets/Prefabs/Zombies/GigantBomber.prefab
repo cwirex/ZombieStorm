@@ -133,12 +133,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a6d6fa402019e4abf87ed40edfaa4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 3000
-  Damage: 450
-  MovementSpeed: 1.8
+  Health: 2000
+  Damage: 350
+  MovementSpeed: 1.7
   ExplosionRadius: 5
-  ExplosionForce: 2500
-  ExplosionDamage: 600
+  ExplosionForce: 5000
+  ExplosionDamage: 1000
 --- !u!1 &3674756723175987831
 GameObject:
   m_ObjectHideFlags: 0

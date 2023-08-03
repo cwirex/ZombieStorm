@@ -9,7 +9,8 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
     [SerializeField] protected float Damage = 10f;
     [SerializeField] protected float MovementSpeed = 3.5f;
     protected NavMeshAgent agent;
-
+        
+    protected float lastTimeAttacked = 0f;
     public Rigidbody rb { get; set; }
 
     protected virtual void Start() {
@@ -34,8 +35,13 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
 
     protected virtual void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent(out Player player)) {
-            AttackPlayer(player);
+            float awaitAfterAttack = 1f;
+            if (Time.time - lastTimeAttacked > awaitAfterAttack) {
+                AttackPlayer(player);
+                lastTimeAttacked = Time.time;
+            }
         }
+        
     }
 
     protected virtual void AttackPlayer(Player player) {

@@ -29,7 +29,10 @@ public class SuiciderZombie : Enemy
             }
 
         }
-        // TODO display explosion effect
+
+        var controller = FindObjectOfType<ExplosionController>();
+        controller?.MakeSmallExplosion(transform.position);
+
         Destroy(gameObject);
     }
 }

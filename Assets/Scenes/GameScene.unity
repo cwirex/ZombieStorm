@@ -2873,8 +2873,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2128750559}
   - component: {fileID: 2128750560}
+  - component: {fileID: 2128750561}
   m_Layer: 0
-  m_Name: GameInput
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2907,6 +2908,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762ae9558c3b9394794c8aead50a17fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2128750561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128750557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d12f2c71cf13545b5915c8e1369c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallExplosionPrefab: {fileID: 1828176872806910, guid: 8b402b8b61494f9459cef847cc3fb309,
+    type: 3}
+  mediumExplosionPrefab: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
+    type: 3}
+  largeExplosionPrefab: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 3}
 --- !u!4 &2132553984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3188662700533110377, guid: d2fb74b364b441d4b86f0dccd5af1128,

@@ -17,6 +17,7 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
 
     public void TakeDamage(float damage) {
         health -= damage;
+        Debug.Log("Player took damage: " + (int)damage);
         healthBar.SetHealth(health);
 
         if (health <= 0f) {

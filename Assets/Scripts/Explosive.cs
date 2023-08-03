@@ -28,7 +28,6 @@ public class Explosive : MonoBehaviour
     private void Explode() {
         if (HasExploded) return;
         HasExploded = true;
-
         List<Explosive> otherExplosives = new List<Explosive>();
 
         var surroundingObjects = Physics.OverlapSphere(transform.position, ExplosionRadius);
@@ -50,7 +49,9 @@ public class Explosive : MonoBehaviour
             }
             
         }
-        // TODO display explosion effect
+
+        var controller = FindObjectOfType<ExplosionController>();
+        controller?.MakeMediumExplosion(transform.position);
 
         foreach (var explosive in otherExplosives) {
             if(explosive.gameObject != gameObject) {

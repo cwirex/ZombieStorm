@@ -23,8 +23,6 @@ public class ToxicWeapon : Weapon {
             Vector3 bulletSpawnPosition = Thread.position;
             GameObject bulletGO = Instantiate(pfBullet, bulletSpawnPosition, Thread.rotation);
             ToxicBullet bullet = bulletGO.GetComponent<ToxicBullet>();
-            print(bullet);
-            print(Stats.Damage);
             bullet.SetDamage(Stats.Damage);
             Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
             Vector3 shootDirection = (playerTF.position - bulletRigidbody.position).normalized;

@@ -22,7 +22,7 @@ namespace Assets.Scripts.Weapon {
 
         public static WeaponStats Rifle() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 1.2f;
+            stats.Damage *= 2.3f;
             stats.BulletSpeed *= 1.1f;
             stats.FireRate *= 3f;   // 3 times faster
             return stats;
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Weapon {
             WeaponStats stats = BaseStats();
             stats.Damage *= 0.5f;   // lower dmg on single bullet
             stats.BulletSpeed *= 0.7f;
-            stats.FireRate /= 3f; // 3 times slower
+            stats.FireRate /= 2.2f;
             stats.Range = 1f;
 
             return stats;
@@ -41,8 +41,8 @@ namespace Assets.Scripts.Weapon {
 
         public static WeaponStats SniperRifle() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 10f;
-            stats.FireRate /= 10f;
+            stats.Damage *= 12f;
+            stats.FireRate /= 6f;
             stats.BulletSpeed = 0f; // RAY
             stats.Range = 100f;
 
@@ -69,9 +69,9 @@ namespace Assets.Scripts.Weapon {
 
         public static WeaponStats RPG() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 5f;
+            stats.Damage *= 8f;
             stats.BulletSpeed *= 0.7f;
-            stats.FireRate *= 0.2f;
+            stats.FireRate *= 0.3f;
             return stats;
         }
     }
