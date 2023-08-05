@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
 
     protected virtual void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent(out Player player)) {
-            float awaitAfterAttack = 1f;
+            float awaitAfterAttack = 0.1f;
             if (Time.time - lastTimeAttacked > awaitAfterAttack) {
                 AttackPlayer(player);
                 lastTimeAttacked = Time.time;
