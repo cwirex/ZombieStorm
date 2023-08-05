@@ -41,7 +41,6 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
                 lastTimeAttacked = Time.time;
             }
         }
-        
     }
 
     protected virtual void AttackPlayer(Player player) {
