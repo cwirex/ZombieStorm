@@ -5,8 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private Camera currentCamera;
 
@@ -27,7 +26,7 @@ public class Player : MonoBehaviour
 
     private void HandleAim() {
         Ray mouseRay = currentCamera.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(mouseRay, out RaycastHit hitInfo)) {
+        if (Physics.Raycast(mouseRay, out RaycastHit hitInfo)) {
             Vector3 lookDir = (hitInfo.point - transform.position).normalized;
             Vector3 facingDir = new Vector3(lookDir.x, 0, lookDir.z);
             transform.forward = Vector3.Slerp(transform.forward, facingDir, Time.deltaTime * rotateSpeed);
@@ -35,13 +34,13 @@ public class Player : MonoBehaviour
     }
 
     internal void EquipWeapon(Weapon weapon) {
-        if(interactController == null) {
+        if (interactController == null) {
             interactController = GetComponent<InteractController>();
         }
         interactController.EquipWeapon(weapon);
     }
 
-    
+
     public bool IsWalking() {
         return playerMovement.IsWalking();
     }
@@ -52,5 +51,8 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage, Vector3 direction) {
         healthController.TakeDamage(damage, direction);
+    }
+    public void Heal(float healAmount) {
+        healthController.Heal(healAmount);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Weapon;
+﻿using Assets.Scripts.Player;
+using Assets.Scripts.Weapon;
 using System.Collections;
 using UnityEngine;
 
@@ -6,11 +7,12 @@ public class InteractController : MonoBehaviour {
     [SerializeField] internal GameInput gameInput;
 
     private WeaponManager weaponManager;
-
     private Weapon currentWeapon;
+    private PlayerInventory playerInventory;
 
     private void Start() {
         weaponManager = GetComponentInChildren<WeaponManager>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     private void OnEnable() {
@@ -28,7 +30,9 @@ public class InteractController : MonoBehaviour {
         } else if (args.variant == InteractVariant.ShootCanceled) {
             currentWeapon?.OnShootCanceled();
         } else if (args.variant == InteractVariant.Interact) {
-            print("Interact!");
+            playerInventory?.UseTNT();
+        } else if (args.variant == InteractVariant.HealPerformed) {
+            playerInventory?.UseMedkit();
         } else if (args.variant == InteractVariant.SelectWeaponNext) {
             weaponManager?.SwapWeapon(true);
         } else if (args.variant == InteractVariant.SelectWeaponPrevious) {
@@ -39,4 +43,6 @@ public class InteractController : MonoBehaviour {
     internal void EquipWeapon(Weapon weapon) {
         currentWeapon = weapon;
     }
+
+    
 }

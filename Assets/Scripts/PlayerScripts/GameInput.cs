@@ -18,6 +18,12 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Shoot.performed += Shoot_performed;
         playerInputActions.Player.Shoot.canceled += Shoot_canceled;
         playerInputActions.Player.SelectWeapon.performed += SelectWeapon_performed;
+        playerInputActions.Player.Heal.performed += Heal_performed;
+    }
+
+    private void Heal_performed(InputAction.CallbackContext obj) {
+        var args = new InteractEventArgs(InteractVariant.HealPerformed);
+        InvokeEventHandler(args);
     }
 
     private void Shoot_canceled(InputAction.CallbackContext context) {
@@ -63,6 +69,7 @@ public enum InteractVariant {
     ShootCanceled,
     SelectWeaponNext,
     SelectWeaponPrevious,
+    HealPerformed,
 }
 
 public class InteractEventArgs : EventArgs {

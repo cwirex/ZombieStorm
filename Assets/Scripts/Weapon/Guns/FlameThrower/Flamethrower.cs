@@ -37,9 +37,14 @@ namespace Assets.Scripts.Weapon {
 
         override internal void OnShootCanceled() {
             isShooting = false;
-            flamesGO?.SetActive(false);
+            float smallDelay = 0.12f;
+            StartCoroutine(DelayCancel(smallDelay));
         }
 
+        private IEnumerator DelayCancel(float time) {
+            yield return new WaitForSeconds(time);
+            flamesGO?.SetActive(isShooting);
+        }
 
     }
 }

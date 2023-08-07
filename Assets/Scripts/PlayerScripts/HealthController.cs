@@ -12,13 +12,17 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
     private void Start() {
         rb = GetComponent<Rigidbody>();
         health = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetMaxHealth(health);
+    }
+
+    private void updateHealtBar() {
+        healthBar.SetHealth(health);
     }
 
     public void TakeDamage(float damage) {
         health -= damage;
         Debug.Log("Player took damage: " + (int)damage);
-        healthBar.SetHealth(health);
+        updateHealtBar();
 
         if (health <= 0f) {
             Die();
@@ -31,8 +35,15 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
         ApplyKnockbackForce(direction, damage * knockBackBaseForce);
     }
 
+    public void Heal(float healAmount) {
+        health += healAmount;
+        health = Mathf.Clamp(health, 0f, maxHealth);
+        updateHealtBar();
+    }
+
     public void Die() {
         print("Player.Die()");
+        // Time.timeScale = 0f;
     }
 
     public void ApplyKnockbackForce(Vector3 direction, float force) {
