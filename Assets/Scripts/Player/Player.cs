@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private Camera currentCamera;
-    [SerializeField] private LayerMask obstaclesLayer;
 
     //private Vector3 facingDir = Vector3.zero;
     private PlayerMovement playerMovement;

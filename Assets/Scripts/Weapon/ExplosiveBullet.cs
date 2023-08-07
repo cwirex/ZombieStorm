@@ -11,7 +11,7 @@ public class ExplosiveBullet : Bullet
     [SerializeField] private float ExplosionForce = 600f;
 
     override protected void OnTriggerEnter(Collider collider) {
-        if (collider.TryGetComponent(out Enemy _) || collider.GetComponent<Obstacle>() != null) {
+        if (collider.TryGetComponent(out Enemy _) || collider.GetComponent<Obstacle>() != null || collider.GetComponent<Explosive>() != null) {
             // Explode
             List<Explosive> otherExplosives = new();
             var surroundingObjects = Physics.OverlapSphere(transform.position, ExplosionRadius);

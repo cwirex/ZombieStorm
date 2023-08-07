@@ -7,6 +7,8 @@ namespace Assets.Scripts.Player {
 
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] GameInput gameInput;
+        [SerializeField] LayerMask collidingMask;
+
         private bool isWalking = false;
         private Rigidbody rb;
 
@@ -42,7 +44,7 @@ namespace Assets.Scripts.Player {
             float moveDistance = moveSpeed * Time.deltaTime;
             float playerRadius = 0.7f;
             float playerHeight = 2f;
-            return Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
+            return Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance, collidingMask);
         }
 
         public bool IsWalking() {

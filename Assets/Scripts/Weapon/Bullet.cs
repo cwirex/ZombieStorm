@@ -24,14 +24,14 @@ public class Bullet : MonoBehaviour
             } else {
                 enemy.TakeDamage(BulletDamage);
             }
-            
             Destroy(gameObject);
         }
-        if (collider.TryGetComponent(out Explosive explosive)){
+        else if (collider.TryGetComponent(out Explosive explosive)){
             float delay = 0.1f;
             explosive.TriggerExplosion(delay);
+            Destroy(gameObject);
         }
-        if (collider.GetComponent<Obstacle>() != null) {
+        else if (collider.GetComponent<Obstacle>() != null) {
             // Hit a wall
             Destroy(gameObject);
         }
