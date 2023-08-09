@@ -12,6 +12,11 @@ namespace Assets.Scripts.Weapon {
         [SerializeField] float spreadAngle = 30f;
         [SerializeField] int nBullets = 7;
 
+        override protected void Awake() {
+            base.Awake();
+            id = EWeapons.SHOTGUN;
+
+        }
         private void Start() {
             Stats = WeaponStatsRepository.Shotgun();
             spreadAngle *= Mathf.Deg2Rad;

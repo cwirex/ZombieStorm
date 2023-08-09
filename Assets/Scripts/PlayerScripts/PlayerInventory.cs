@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.Player;
+using Assets.Scripts.PlayerScripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour {
@@ -10,9 +12,12 @@ public class PlayerInventory : MonoBehaviour {
     [SerializeField] private LayerMask physicalObjects;
     private Player player;
     internal List<Item> items = new List<Item>();
+    private UIController uiController;
+
 
     private void Start() {
         player = GetComponent<Player>();
+        uiController = FindObjectOfType<UIController>();
         InitializeInventory();
     }
 
@@ -23,6 +28,11 @@ public class PlayerInventory : MonoBehaviour {
         for(int i = 0; i < 10; i++){
             items.Add(new TNT());
         }
+
+        int medkitCount = items.OfType<Medkit>().Count();
+        uiController.SetMedsCounter(medkitCount);
+        int tntCount = items.OfType<TNT>().Count();
+        uiController.SetTntsCounter(tntCount);
     }
 
     /// <summary>
@@ -44,8 +54,12 @@ public class PlayerInventory : MonoBehaviour {
     public void UseMedkit() {
         Medkit medkit = items.Find(item => item is Medkit) as Medkit;
         if (medkit != null) {
-            player.Heal(medkit.healingAmount);
-            RemoveItem(medkit);
+            if (player.Heal(medkit.healingAmount)) {
+                RemoveItem(medkit);
+
+                int medkitCount = items.OfType<Medkit>().Count();
+                uiController.SetMedsCounter(medkitCount);
+            }
         } else {
             Debug.Log("No medkids in inventory!");
         }
@@ -60,6 +74,9 @@ public class PlayerInventory : MonoBehaviour {
                 // No colliders found, so we can spawn the TNT
                 SpawnTNT(player.transform.position);
                 RemoveItem(tnt);
+
+                int tntCount = items.OfType<TNT>().Count();
+                uiController.SetTntsCounter(tntCount);
             } else {
                 Debug.Log("Cannot place TNT. There are physical objects nearby.");
             }

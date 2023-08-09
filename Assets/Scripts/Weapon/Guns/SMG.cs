@@ -11,6 +11,12 @@ namespace Assets.Scripts.Weapon {
     public class SMG : Weapon {
         [SerializeField] float spreadAngle = 12f;
 
+        override protected void Awake() {
+            base.Awake();
+            id = EWeapons.UZI;
+
+        }
+
         private void Start() {
             Stats = WeaponStatsRepository.SMG();
             spreadAngle *= Mathf.Deg2Rad;

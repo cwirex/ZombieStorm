@@ -35,10 +35,15 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
         ApplyKnockbackForce(direction, damage * knockBackBaseForce);
     }
 
-    public void Heal(float healAmount) {
-        health += healAmount;
-        health = Mathf.Clamp(health, 0f, maxHealth);
-        updateHealtBar();
+    public bool Heal(float healAmount) {
+        if(health < maxHealth) {
+            health += healAmount;
+            health = Mathf.Clamp(health, 0f, maxHealth);
+            updateHealtBar();
+            return true;
+        }
+        return false;
+        
     }
 
     public void Die() {

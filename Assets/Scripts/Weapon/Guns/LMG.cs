@@ -15,8 +15,14 @@ namespace Assets.Scripts.Weapon {
 
         private float spreadAngle;
         private float spreadAngleStep;
+
+        protected override void Awake() {
+            base.Awake();
+            id = EWeapons.M249;
+        }
+
         private void Start() {
-            Stats = WeaponStatsRepository.LMG();
+            Stats = WeaponStatsRepository.M249();
             minSpreadAngle *= Mathf.Deg2Rad;
             maxSpreadAngle *= Mathf.Deg2Rad;
             spreadAngle = minSpreadAngle;

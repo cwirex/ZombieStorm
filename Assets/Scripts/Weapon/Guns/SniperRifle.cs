@@ -10,6 +10,12 @@ namespace Assets.Scripts.Weapon {
     public class SniperRifle : Weapon {
         [SerializeField] LineRenderer shotTrail;
         [SerializeField] float trailDuriation = 0.4f;
+
+        override protected void Awake() {
+            base.Awake();
+            id = EWeapons.AWP;
+
+        }
         private void Start() {
             Stats = WeaponStatsRepository.SniperRifle();
         }

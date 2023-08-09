@@ -8,6 +8,12 @@ namespace Assets.Scripts.Weapon {
     /// Concrete implementation of Weapon
     /// </summary>
     public class Pistol : Weapon {
+
+        protected override void Awake() {
+            base.Awake();
+            id = EWeapons.PISTOL;
+
+        }
         private void Start() {
             Stats = WeaponStatsRepository.Pistol();
         }

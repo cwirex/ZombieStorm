@@ -14,6 +14,11 @@ namespace Assets.Scripts.Weapon {
         private FlamethrowerBullet flames;
         private GameObject flamesGO;
 
+        protected override void Awake() {
+            base.Awake();
+            id = EWeapons.FLAMETHROWER;
+        }
+
         private void Start() {
             flames = GetComponentInChildren<FlamethrowerBullet>();
             if (flames == null) Debug.LogError("GetComponentInChildren<FlamethrowerBullet> returned NULL in Flamethrower initialization");

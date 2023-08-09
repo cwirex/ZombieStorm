@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum EWeapons {
+    PISTOL, UZI, SHOTGUN, M4, AWP, M249, RPG7, FLAMETHROWER
+}
+
 /// <summary>
 /// Holds Player Weapons
 /// </summary>
@@ -14,7 +18,7 @@ public class WeaponManager : MonoBehaviour {
 
     private Weapon weapon;
     private List<GameObject> weapons = new List<GameObject>();
-    private int currentWeaponIndex = 0;
+    private int currentWeaponIndex = (int) EWeapons.PISTOL;
 
     private void Awake() {
         InstantiateWeapons();

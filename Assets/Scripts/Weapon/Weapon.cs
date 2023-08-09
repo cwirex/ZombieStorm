@@ -7,12 +7,13 @@ namespace Assets.Scripts.Weapon {
     public abstract class Weapon : MonoBehaviour {
         [SerializeField] protected GameObject pfBullet;
         protected WeaponStats Stats;
+        public EWeapons id;
 
         protected float nextFireTime = 0f;
         protected Transform Thread;
         protected bool isShooting = false;
 
-        private void Awake() {
+        protected virtual void Awake() {
             Thread = transform.Find("Thread");
             if (Thread == null) {
                 Thread = transform;

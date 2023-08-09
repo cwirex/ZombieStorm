@@ -1,8 +1,7 @@
 using Assets.Scripts.Player;
+using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Weapon;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
@@ -13,11 +12,13 @@ public class Player : MonoBehaviour {
     private PlayerMovement playerMovement;
     private HealthController healthController;
     private InteractController interactController;
+    private UIController uiController;
 
     private void Start() {
         playerMovement = GetComponent<PlayerMovement>();
         healthController = GetComponent<HealthController>();
         interactController = GetComponent<InteractController>();
+        uiController = FindObjectOfType<UIController>();
     }
 
     private void Update() {
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour {
             interactController = GetComponent<InteractController>();
         }
         interactController.EquipWeapon(weapon);
+        uiController?.SetWeaponIcon(weapon.id);
     }
 
 
@@ -52,7 +54,7 @@ public class Player : MonoBehaviour {
     public void TakeDamage(float damage, Vector3 direction) {
         healthController.TakeDamage(damage, direction);
     }
-    public void Heal(float healAmount) {
-        healthController.Heal(healAmount);
+    public bool Heal(float healAmount) {
+        return healthController.Heal(healAmount);
     }
 }

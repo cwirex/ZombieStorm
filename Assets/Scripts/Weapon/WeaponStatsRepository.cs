@@ -58,7 +58,7 @@ namespace Assets.Scripts.Weapon {
             return stats;
         }
 
-        public static WeaponStats LMG() {
+        public static WeaponStats M249() {
             WeaponStats stats = SMG();
             stats.Damage *= 1.4f;
             stats.BulletSpeed *= 1.3f;
