@@ -3,15 +3,18 @@ using Assets.Scripts.PlayerScripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Holds Player Items and controlls their usage.
+/// </summary>
 public class PlayerInventory : MonoBehaviour {
 
     [SerializeField] private GameObject pfTnt;
     [SerializeField] private LayerMask physicalObjects;
+
     private Player player;
-    internal List<Item> items = new List<Item>();
+    private List<Item> items = new List<Item>();
     private UIController uiController;
 
 
@@ -22,61 +25,54 @@ public class PlayerInventory : MonoBehaviour {
     }
 
     public void InitializeInventory() {
-        for(int i = 0; i < 2; i++) {
-            items.Add(new Medkit(200f));
-        }
-        for(int i = 0; i < 10; i++){
-            items.Add(new TNT());
-        }
-
-        int medkitCount = items.OfType<Medkit>().Count();
-        uiController.SetMedsCounter(medkitCount);
-        int tntCount = items.OfType<TNT>().Count();
-        uiController.SetTntsCounter(tntCount);
+        int nMedkits = 3;
+        int nTnt = 15;
+        AddItem(new Medkit(200f, nMedkits));
+        AddItem(new TNT(nTnt));
     }
 
-    /// <summary>
-    /// Dodawanie przedmiotu do ekwipunku gracza
-    /// </summary>
-    /// <param name="item"></param>
     public void AddItem(Item item) {
         items.Add(item);
+        uiController.UpdateItemCounter(item);
     }
 
-    /// <summary>
-    /// Usuwanie przedmiotu z ekwipunku gracza
-    /// </summary>
-    /// <param name="item"></param>
-    public void RemoveItem(Item item) {
-        items.Remove(item);
+    private bool TryGetItem<T>(out T item) where T : Item {
+        item = items.Find(i => i is T) as T;
+        return item != null;
     }
 
-    public void UseMedkit() {
-        Medkit medkit = items.Find(item => item is Medkit) as Medkit;
-        if (medkit != null) {
-            if (player.Heal(medkit.healingAmount)) {
-                RemoveItem(medkit);
+    public void UseItem<T>() where T : Item {
+        if(typeof(T) == typeof(TNT)) {
+            UseTNT();
+        } else if(typeof(T) == typeof(Medkit)) {
+            UseMedkit();
+        }
+    }
 
-                int medkitCount = items.OfType<Medkit>().Count();
-                uiController.SetMedsCounter(medkitCount);
+    private void UseMedkit() {
+        if (TryGetItem(out Medkit medkit)) {
+            if (player.Heal(medkit.healing)) {
+                medkit.Reduce();
+                uiController.SetMedsCounter(medkit.Amount);
+
+                if (medkit.IsEmpty()) items.Remove(medkit);
             }
         } else {
             Debug.Log("No medkids in inventory!");
         }
     }
 
-    public void UseTNT() {
-        TNT tnt = items.Find(item => item is TNT) as TNT;
-        if (tnt != null) {
+    private void UseTNT() {
+        if(TryGetItem(out TNT tnt)) {
             float requiredSpace = 0.6f;
             Collider[] colliders = Physics.OverlapSphere(player.transform.position, requiredSpace, physicalObjects);
             if (colliders.Length == 0) {
                 // No colliders found, so we can spawn the TNT
                 SpawnTNT(player.transform.position);
-                RemoveItem(tnt);
+                tnt.Reduce();
+                uiController.SetTntsCounter(tnt.Amount);
 
-                int tntCount = items.OfType<TNT>().Count();
-                uiController.SetTntsCounter(tntCount);
+                if (tnt.IsEmpty()) items.Remove(tnt);
             } else {
                 Debug.Log("Cannot place TNT. There are physical objects nearby.");
             }

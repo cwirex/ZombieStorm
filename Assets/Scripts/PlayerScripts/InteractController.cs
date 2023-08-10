@@ -31,9 +31,9 @@ public class InteractController : MonoBehaviour {
         } else if (args.variant == InteractVariant.ShootCanceled) {
             currentWeapon?.OnShootCanceled();
         } else if (args.variant == InteractVariant.Interact) {
-            playerInventory?.UseTNT();
+            playerInventory?.UseItem<TNT>();
         } else if (args.variant == InteractVariant.HealPerformed) {
-            playerInventory?.UseMedkit();
+            playerInventory?.UseItem<Medkit>();
         } else if (args.variant == InteractVariant.SelectWeaponNext) {
             weaponManager?.SwapWeapon(true);
         } else if (args.variant == InteractVariant.SelectWeaponPrevious) {

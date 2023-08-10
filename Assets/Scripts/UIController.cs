@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -27,6 +28,16 @@ namespace Assets.Scripts.PlayerScripts {
             
 
         }
+
+        internal void UpdateItemCounter(Item item) {
+            print(item);
+            if(item.GetType() == typeof(Medkit)) {
+                SetMedsCounter(item.Amount);
+            } else if(item.GetType() == typeof(TNT)) {
+                SetTntsCounter(item.Amount);
+            }
+        }
+
         // Use this for initialization
         void Start() {
             
