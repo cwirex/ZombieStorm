@@ -10,10 +10,12 @@ public class InteractController : MonoBehaviour {
     private WeaponManager weaponManager;
     private Weapon currentWeapon;
     private PlayerInventory playerInventory;
+    private UIController uiController;
 
     private void Start() {
         weaponManager = GetComponentInChildren<WeaponManager>();
         playerInventory = GetComponent<PlayerInventory>();
+        uiController = FindObjectOfType<UIController>();
     }
 
     private void OnEnable() {
@@ -38,6 +40,8 @@ public class InteractController : MonoBehaviour {
             weaponManager?.SwapWeapon(true);
         } else if (args.variant == InteractVariant.SelectWeaponPrevious) {
             weaponManager?.SwapWeapon(false);
+        } else if(args.variant == InteractVariant.ExitPerformed) {
+            uiController?.TogglePause();
         }
     }
 

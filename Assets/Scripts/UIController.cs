@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.PlayerScripts {
@@ -12,6 +13,8 @@ namespace Assets.Scripts.PlayerScripts {
         [SerializeField] TMP_Text medsCounter;
         [SerializeField] TMP_Text tntsCounter;
         [SerializeField] List<Sprite> weaponSprites = new List<Sprite>();
+        [SerializeField] GameObject pauseUI;
+        [SerializeField] GameObject gameUI;
 
         public void SetMedsCounter(int counter) { medsCounter.text = counter.ToString();}
 
@@ -38,14 +41,32 @@ namespace Assets.Scripts.PlayerScripts {
             }
         }
 
-        // Use this for initialization
-        void Start() {
-            
+        public void TogglePause() {
+            bool isPaused = Time.timeScale == 0f;
+            if (isPaused) ResumeGame();
+            else PauseGame();
         }
 
-        // Update is called once per frame
-        void Update() {
+        public void PauseGame() {
+            pauseUI.SetActive(true);
+            gameUI.SetActive(false);
+            Time.timeScale = 0f;
 
+        }
+
+        public void ResumeGame() {
+            pauseUI.SetActive(false);
+            gameUI.SetActive(true);
+            Time.timeScale = 1f;
+        }
+
+        public void RestartGame() {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void QuitGame() {
+            Application.Quit();
         }
     }
 }

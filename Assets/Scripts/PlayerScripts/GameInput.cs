@@ -19,39 +19,39 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Shoot.canceled += Shoot_canceled;
         playerInputActions.Player.SelectWeapon.performed += SelectWeapon_performed;
         playerInputActions.Player.Heal.performed += Heal_performed;
+        playerInputActions.Player.Exit.performed += Exit_performed; ;
+    }
+
+    private void Exit_performed(InputAction.CallbackContext obj) {
+        InvokeEventHandler(InteractVariant.ExitPerformed);
     }
 
     private void Heal_performed(InputAction.CallbackContext obj) {
-        var args = new InteractEventArgs(InteractVariant.HealPerformed);
-        InvokeEventHandler(args);
+        InvokeEventHandler(InteractVariant.HealPerformed);
     }
 
     private void Shoot_canceled(InputAction.CallbackContext context) {
-        var args = new InteractEventArgs(InteractVariant.ShootCanceled);
-        InvokeEventHandler(args);
+        InvokeEventHandler(InteractVariant.ShootCanceled);
     }
 
     private void Shoot_performed(InputAction.CallbackContext obj) {
-        var args = new InteractEventArgs(InteractVariant.ShootPerformed);
-        InvokeEventHandler(args);
+        InvokeEventHandler(InteractVariant.ShootPerformed);
 
     }
 
     private void Interact_performed(InputAction.CallbackContext obj) {
-        var args = new InteractEventArgs(InteractVariant.Interact);
-        InvokeEventHandler(args);
+        InvokeEventHandler(InteractVariant.Interact);
     }
 
     private void SelectWeapon_performed(InputAction.CallbackContext context) {
         float scrollInput = context.ReadValue<float>();
         bool scrolledUp = scrollInput > 0f;
         InteractVariant variant = scrolledUp ? InteractVariant.SelectWeaponNext : InteractVariant.SelectWeaponPrevious;
-        var args = new InteractEventArgs(variant);
-        InvokeEventHandler(args);
+        InvokeEventHandler(variant);
     }
 
-    private void InvokeEventHandler(InteractEventArgs args) {
-        eventHandler?.Invoke(this, args);
+    private void InvokeEventHandler(InteractVariant variant) {
+        eventHandler?.Invoke(this, new InteractEventArgs(variant));
     }
 
     public Vector2 GetMovementVectorNormalized() {
@@ -70,6 +70,7 @@ public enum InteractVariant {
     SelectWeaponNext,
     SelectWeaponPrevious,
     HealPerformed,
+    ExitPerformed,
 }
 
 public class InteractEventArgs : EventArgs {
