@@ -13,7 +13,8 @@ namespace Assets.Scripts.Weapon {
             float range = 5f;
             float fireRate = 2f;
             float bulletSpeed = 20f;
-            return new WeaponStats(dmg, range, fireRate, bulletSpeed);
+            int magazineCapacity = 10;
+            return new WeaponStats(dmg, range, fireRate, bulletSpeed, magazineCapacity);
         }
 
         public static WeaponStats Pistol() {
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Weapon {
             stats.Damage *= 2.3f;
             stats.BulletSpeed *= 1.1f;
             stats.FireRate *= 3f;   // 3 times faster
+            stats.MagazineCapacity = 30;
             return stats;
         }
 
@@ -34,7 +36,7 @@ namespace Assets.Scripts.Weapon {
             stats.BulletSpeed *= 0.7f;
             stats.FireRate /= 2.2f;
             stats.Range = 1f;
-
+            stats.MagazineCapacity = 7;
             return stats;
         }
 
@@ -45,7 +47,7 @@ namespace Assets.Scripts.Weapon {
             stats.FireRate /= 6f;
             stats.BulletSpeed = 0f; // RAY
             stats.Range = 100f;
-
+            stats.MagazineCapacity = 5;
             return stats;
         }
 
@@ -55,6 +57,7 @@ namespace Assets.Scripts.Weapon {
             stats.BulletSpeed *= 0.9f;
             stats.FireRate *= 5f;
             stats.Range = 1.1f;
+            stats.MagazineCapacity = 24;
             return stats;
         }
 
@@ -64,6 +67,7 @@ namespace Assets.Scripts.Weapon {
             stats.BulletSpeed *= 1.3f;
             stats.FireRate *= 1.2f;
             stats.Range *= 3;
+            stats.MagazineCapacity = 100;
             return stats;
         }
 

@@ -1,3 +1,4 @@
+using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Weapon;
 using System;
 using System.Collections;
@@ -25,7 +26,9 @@ public class WeaponManager : MonoBehaviour {
     }
     void Start()
     {
+        Ammo.UIController = FindObjectOfType<UIController>();
         SelectWeapon(currentWeaponIndex);
+        InstantiateAmmos();
     }
 
     private void InstantiateWeapons() {
@@ -36,12 +39,23 @@ public class WeaponManager : MonoBehaviour {
         }
     }
 
+    private void InstantiateAmmos() {
+        foreach (var weaponGO in weapons) {
+            weaponGO.SetActive(true);
+            Weapon weapon = weaponGO.GetComponent<Weapon>();
+            weapon.Ammo.AddAmmo(100);
+            weapon.Ammo.Reload();
+            weaponGO.SetActive(false);
+        }
+    }
+
     private void SelectWeapon(int weaponIndex) {
         weapons[currentWeaponIndex]?.SetActive(false);
         currentWeaponIndex = weaponIndex;
         weapons[weaponIndex].SetActive(true);
         weapon = weapons[weaponIndex].GetComponent<Weapon>();
         player?.EquipWeapon(weapon);
+        weapon.Ammo.UpdateUI();
     }
 
     /// <summary>

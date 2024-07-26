@@ -10,12 +10,14 @@ namespace Assets.Scripts.Weapon {
         public float Range { get; set; }
         public float FireRate { get; set; }
         public float BulletSpeed { get; set; }
+        public int MagazineCapacity { get; set; }
 
-        public WeaponStats(float damage, float range, float fireRate, float bulletSpeed) {
+        public WeaponStats(float damage, float range, float fireRate, float bulletSpeed, int magazineCapacity) {
             Damage = damage;
             Range = range;
             FireRate = fireRate;
             BulletSpeed = bulletSpeed;
+            MagazineCapacity = magazineCapacity;
         }
     }
 }

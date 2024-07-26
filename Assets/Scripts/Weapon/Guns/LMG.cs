@@ -23,6 +23,7 @@ namespace Assets.Scripts.Weapon {
 
         private void Start() {
             Stats = WeaponStatsRepository.M249();
+            Ammo.MagazineCapacity = Stats.MagazineCapacity;
             minSpreadAngle *= Mathf.Deg2Rad;
             maxSpreadAngle *= Mathf.Deg2Rad;
             spreadAngle = minSpreadAngle;

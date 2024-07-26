@@ -22,7 +22,8 @@ namespace Assets.Scripts.Weapon {
         private void Start() {
             flames = GetComponentInChildren<FlamethrowerBullet>();
             if (flames == null) Debug.LogError("GetComponentInChildren<FlamethrowerBullet> returned NULL in Flamethrower initialization");
-            flames.SetStats(new WeaponStats(damagePerSecond, 0, ticksPerSecond, 0));
+            flames.SetStats(new WeaponStats(damagePerSecond, 0, ticksPerSecond, 0, 200));
+            Ammo.MagazineCapacity = Stats.MagazineCapacity;
             flamesGO = flames.gameObject;
             flamesGO.SetActive(false);
         }

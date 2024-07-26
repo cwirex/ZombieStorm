@@ -27,7 +27,7 @@ public class Toxic : Enemy {
         base.Start();
         var weaponGO = Instantiate(weaponPF, weaponTF);
         weapon = weaponGO.GetComponent<ToxicWeapon>();
-        weapon.SetStats(new WeaponStats(Damage, Range, FireRate, BulletSpeed));
+        weapon.SetStats(new WeaponStats(Damage, Range, FireRate, BulletSpeed, 0));
         playerTF = FindObjectOfType<Player>().transform;
     }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,16 +10,22 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.PlayerScripts {
     public class UIController : MonoBehaviour {
-        [SerializeField] Image weaponImage;
-        [SerializeField] TMP_Text medsCounter;
-        [SerializeField] TMP_Text tntsCounter;
+        [SerializeField] private Image weaponImage;
+        [SerializeField] private TMP_Text medsCounter;
+        [SerializeField] private TMP_Text tntsCounter;
+        [SerializeField] private TMP_Text ammoCounter;
         [SerializeField] List<Sprite> weaponSprites = new List<Sprite>();
-        [SerializeField] GameObject pauseUI;
-        [SerializeField] GameObject gameUI;
+        [SerializeField] private Slider ammoSlider;
+        [SerializeField] private GameObject pauseUI;
+        [SerializeField] private GameObject gameUI;
 
         public void SetMedsCounter(int counter) { medsCounter.text = counter.ToString();}
 
         public void SetTntsCounter(int counter) {  tntsCounter.text = counter.ToString();}
+
+        public void SetAmmoCounter(string ammoString) { ammoCounter.text = ammoString; }
+
+        public void SetAmmoSlider(float fillAmount) { ammoSlider.value = fillAmount; }
 
         public void SetWeaponIcon(EWeapons weaponId) {
             int idx = (int)weaponId;
@@ -39,6 +46,11 @@ namespace Assets.Scripts.PlayerScripts {
             } else if(item.GetType() == typeof(TNT)) {
                 SetTntsCounter(item.Amount);
             }
+        }
+
+        internal void UpdateAmmoCounter(int ammoInMagazine, int ammoLeft, int magazineCapacity) {
+            SetAmmoCounter($"{ammoInMagazine}/{ammoLeft}");
+            SetAmmoSlider((float)ammoInMagazine / (float)magazineCapacity);
         }
 
         public void TogglePause() {

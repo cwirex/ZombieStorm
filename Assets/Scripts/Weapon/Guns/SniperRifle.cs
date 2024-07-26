@@ -18,6 +18,7 @@ namespace Assets.Scripts.Weapon {
         }
         private void Start() {
             Stats = WeaponStatsRepository.SniperRifle();
+            Ammo.MagazineCapacity = Stats.MagazineCapacity;
         }
 
         public override void Shoot() {

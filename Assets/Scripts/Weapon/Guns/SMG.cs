@@ -19,6 +19,7 @@ namespace Assets.Scripts.Weapon {
 
         private void Start() {
             Stats = WeaponStatsRepository.SMG();
+            Ammo.MagazineCapacity = Stats.MagazineCapacity;
             spreadAngle *= Mathf.Deg2Rad;
         }
 

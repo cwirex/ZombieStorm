@@ -15,6 +15,8 @@ namespace Assets.Scripts.Weapon {
         }
         private void Start() {
             Stats = WeaponStatsRepository.RPG();
+            Ammo.MagazineCapacity = Stats.MagazineCapacity;
+
         }
 
 
