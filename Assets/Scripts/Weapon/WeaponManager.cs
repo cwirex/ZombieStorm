@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public enum EWeapons {
     PISTOL, UZI, SHOTGUN, M4, AWP, M249, RPG7, FLAMETHROWER
@@ -28,6 +27,13 @@ public class WeaponManager : MonoBehaviour {
     {
         Ammo.UIController = FindObjectOfType<UIController>();
         SelectWeapon(currentWeaponIndex);
+        
+        // Delay ammo initialization to ensure all weapon Start() methods have run
+        StartCoroutine(InitializeAmmoDelayed());
+    }
+    
+    private IEnumerator InitializeAmmoDelayed() {
+        yield return new WaitForSeconds(0.1f); // Wait a bit longer to ensure all Start() methods complete
         InstantiateAmmos();
     }
 
@@ -40,12 +46,89 @@ public class WeaponManager : MonoBehaviour {
     }
 
     private void InstantiateAmmos() {
+        int originallySelectedWeapon = currentWeaponIndex; // Remember which weapon was selected
+        
         foreach (var weaponGO in weapons) {
             weaponGO.SetActive(true);
             Weapon weapon = weaponGO.GetComponent<Weapon>();
-            weapon.Ammo.AddAmmo(100);
-            weapon.Ammo.Reload();
-            weaponGO.SetActive(false);
+            
+            // Give the weapon a moment to initialize if needed
+            if (weapon.Stats == null || weapon.Ammo.MagazineCapacity == 0) {
+                Debug.LogWarning($"Weapon {weapon.id} not fully initialized, trying fallback");
+                InitializeWeaponStatsFallback(weapon);
+            }
+            
+            // Give different amounts of starting ammo based on weapon type
+            int startingAmmo = GetStartingAmmoForWeapon(weapon.id);
+            
+            // Start with a loaded magazine + extra ammo
+            weapon.Ammo.AddAmmo(startingAmmo);
+            weapon.Ammo.Reload(); // Fill the magazine from the ammo pool
+            
+            Debug.Log($"Initialized {weapon.id}: Magazine={weapon.Ammo.MagazineCapacity}, AmmoLeft={weapon.Ammo.AmmoLeft}, InMag={weapon.Ammo.CurrentAmmoInMagazine}");
+            
+            // Only deactivate if this isn't the currently selected weapon
+            if (weapons.IndexOf(weaponGO) != originallySelectedWeapon) {
+                weaponGO.SetActive(false);
+            }
+        }
+    }
+    
+    private void InitializeWeaponStatsFallback(Weapon weapon) {
+        // Manually initialize weapon stats based on type
+        switch (weapon.id) {
+            case EWeapons.PISTOL:
+                weapon.Stats = WeaponStatsRepository.Pistol();
+                break;
+            case EWeapons.UZI:
+                weapon.Stats = WeaponStatsRepository.SMG();
+                break;
+            case EWeapons.SHOTGUN:
+                weapon.Stats = WeaponStatsRepository.Shotgun();
+                break;
+            case EWeapons.M4:
+                weapon.Stats = WeaponStatsRepository.Rifle();
+                break;
+            case EWeapons.AWP:
+                weapon.Stats = WeaponStatsRepository.SniperRifle();
+                break;
+            case EWeapons.M249:
+                weapon.Stats = WeaponStatsRepository.M249();
+                break;
+            case EWeapons.RPG7:
+                weapon.Stats = WeaponStatsRepository.RPG();
+                break;
+            case EWeapons.FLAMETHROWER:
+                weapon.Stats = WeaponStatsRepository.Flamethrower();
+                break;
+        }
+        
+        // Set magazine capacity
+        if (weapon.Stats != null) {
+            weapon.Ammo.MagazineCapacity = weapon.Stats.MagazineCapacity;
+        }
+    }
+    
+    private int GetStartingAmmoForWeapon(EWeapons weaponType) {
+        switch (weaponType) {
+            case EWeapons.PISTOL:
+                return 50;      // 5 reloads (10 per mag)
+            case EWeapons.UZI:
+                return 96;      // 4 reloads (24 per mag)
+            case EWeapons.SHOTGUN:
+                return 28;      // 4 reloads (7 per mag)
+            case EWeapons.M4:
+                return 120;     // 4 reloads (30 per mag)
+            case EWeapons.AWP:
+                return 20;      // 4 reloads (5 per mag)
+            case EWeapons.M249:
+                return 300;     // 3 reloads (100 per mag)
+            case EWeapons.RPG7:
+                return 12;      // 3 reloads (4 per mag)
+            case EWeapons.FLAMETHROWER:
+                return 150;     // 3 reloads (50 per mag)
+            default:
+                return 50;      // Default fallback
         }
     }
 

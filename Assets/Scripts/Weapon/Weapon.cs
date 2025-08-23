@@ -7,7 +7,7 @@ namespace Assets.Scripts.Weapon {
     public abstract class Weapon : MonoBehaviour {
         [SerializeField] protected GameObject pfBullet;
 
-        public WeaponStats Stats { get; protected set; }
+        public WeaponStats Stats { get; set; }
         public Ammo Ammo = new();
         public EWeapons id;
 

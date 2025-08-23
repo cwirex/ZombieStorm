@@ -23,33 +23,44 @@ namespace Assets.Scripts.Weapon {
 
         public override void Shoot() {
             if (Time.time > nextFireTime) {
-                RaycastHit[] hits;
+                // Check ammo before shooting
+                if (!Ammo.IsMagazineEmpty()) {
+                    Ammo.Use(1); // AWP uses 1 bullet per shot
+                    
+                    RaycastHit[] hits;
 
-                hits = Physics.RaycastAll(Thread.position, transform.forward);
-                Array.Sort(hits, (hit1, hit2) => hit1.distance.CompareTo(hit2.distance));
+                    hits = Physics.RaycastAll(Thread.position, transform.forward);
+                    Array.Sort(hits, (hit1, hit2) => hit1.distance.CompareTo(hit2.distance));
 
-                Vector3 trailStartpoint = Thread.position;
-                Vector3 trailEndpoint = Thread.position + Thread.forward * Stats.Range;
+                    Vector3 trailStartpoint = Thread.position;
+                    Vector3 trailEndpoint = Thread.position + Thread.forward * Stats.Range;
 
-                // apply damage to all enemies (in front of a wall)
-                foreach (var hit in hits) {
-                    if (hit.collider.TryGetComponent(out IDamagable damagable)) {
-                        Vector3 direction = (trailEndpoint - trailStartpoint).normalized;
-                        damagable.TakeDamage(Stats.Damage, direction);
-                    } 
-                    else if(hit.collider.TryGetComponent(out Explosive explosive)) {
-                        explosive.TriggerExplosion();
+                    // apply damage to all enemies (in front of a wall)
+                    foreach (var hit in hits) {
+                        if (hit.collider.TryGetComponent(out IDamagable damagable)) {
+                            Vector3 direction = (trailEndpoint - trailStartpoint).normalized;
+                            damagable.TakeDamage(Stats.Damage, direction);
+                        } 
+                        else if(hit.collider.TryGetComponent(out Explosive explosive)) {
+                            explosive.TriggerExplosion();
+                        }
+                        else if (hit.collider.TryGetComponent(out Obstacle obstacle)) {
+                            trailEndpoint = hit.point;  // stop ray on a wall
+                            break;
+                        }
                     }
-                    else if (hit.collider.TryGetComponent(out Obstacle obstacle)) {
-                        trailEndpoint = hit.point;  // stop ray on a wall
-                        break;
+
+                    nextFireTime = Time.time + 1f / Stats.FireRate;
+                    StartCoroutine(MakeLineTrail(trailStartpoint, trailEndpoint, trailDuriation));
+                } else {
+                    // Try to reload if magazine is empty
+                    if (Ammo.Reload()) {
+                        // Successfully reloaded, could try shooting again
+                    } else {
+                        Debug.Log("AWP: No ammo left to reload.");
                     }
                 }
-
-                nextFireTime = Time.time + 1f / Stats.FireRate;
-                StartCoroutine(MakeLineTrail(trailStartpoint, trailEndpoint, trailDuriation));
             }
-            
         }
 
         private IEnumerator MakeLineTrail(Vector3 trailStartpoint, Vector3 trailEndpoint, float trailDuriation) {

@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.PlayerScripts {
     public class UIController : MonoBehaviour {
+        [Header("Game UI Elements")]
         [SerializeField] private Image weaponImage;
         [SerializeField] private TMP_Text medsCounter;
         [SerializeField] private TMP_Text tntsCounter;
@@ -18,6 +19,13 @@ namespace Assets.Scripts.PlayerScripts {
         [SerializeField] private Slider ammoSlider;
         [SerializeField] private GameObject pauseUI;
         [SerializeField] private GameObject gameUI;
+        
+        [Header("Menu UI Elements")]
+        [SerializeField] private TMP_Text menuTitle;
+        [SerializeField] private Button playButton;
+        [SerializeField] private Button resumeButton;
+        [SerializeField] private Button restartButton;
+        [SerializeField] private Button quitButton;
 
         public void SetMedsCounter(int counter) { medsCounter.text = counter.ToString();}
 
@@ -53,32 +61,90 @@ namespace Assets.Scripts.PlayerScripts {
             SetAmmoSlider((float)ammoInMagazine / (float)magazineCapacity);
         }
 
-        public void TogglePause() {
-            bool isPaused = Time.timeScale == 0f;
-            if (isPaused) ResumeGame();
-            else PauseGame();
-        }
-
-        public void PauseGame() {
+        // Methods called by GameManager for different states
+        public void ShowMainMenu() {
             pauseUI.SetActive(true);
             gameUI.SetActive(false);
-            Time.timeScale = 0f;
-
+            
+            if (menuTitle) menuTitle.text = "ZombieStorm";
+            SetButtonVisibility(playButton: true, resumeButton: false, restartButton: false, quitButton: true);
         }
-
-        public void ResumeGame() {
+        
+        public void ShowGameplay() {
             pauseUI.SetActive(false);
             gameUI.SetActive(true);
+            
+            // Ensure time scale is correct for gameplay
             Time.timeScale = 1f;
         }
+        
+        public void ShowPauseMenu() {
+            pauseUI.SetActive(true);
+            gameUI.SetActive(false);
+            
+            if (menuTitle) menuTitle.text = "Game Paused";
+            SetButtonVisibility(playButton: false, resumeButton: true, restartButton: true, quitButton: true);
+        }
+        
+        public void ShowGameOver() {
+            pauseUI.SetActive(true);
+            gameUI.SetActive(false);
+            
+            if (menuTitle) menuTitle.text = "Game Over!";
+            SetButtonVisibility(playButton: false, resumeButton: false, restartButton: true, quitButton: true);
+        }
+        
+        private void SetButtonVisibility(bool playButton, bool resumeButton, bool restartButton, bool quitButton) {
+            if (this.playButton) this.playButton.gameObject.SetActive(playButton);
+            if (this.resumeButton) this.resumeButton.gameObject.SetActive(resumeButton);
+            if (this.restartButton) this.restartButton.gameObject.SetActive(restartButton);
+            if (this.quitButton) this.quitButton.gameObject.SetActive(quitButton);
+        }
 
+        // Button callback methods - these will be connected to UI buttons
+        public void OnPlayButtonClicked() {
+            GameManager.Instance?.StartGame();
+        }
+        
+        public void OnResumeButtonClicked() {
+            GameManager.Instance?.ResumeGame();
+        }
+        
+        public void OnRestartButtonClicked() {
+            GameManager.Instance?.RestartGame();
+        }
+        
+        public void OnQuitButtonClicked() {
+            GameManager.Instance?.QuitGame();
+        }
+        
+        // Legacy methods for backward compatibility
+        public void TogglePause() {
+            if (GameManager.Instance?.CurrentState == GameState.Playing) {
+                GameManager.Instance.PauseGame();
+            } else if (GameManager.Instance?.CurrentState == GameState.Paused) {
+                GameManager.Instance.ResumeGame();
+            }
+        }
+
+        [System.Obsolete("Use GameManager.Instance.PauseGame() instead")]
+        public void PauseGame() {
+            GameManager.Instance?.PauseGame();
+        }
+
+        [System.Obsolete("Use GameManager.Instance.ResumeGame() instead")]
+        public void ResumeGame() {
+            GameManager.Instance?.ResumeGame();
+        }
+
+        [System.Obsolete("Use GameManager.Instance.RestartGame() instead")]
         public void RestartGame() {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager.Instance?.RestartGame();
         }
 
+        [System.Obsolete("Use GameManager.Instance.QuitGame() instead")]
         public void QuitGame() {
-            Application.Quit();
+            GameManager.Instance?.QuitGame();
         }
     }
 }

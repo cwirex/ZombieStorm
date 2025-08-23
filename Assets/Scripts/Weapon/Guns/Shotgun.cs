@@ -26,22 +26,34 @@ namespace Assets.Scripts.Weapon {
 
         public override void Shoot() {
             if (Time.time > nextFireTime) {
-                for (int i = 0; i < nBullets; i++) {
-                    // Calculate random spread angle for each bullet.
-                    Vector2 spread = Random.insideUnitCircle * spreadAngle;
-                    Vector3 spreadDirection = Thread.forward + new Vector3(spread.x, 0, spread.y);
+                // Check ammo before shooting
+                if (!Ammo.IsMagazineEmpty()) {
+                    Ammo.Use(1); // Shotgun uses 1 shell to fire multiple bullets
+                    
+                    for (int i = 0; i < nBullets; i++) {
+                        // Calculate random spread angle for each bullet.
+                        Vector2 spread = Random.insideUnitCircle * spreadAngle;
+                        Vector3 spreadDirection = Thread.forward + new Vector3(spread.x, 0, spread.y);
 
-                    // Shoot bullet
-                    GameObject bulletGO = Instantiate(pfBullet, Thread.position, Thread.rotation);
-                    Bullet bullet = bulletGO.GetComponent<Bullet>();
-                    bullet.SetDamage(Stats.Damage);
-                    Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
-                    bulletRigidbody.velocity = spreadDirection.normalized * Stats.BulletSpeed;
+                        // Shoot bullet
+                        GameObject bulletGO = Instantiate(pfBullet, Thread.position, Thread.rotation);
+                        Bullet bullet = bulletGO.GetComponent<Bullet>();
+                        bullet.SetDamage(Stats.Damage);
+                        Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
+                        bulletRigidbody.velocity = spreadDirection.normalized * Stats.BulletSpeed;
 
-                    Destroy(bulletGO, Stats.Range);
+                        Destroy(bulletGO, Stats.Range);
+                    }
+
+                    nextFireTime = Time.time + 1f / Stats.FireRate;
+                } else {
+                    // Try to reload if magazine is empty
+                    if (Ammo.Reload()) {
+                        // Successfully reloaded, could try shooting again
+                    } else {
+                        Debug.Log("Shotgun: No ammo left to reload.");
+                    }
                 }
-
-                nextFireTime = Time.time + 1f / Stats.FireRate;
             }
         }
     }

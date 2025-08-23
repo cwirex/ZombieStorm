@@ -76,7 +76,19 @@ namespace Assets.Scripts.Weapon {
             stats.Damage *= 8f;
             stats.BulletSpeed *= 0.7f;
             stats.FireRate *= 0.3f;
+            stats.MagazineCapacity = 4; // RPG should have limited ammo
             return stats;
         }
+        
+        public static WeaponStats Flamethrower() {
+            WeaponStats stats = BaseStats();
+            stats.Damage *= 0.6f;
+            stats.BulletSpeed *= 0.8f;
+            stats.FireRate *= 8f; // Very fast fire rate
+            stats.Range = 2f;
+            stats.MagazineCapacity = 50; // Fuel capacity
+            return stats;
+        }
+        
     }
 }

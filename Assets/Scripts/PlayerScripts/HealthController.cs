@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Assets.Scripts.Player;
 
 public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
     [SerializeField] private float maxHealth = 1000f;
@@ -45,10 +46,36 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
         return false;
         
     }
+    
+    public bool HealByPercentage(float percentage) {
+        if(health < maxHealth) {
+            float healAmount = maxHealth * percentage;
+            health += healAmount;
+            health = Mathf.Clamp(health, 0f, maxHealth);
+            updateHealtBar();
+            return true;
+        }
+        return false;
+    }
 
     public void Die() {
-        print("Player.Die()");
-        // Time.timeScale = 0f;
+        Debug.Log("Player died!");
+        
+        // Disable player movement and interaction
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        if (playerMovement != null) {
+            playerMovement.enabled = false;
+        }
+        
+        InteractController interactController = GetComponent<InteractController>();
+        if (interactController != null) {
+            interactController.enabled = false;
+        }
+        
+        // Trigger game over through GameManager
+        if (GameManager.Instance != null) {
+            GameManager.Instance.GameOver();
+        }
     }
 
     public void ApplyKnockbackForce(Vector3 direction, float force) {

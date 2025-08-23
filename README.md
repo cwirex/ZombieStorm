@@ -11,12 +11,14 @@ ZombieStorm is a top-down survival shooter where players face increasingly chall
 ## ✨ Key Features
 
 ### 🔫 Weapon System
+
 - **8 Different Weapons**: Pistol, Uzi, Shotgun, M4, AWP, M249, RPG7, and Flamethrower
 - **Weapon Switching**: Seamless weapon swapping with mouse wheel or number keys
 - **Ammo Management**: Limited ammunition with reload mechanics
 - **Ballistics**: Realistic bullet physics with knockback effects
 
 ### 🧟 Zombie Varieties
+
 - **Normal Zombie**: Basic enemy with standard health and damage
 - **Gigant Zombie**: Large, high-health enemy with increased damage
 - **Gigant Bomber**: Explodes on death, causing area damage and chain reactions
@@ -25,22 +27,26 @@ ZombieStorm is a top-down survival shooter where players face increasingly chall
 - **Suicider Zombie**: Kamikaze-style enemy that explodes on contact
 
 ### 🎯 Combat Mechanics
+
 - **Mouse Aiming**: Smooth character rotation following mouse cursor
 - **Knockback System**: Enemies react to weapon impact with physics-based knockback
 - **Damage Types**: Different weapons deal varying damage amounts
 - **Explosion Chaining**: TNT and bomber zombies can trigger chain explosions
 
 ### 🎒 Inventory & Items
+
 - **Medkits**: Healing items for health recovery (3 per game start)
 - **TNT Explosives**: Placeable explosives for area damage (15 per game start)
 - **Smart Placement**: TNT can only be placed in clear areas
 
 ### 🤖 AI System
+
 - **NavMesh Navigation**: Zombies use Unity's AI navigation system
 - **Spawner System**: Multiple spawn points with staggered timing
 - **Attack Patterns**: Different zombie types have unique attack behaviors
 
 ### 🎨 Technical Features
+
 - **Universal Render Pipeline (URP)**: Modern Unity graphics pipeline
 - **Cinemachine**: Professional camera system for smooth tracking
 - **Input System**: Modern Unity Input System for responsive controls
@@ -89,18 +95,21 @@ Assets/
 ## 🚀 Game Mechanics
 
 ### Health System
+
 - Player starts with full health
 - Zombies deal damage on contact
 - Health can be restored using medkits
 - Visual health bar shows current status
 
 ### Ammo System
+
 - Each weapon has limited ammo capacity
 - Manual reloading required
 - Different weapons have different ammo counts
 - UI displays current ammo and total reserves
 
 ### Spawning System
+
 - Multiple spawn points around the map
 - Staggered spawning prevents clustering
 - Different spawners for different zombie types
@@ -122,6 +131,7 @@ This project serves as a comprehensive introduction to Unity game development, c
 ## 🎯 Future Enhancements
 
 Potential areas for expansion and learning:
+
 - Wave-based progression system
 - Power-ups and weapon upgrades
 - Multiple levels/maps

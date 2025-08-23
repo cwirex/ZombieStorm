@@ -51,14 +51,18 @@ public class PlayerInventory : MonoBehaviour {
 
     private void UseMedkit() {
         if (TryGetItem(out Medkit medkit)) {
-            if (player.Heal(medkit.healing)) {
+            HealthController healthController = player.GetComponent<HealthController>();
+            if (healthController != null && healthController.HealByPercentage(0.5f)) { // Heal 50% of max health
                 medkit.Reduce();
                 uiController.SetMedsCounter(medkit.Amount);
 
                 if (medkit.IsEmpty()) items.Remove(medkit);
+                Debug.Log("Used medkit - healed 50% of max health!");
+            } else {
+                Debug.Log("Already at full health!");
             }
         } else {
-            Debug.Log("No medkids in inventory!");
+            Debug.Log("No medkits in inventory!");
         }
     }
 

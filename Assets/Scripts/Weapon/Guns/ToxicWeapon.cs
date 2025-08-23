@@ -12,25 +12,45 @@ public class ToxicWeapon : Weapon {
     private Transform playerTF;
     private void Start() {
         playerTF = FindObjectOfType<Player>()?.transform;
+        
+        // Initialize ammo system if stats are already set
+        if (Stats != null) {
+            Ammo.MagazineCapacity = Stats.MagazineCapacity;
+        }
     }
 
     internal void SetStats(WeaponStats weaponStats) {
         Stats = weaponStats;
+        // Set magazine capacity when stats are set
+        Ammo.MagazineCapacity = Stats.MagazineCapacity;
     }
 
     override public void Shoot() {
         if (Time.time > nextFireTime) {
-            Vector3 bulletSpawnPosition = Thread.position;
-            GameObject bulletGO = Instantiate(pfBullet, bulletSpawnPosition, Thread.rotation);
-            ToxicBullet bullet = bulletGO.GetComponent<ToxicBullet>();
-            bullet.SetDamage(Stats.Damage);
-            Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
-            Vector3 shootDirection = (playerTF.position - bulletRigidbody.position).normalized;
-            shootDirection.y = 0;
-            bulletRigidbody.velocity = shootDirection * Stats.BulletSpeed;
-            Destroy(bulletGO, 3f);
+            // Check ammo before shooting
+            if (!Ammo.IsMagazineEmpty()) {
+                Ammo.Use(1);
+                
+                Vector3 bulletSpawnPosition = Thread.position;
+                GameObject bulletGO = Instantiate(pfBullet, bulletSpawnPosition, Thread.rotation);
+                ToxicBullet bullet = bulletGO.GetComponent<ToxicBullet>();
+                bullet.SetDamage(Stats.Damage);
+                Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
+                Vector3 shootDirection = (playerTF.position - bulletRigidbody.position).normalized;
+                shootDirection.y = 0;
+                bulletRigidbody.velocity = shootDirection * Stats.BulletSpeed;
+                Destroy(bulletGO, 3f);
 
-            nextFireTime = Time.time + 1f / Stats.FireRate;
+                nextFireTime = Time.time + 1f / Stats.FireRate;
+            } else {
+                // Try to reload if magazine is empty
+                if (Ammo.Reload()) {
+                    // Successfully reloaded, try shooting again
+                    Shoot();
+                } else {
+                    Debug.Log("ToxicWeapon: No ammo left to reload.");
+                }
+            }
         }
     }
 }
