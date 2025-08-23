@@ -74,7 +74,7 @@ StyleCopReport.xml
 *_p.c
 *_h.h
 *.ilk
-*.meta
+# *.meta - REMOVED: Unity needs .meta files!
 *.obj
 *.iobj
 *.pch
@@ -362,10 +362,24 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 Library/
-ProjectSettings/
+# ProjectSettings/ - REMOVED: Unity needs project settings!
 Temp/
 UserSettings/
-*.csproj
-Meshes/
-Sounds/
-Textures/
+# *.csproj - COMMENTED: Unity generates these, might be needed
+# Meshes/ - COMMENTED: Might contain important assets
+# Sounds/ - COMMENTED: Might contain important assets  
+# Textures/ - COMMENTED: Might contain important assets
+
+# === UNITY SPECIFIC ===
+# Keep these Unity files (they're essential):
+# Assets/ - Contains all game assets (MUST INCLUDE)
+# ProjectSettings/ - Project configuration (MUST INCLUDE) 
+# Packages/manifest.json - Package dependencies (MUST INCLUDE)
+# Packages/packages-lock.json - Package lock file (MUST INCLUDE)
+# *.meta - Asset metadata files (MUST INCLUDE)
+
+# Ignore these Unity files (can be regenerated):
+Library/
+Temp/
+UserSettings/
+Logs/
