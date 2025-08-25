@@ -38,7 +38,7 @@ MonoBehaviour:
   gigantBomberZombieUnlockWave: 12
   learningPhase:
     enemyCountInc: 4
-    spawners: 1
+    spawners: 2
     normalZombieAmount: 8
     toxicZombieAmount: 2
     suiciderZombieAmount: 4
