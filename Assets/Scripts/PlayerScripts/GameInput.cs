@@ -21,6 +21,18 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Heal.performed += Heal_performed;
         playerInputActions.Player.Exit.performed += Exit_performed; ;
     }
+    
+    private void OnDestroy() {
+        if (playerInputActions != null) {
+            playerInputActions.Player.Interact.performed -= Interact_performed;
+            playerInputActions.Player.Shoot.performed -= Shoot_performed;
+            playerInputActions.Player.Shoot.canceled -= Shoot_canceled;
+            playerInputActions.Player.SelectWeapon.performed -= SelectWeapon_performed;
+            playerInputActions.Player.Heal.performed -= Heal_performed;
+            playerInputActions.Player.Exit.performed -= Exit_performed;
+            playerInputActions.Dispose();
+        }
+    }
 
     private void Exit_performed(InputAction.CallbackContext obj) {
         // Handle escape key based on current game state
@@ -79,6 +91,11 @@ public class GameInput : MonoBehaviour
     public Vector2 GetMovementVectorNormalized() {
         // Only allow movement when playing
         if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameState.Playing) {
+            return Vector2.zero;
+        }
+        
+        // Safety check for null playerInputActions
+        if (playerInputActions == null) {
             return Vector2.zero;
         }
         

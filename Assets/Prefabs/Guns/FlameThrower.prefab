@@ -241,9 +241,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfBullet: {fileID: 0}
-  id: 0
+  id: 7
   damagePerSecond: 200
   ticksPerSecond: 5
+  ammoConsumptionPerSecond: 10
 --- !u!1 &6240474616599194832
 GameObject:
   m_ObjectHideFlags: 0

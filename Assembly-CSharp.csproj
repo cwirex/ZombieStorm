@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Weapon\Ammo.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\Item.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Weapon\WeaponStats.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\GameInput.cs" />
      <Compile Include="Assets\Scripts\UIController.cs" />

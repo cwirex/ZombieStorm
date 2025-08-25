@@ -92,6 +92,11 @@ public class GameManager : MonoBehaviour {
     }
     
     public void GameOver() {
+        // Save the current score to leaderboard before changing state
+        if (ScoreManager.Instance != null) {
+            ScoreManager.Instance.GameFinished();
+        }
+        
         ChangeState(GameState.GameOver);
     }
     

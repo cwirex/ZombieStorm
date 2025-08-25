@@ -32,7 +32,7 @@ namespace Assets.Scripts.Weapon {
 
         public static WeaponStats Shotgun() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 0.5f;   // lower dmg on single bullet
+            stats.Damage *= 0.6f;   // dmg on single bullet
             stats.BulletSpeed *= 0.7f;
             stats.FireRate /= 2.2f;
             stats.Range = 1f;
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Weapon {
             WeaponStats stats = SMG();
             stats.Damage *= 1.4f;
             stats.BulletSpeed *= 1.3f;
-            stats.FireRate *= 1.2f;
+            stats.FireRate *= 1.3f;
             stats.Range *= 3;
             stats.MagazineCapacity = 100;
             return stats;
@@ -73,8 +73,8 @@ namespace Assets.Scripts.Weapon {
 
         public static WeaponStats RPG() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 8f;
-            stats.BulletSpeed *= 0.7f;
+            stats.Damage *= 8.5f;
+            stats.BulletSpeed *= 0.8f;
             stats.FireRate *= 0.3f;
             stats.MagazineCapacity = 4; // RPG should have limited ammo
             return stats;
@@ -82,11 +82,11 @@ namespace Assets.Scripts.Weapon {
         
         public static WeaponStats Flamethrower() {
             WeaponStats stats = BaseStats();
-            stats.Damage *= 0.6f;
+            stats.Damage *= 0.8f;
             stats.BulletSpeed *= 0.8f;
             stats.FireRate *= 8f; // Very fast fire rate
             stats.Range = 2f;
-            stats.MagazineCapacity = 50; // Fuel capacity
+            stats.MagazineCapacity = 100; // Fuel capacity
             return stats;
         }
         

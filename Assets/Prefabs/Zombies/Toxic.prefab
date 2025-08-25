@@ -48,18 +48,18 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 3.5
-  m_Acceleration: 6
+  m_Speed: 2
+  m_Acceleration: 2
   avoidancePriority: 50
-  m_AngularSpeed: 180
-  m_StoppingDistance: 5
+  m_AngularSpeed: 720
+  m_StoppingDistance: 6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &4281706966487858725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateFrequency: 10
 --- !u!114 &8504026601931509777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,8 +90,8 @@ MonoBehaviour:
   MovementSpeed: 1.5
   weaponPF: {fileID: 1694449805434718, guid: 6828f5ecd5ed72d4d94b9fb56f30f7d7, type: 3}
   Range: 15
-  FireRate: 0.35
-  BulletSpeed: 16
+  FireRate: 0.5
+  BulletSpeed: 18
 --- !u!65 &2417881069764623800
 BoxCollider:
   m_ObjectHideFlags: 0

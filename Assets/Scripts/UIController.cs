@@ -15,6 +15,7 @@ namespace Assets.Scripts.PlayerScripts {
         [SerializeField] private TMP_Text medsCounter;
         [SerializeField] private TMP_Text tntsCounter;
         [SerializeField] private TMP_Text ammoCounter;
+        [SerializeField] private TMP_Text scoreCounter;
         [SerializeField] List<Sprite> weaponSprites = new List<Sprite>();
         [SerializeField] private Slider ammoSlider;
         [SerializeField] private GameObject pauseUI;
@@ -26,12 +27,40 @@ namespace Assets.Scripts.PlayerScripts {
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button quitButton;
+        
+        [Header("Score UI Elements")]
+        [SerializeField] private TMP_Text finalScoreText;
+        [SerializeField] private TMP_Text leaderboardText;
+        
+        private void Start() {
+            // Subscribe to score events
+            if (ScoreManager.Instance != null) {
+                ScoreManager.Instance.OnScoreChanged += UpdateScoreDisplay;
+            }
+        }
+        
+        private void OnDestroy() {
+            // Unsubscribe from events to prevent memory leaks
+            if (ScoreManager.Instance != null) {
+                ScoreManager.Instance.OnScoreChanged -= UpdateScoreDisplay;
+            }
+        }
+        
+        private void UpdateScoreDisplay(int score) {
+            SetScoreCounter(score);
+        }
 
         public void SetMedsCounter(int counter) { medsCounter.text = counter.ToString();}
 
         public void SetTntsCounter(int counter) {  tntsCounter.text = counter.ToString();}
 
         public void SetAmmoCounter(string ammoString) { ammoCounter.text = ammoString; }
+        
+        public void SetScoreCounter(int score) { 
+            if (scoreCounter != null) {
+                scoreCounter.text = score.ToString();
+            }
+        }
 
         public void SetAmmoSlider(float fillAmount) { ammoSlider.value = fillAmount; }
 
@@ -83,6 +112,11 @@ namespace Assets.Scripts.PlayerScripts {
             gameUI.SetActive(false);
             
             if (menuTitle) menuTitle.text = "Game Paused";
+            
+            // Display current score and leaderboard
+            DisplayFinalScore();
+            DisplayLeaderboard();
+            
             SetButtonVisibility(playButton: false, resumeButton: true, restartButton: true, quitButton: true);
         }
         
@@ -91,7 +125,48 @@ namespace Assets.Scripts.PlayerScripts {
             gameUI.SetActive(false);
             
             if (menuTitle) menuTitle.text = "Game Over!";
+            
+            // Display final score and leaderboard
+            DisplayFinalScore();
+            DisplayLeaderboard();
+            
             SetButtonVisibility(playButton: false, resumeButton: false, restartButton: true, quitButton: true);
+        }
+        
+        private void DisplayFinalScore() {
+            if (finalScoreText != null && ScoreManager.Instance != null) {
+                int currentScore = ScoreManager.Instance.CurrentScore;
+                bool isTopScore = ScoreManager.Instance.IsNewTopScore(currentScore);
+                
+                string scoreText = $"Score: {currentScore}";
+                if (isTopScore) {
+                    scoreText += "\n<color=yellow>NEW HIGH SCORE!</color>";
+                }
+                
+                finalScoreText.text = scoreText;
+            }
+        }
+        
+        private void DisplayLeaderboard() {
+            if (leaderboardText != null && ScoreManager.Instance != null) {
+                var leaderboard = ScoreManager.Instance.LoadLeaderboard();
+                int currentScore = ScoreManager.Instance.CurrentScore;
+                
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("<color=yellow>TOP SCORES</color>");
+                sb.AppendLine("═══════════════");
+                
+                if (leaderboard.Count == 0) {
+                    sb.AppendLine("No scores yet!");
+                } else {
+                    for (int i = 0; i < leaderboard.Count; i++) {
+                        string prefix = leaderboard[i].score == currentScore ? "> " : "";
+                        sb.AppendLine($"{prefix}{leaderboard[i].score}");
+                    }
+                }
+                
+                leaderboardText.text = sb.ToString();
+            }
         }
         
         private void SetButtonVisibility(bool playButton, bool resumeButton, bool restartButton, bool quitButton) {

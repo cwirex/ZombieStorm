@@ -30,6 +30,11 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
     }
 
     public virtual void Die() {
+        // Award score points before destroying
+        if (ScoreManager.Instance != null) {
+            ScoreManager.Instance.AddScore(this);
+        }
+        
         Destroy(gameObject);
     }
 
