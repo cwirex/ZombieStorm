@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     
     [SerializeField] private GameState currentState = GameState.MainMenu;
     private UIController uiController;
+    private PlayerSpawner playerSpawner;
     private static bool hasStartedGameBefore = false; // Track if we've played before
     
     public GameState CurrentState => currentState;
@@ -30,13 +31,24 @@ public class GameManager : MonoBehaviour {
     
     private void Start() {
         uiController = FindObjectOfType<UIController>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        
+        // Subscribe to WaveManager events if it exists
+        var waveManager = FindObjectOfType<WaveManager>();
+        if (waveManager != null)
+        {
+            waveManager.OnWaveStarted += OnWaveStarted;
+            waveManager.OnWaveCompleted += OnWaveCompleted;
+            Debug.Log("GameManager connected to WaveManager events");
+        }
         
         // Start in MainMenu only on first load, go to Playing on restart
         if (!hasStartedGameBefore) {
             ChangeState(GameState.MainMenu);
         } else {
-            // This is a restart - go directly to playing
+            // This is a restart - go directly to playing and spawn player
             ChangeState(GameState.Playing);
+            SpawnPlayerAtStart();
         }
     }
     
@@ -77,6 +89,7 @@ public class GameManager : MonoBehaviour {
     public void StartGame() {
         hasStartedGameBefore = true; // Mark that game has been started
         ChangeState(GameState.Playing);
+        SpawnPlayerAtStart();
     }
     
     public void PauseGame() {
@@ -114,6 +127,59 @@ public class GameManager : MonoBehaviour {
         );
     }
     
+    // Wave management event handlers
+    private void OnWaveStarted(int waveNumber)
+    {
+        Debug.Log($"GameManager: Wave {waveNumber} started");
+        // Ensure we're in Playing state when wave starts
+        if (currentState != GameState.Playing)
+        {
+            ChangeState(GameState.Playing);
+        }
+        // Spawn player at start of each wave
+        SpawnPlayerForWave();
+    }
+    
+    private void OnWaveCompleted(int waveNumber)
+    {
+        Debug.Log($"GameManager: Wave {waveNumber} completed");
+        // Trigger player spawner wave completion sequence
+        if (playerSpawner != null)
+        {
+            playerSpawner.OnWaveCompleted();
+        }
+    }
+    
+    private void SpawnPlayerAtStart()
+    {
+        if (playerSpawner != null)
+        {
+            playerSpawner.OnGameStart();
+        }
+        else
+        {
+            Debug.LogWarning("GameManager: No PlayerSpawner found!");
+        }
+    }
+    
+    private void SpawnPlayerForWave()
+    {
+        if (playerSpawner != null)
+        {
+            playerSpawner.OnWaveStart();
+        }
+        else
+        {
+            Debug.LogWarning("GameManager: No PlayerSpawner found for wave start!");
+        }
+    }
+    
+    private void OnWaveStateChanged(object waveState)
+    {
+        Debug.Log($"GameManager: Wave state changed to {waveState}");
+        // Future: Handle different wave states (preparing, active, cleanup, etc.)
+    }
+    
     public void QuitGame() {
         Debug.Log("Quit Game requested");
         
@@ -127,5 +193,16 @@ public class GameManager : MonoBehaviour {
             // In standalone builds, quit normally
             Application.Quit();
         #endif
+    }
+    
+    private void OnDestroy()
+    {
+        // Unsubscribe from WaveManager events
+        var waveManager = FindObjectOfType<WaveManager>();
+        if (waveManager != null)
+        {
+            waveManager.OnWaveStarted -= OnWaveStarted;
+            waveManager.OnWaveCompleted -= OnWaveCompleted;
+        }
     }
 }

@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87af7fe3402b6154bb2616337cc0791b, type: 3}
+  m_Name: WaveProgressionConfig
+  m_EditorClassIdentifier: 
+  difficultyCountModifier: 1
+  difficultySpeedModifier: 1
+  difficultyBossModifier: 1
+  finalPhaseScalingModifier: 1.1
+  learningPhaseSpeed: 0.8
+  advancedPhaseSpeed: 0.4
+  normalZombiePrefab: {fileID: 2774681883900447588, guid: 5525ff627bbff5844b8aa295c5f99386,
+    type: 3}
+  normalZombieUnlockWave: 1
+  toxicZombiePrefab: {fileID: 2774681883900447588, guid: 51b92bcd04bb8154994eec36b8d3ccc5,
+    type: 3}
+  toxicZombieUnlockWave: 5
+  suiciderZombiePrefab: {fileID: 2774681883900447588, guid: ad9de28ab1a7ed64c9374abca8c09e6a,
+    type: 3}
+  suiciderZombieUnlockWave: 3
+  phoenixZombiePrefab: {fileID: 2774681883900447588, guid: 431efec0ba23daf419c532fcf3647c04,
+    type: 3}
+  phoenixZombieUnlockWave: 9
+  gigantZombiePrefab: {fileID: 2774681883900447588, guid: f1253ab07f18dfc4fa3be202cf8a7945,
+    type: 3}
+  gigantZombieUnlockWave: 7
+  gigantBomberZombiePrefab: {fileID: 2774681883900447588, guid: e3c2caa2700fabd4fa85b914c9acc1ed,
+    type: 3}
+  gigantBomberZombieUnlockWave: 12
+  learningPhase:
+    enemyCountInc: 4
+    spawners: 1
+    normalZombieAmount: 8
+    toxicZombieAmount: 2
+    suiciderZombieAmount: 4
+    phoenixZombieAmount: 0
+    gigantZombieAmount: 0
+    gigantBomberZombieAmount: 0
+  combinationPhase:
+    enemyCountInc: 4
+    spawners: 2
+    normalZombieAmount: 8
+    toxicZombieAmount: 0
+    suiciderZombieAmount: 4
+    phoenixZombieAmount: 0
+    gigantZombieAmount: 2
+    gigantBomberZombieAmount: 0
+  invertedPhase:
+    enemyCountInc: 4
+    spawners: 1
+    normalZombieAmount: 10
+    toxicZombieAmount: 0
+    suiciderZombieAmount: 0
+    phoenixZombieAmount: 0
+    gigantZombieAmount: 0
+    gigantBomberZombieAmount: 0
+  finalPhase:
+    enemyCountInc: 4
+    spawners: 1
+    normalZombieAmount: 10
+    toxicZombieAmount: 0
+    suiciderZombieAmount: 0
+    phoenixZombieAmount: 0
+    gigantZombieAmount: 0
+    gigantBomberZombieAmount: 0
+  bossPhase:
+    enemyCountInc: 4
+    spawners: 1
+    normalZombieAmount: 10
+    toxicZombieAmount: 0
+    suiciderZombieAmount: 0
+    phoenixZombieAmount: 0
+    gigantZombieAmount: 0
+    gigantBomberZombieAmount: 0
+  bossWaveNumbers: 070000000c00000011000000
+  finalPhaseBossInterval: 5
