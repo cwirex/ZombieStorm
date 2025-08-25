@@ -60,8 +60,11 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
 
     public void Die() {
         Debug.Log("Player died!");
-        
-        // Disable player movement and interaction
+        StartCoroutine(PlayerDeathAnimation());
+    }
+    
+    private IEnumerator PlayerDeathAnimation() {
+        // Disable player movement and interaction immediately
         PlayerMovement playerMovement = GetComponent<PlayerMovement>();
         if (playerMovement != null) {
             playerMovement.enabled = false;
@@ -72,10 +75,32 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
             interactController.enabled = false;
         }
         
+        // Start slowdown immediately
+        StartCoroutine(SlowDownTime());
+        
+        // Wait  before showing game over
+        yield return new WaitForSeconds(0.2f);
+        
         // Trigger game over through GameManager
         if (GameManager.Instance != null) {
             GameManager.Instance.GameOver();
         }
+    }
+    
+    private IEnumerator SlowDownTime() {
+        float startTimeScale = 0.4f;
+        float endTimeScale = 0f;
+        float duration = 2.2f;
+        float elapsed = 0f;
+        
+        while (elapsed < duration) {
+            elapsed += Time.unscaledDeltaTime; // Use unscaled time so it continues even as timeScale changes
+            float progress = elapsed / duration;
+            Time.timeScale = Mathf.Lerp(startTimeScale, endTimeScale, progress);
+            yield return null;
+        }
+        
+        Time.timeScale = 0f;
     }
 
     public void ApplyKnockbackForce(Vector3 direction, float force) {

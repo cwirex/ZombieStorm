@@ -65,8 +65,8 @@ public class GameManager : MonoBehaviour {
                 break;
                 
             case GameState.GameOver:
-                Time.timeScale = 0f;
                 uiController?.ShowGameOver();
+                // Don't modify Time.timeScale here - HealthController handles slowdown
                 break;
         }
         
@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour {
         
         ChangeState(GameState.GameOver);
     }
+    
     
     public void RestartGame() {
         // Mark that game has started (so next load goes to Playing)

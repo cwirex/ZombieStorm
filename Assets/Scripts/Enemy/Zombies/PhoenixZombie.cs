@@ -38,7 +38,8 @@ public class PhoenixZombie : Enemy
             ApplyRespawnBoosts();
             rb.mass /= rbFreeze;
         } else if(state == State.Respawned) {
-            Destroy(gameObject);
+            // Use death animation for final death after resurrection
+            StartCoroutine(DeathAnimation());
         }
     }
     private IEnumerator Respawn() {

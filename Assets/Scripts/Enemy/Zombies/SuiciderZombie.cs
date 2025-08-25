@@ -6,6 +6,11 @@ public class SuiciderZombie : Enemy
 {
     [SerializeField] private float ExplosionRadius = 3f;
     [SerializeField] private float ExplosionForce = 500f;
+    
+    protected override IEnumerator DeathAnimation() {
+        // Faster death animation (half duration)
+        return DeathAnimationWithDuration(0.25f, 1.5f);
+    }
 
     /// <summary>
     /// Explode on contact with player.
