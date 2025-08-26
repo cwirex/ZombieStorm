@@ -9,7 +9,16 @@ public enum WaveState
     Active,
     Cleanup,
     Complete,
-    Transition
+    Transition,
+    Lobby
+}
+
+public enum GateState
+{
+    AllClosed,
+    AllOpen,
+    OpenFromPreviousWave,
+    OpenForNextWave
 }
 
 public class WaveManager : MonoBehaviour
@@ -17,7 +26,8 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance { get; private set; }
     
     [SerializeField] private int currentWaveNumber = 0;
-    [SerializeField] private WaveState currentWaveState = WaveState.Preparing;
+    [SerializeField] private WaveState currentWaveState = WaveState.Lobby;
+    [SerializeField] private GateState currentGateState = GateState.AllOpen;
     [SerializeField] private List<Spawner> allSpawners = new List<Spawner>();
     
     [Header("Wave Progression")]
@@ -36,11 +46,76 @@ public class WaveManager : MonoBehaviour
     public System.Action<int> OnWaveStarted;
     public System.Action<int> OnWaveCompleted;
     public System.Action<WaveState> OnWaveStateChanged;
-    public System.Action<SpawnerArea[]> OnWaveAreasActivated; // NEW: Tell which areas are active
+    public System.Action<SpawnerArea[]> OnWaveAreasActivated;
+    public System.Action<GateState> OnGateStateChanged;
     
     public int CurrentWaveNumber => currentWaveNumber;
     public WaveState CurrentWaveState => currentWaveState;
+    public GateState CurrentGateState => currentGateState;
     public int ActiveEnemyCount => activeEnemyCount;
+    
+    // Public method to manually start wave countdown (called by SPACE press)
+    public void RequestStartWave()
+    {
+        if (currentWaveState == WaveState.Lobby)
+        {
+            if (currentWaveNumber == 0)
+            {
+                StartWaveCountdown(1);
+            }
+            else
+            {
+                StartWaveCountdown(currentWaveNumber + 1);
+            }
+        }
+    }
+    
+    // Start countdown transition, then start the actual wave
+    private void StartWaveCountdown(int waveNumber)
+    {
+        currentWaveNumber = waveNumber;
+        ChangeWaveState(WaveState.Transition);
+        
+        // Close gates immediately when countdown starts
+        SetGateState(GateState.AllClosed);
+        
+        Debug.Log($"Starting countdown for Wave {currentWaveNumber}");
+        
+        // The countdown will trigger StartActualWave when complete
+    }
+    
+    // This is called by the countdown timer when it completes
+    public void StartActualWave()
+    {
+        ChangeWaveState(WaveState.Preparing);
+        
+        Debug.Log($"Actually starting Wave {currentWaveNumber}");
+        
+        // Reset wave tracking
+        activeEnemyCount = 0;
+        totalEnemiesSpawned = 0;
+        allSpawnersComplete = false;
+        
+        // Create wave config
+        var waveConfig = CreateBasicWaveConfig(currentWaveNumber);
+        
+        // Get areas for this wave and notify WallManager
+        SpawnerArea[] areasToSpawn = GetAreasForWave(currentWaveNumber);
+        OnWaveAreasActivated?.Invoke(areasToSpawn);
+        
+        // Start spawners
+        StartSpawnersForWave(waveConfig);
+        
+        ChangeWaveState(WaveState.Active);
+        OnWaveStarted?.Invoke(currentWaveNumber);
+    }
+    
+    // Public method to enter lobby mode (called by UIController for initial state)
+    public void EnterLobbyMode()
+    {
+        ChangeWaveState(WaveState.Lobby);
+        SetGateState(GateState.AllOpen);
+    }
     
     private void Awake()
     {
@@ -102,31 +177,6 @@ public class WaveManager : MonoBehaviour
         }
     }
     
-    
-    public void StartWave(int waveNumber)
-    {
-        currentWaveNumber = waveNumber;
-        activeEnemyCount = 0;
-        totalEnemiesSpawned = 0;
-        allSpawnersComplete = false;
-        
-        ChangeWaveState(WaveState.Preparing);
-        
-        Debug.Log($"Starting Wave {currentWaveNumber}");
-        
-        // Create basic wave config (will be replaced with ScriptableObject later)
-        var waveConfig = CreateBasicWaveConfig(waveNumber);
-        
-        // Get areas for this wave and notify WallManager
-        SpawnerArea[] areasToSpawn = GetAreasForWave(waveNumber);
-        OnWaveAreasActivated?.Invoke(areasToSpawn);
-        
-        // Start spawners based on wave configuration
-        StartSpawnersForWave(waveConfig);
-        
-        ChangeWaveState(WaveState.Active);
-        OnWaveStarted?.Invoke(currentWaveNumber);
-    }
     
     private void StartSpawnersForWave(WaveConfig waveConfig)
     {
@@ -498,34 +548,63 @@ public class WaveManager : MonoBehaviour
         ChangeWaveState(WaveState.Complete);
         Debug.Log($"Wave {currentWaveNumber} completed!");
         
-        // Immediately close all doors when wave completes
-        CloseAllDoorsForTransition();
-        
         OnWaveCompleted?.Invoke(currentWaveNumber);
         
-        // Start next wave after a delay
-        StartCoroutine(StartNextWaveDelayed());
+        // Enter lobby mode instead of auto-starting next wave
+        TransitionToLobbyMode();
     }
     
-    private void CloseAllDoorsForTransition()
+    private void TransitionToLobbyMode()
     {
+        ChangeWaveState(WaveState.Lobby);
+        SetGateState(GateState.AllOpen);
+        Debug.Log("Entered lobby mode - player can explore and shop");
+    }
+    
+    private void SetGateState(GateState newGateState)
+    {
+        currentGateState = newGateState;
+        OnGateStateChanged?.Invoke(currentGateState);
+        
         if (WallManager.Instance != null)
         {
-            WallManager.Instance.CloseAllWalls();
-            Debug.Log("All doors closed for wave transition");
+            switch (currentGateState)
+            {
+                case GateState.AllClosed:
+                    WallManager.Instance.CloseAllWalls();
+                    Debug.Log("All gates closed");
+                    break;
+                case GateState.AllOpen:
+                    WallManager.Instance.OpenAllWalls();
+                    Debug.Log("All gates opened");
+                    break;
+                case GateState.OpenFromPreviousWave:
+                    // Open gates from the areas used in previous wave
+                    OpenGatesForPreviousWaveAreas();
+                    break;
+                case GateState.OpenForNextWave:
+                    // Open gates for the areas that will be used in next wave
+                    OpenGatesForNextWaveAreas();
+                    break;
+            }
         }
     }
     
-    private IEnumerator StartNextWaveDelayed()
+    private void OpenGatesForPreviousWaveAreas()
     {
-        ChangeWaveState(WaveState.Transition);
-        
-        // Wait between waves (updated to 4 seconds to match dial countdown)
-        float delayBetweenWaves = 4f;
-        Debug.Log($"Next wave starting in {delayBetweenWaves} seconds...");
-        yield return new WaitForSeconds(delayBetweenWaves);
-        
-        StartWave(currentWaveNumber + 1);
+        if (currentWaveNumber > 0)
+        {
+            var areas = GetAreasForWave(currentWaveNumber);
+            WallManager.Instance.OpenWallsForAreas(areas);
+            Debug.Log($"Opened gates for previous wave areas: {string.Join(", ", areas)}");
+        }
+    }
+    
+    private void OpenGatesForNextWaveAreas()
+    {
+        var areas = GetAreasForWave(currentWaveNumber + 1);
+        WallManager.Instance.OpenWallsForAreas(areas);
+        Debug.Log($"Opened gates for next wave areas: {string.Join(", ", areas)}");
     }
     
     private void ChangeWaveState(WaveState newState)

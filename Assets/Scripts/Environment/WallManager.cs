@@ -256,6 +256,23 @@ public class WallManager : MonoBehaviour
         SetAllWalls(true);
     }
     
+    public void OpenWallsForAreas(SpawnerArea[] areas)
+    {
+        // First close all walls
+        CloseAllWalls();
+        
+        // Then open walls for specified areas
+        foreach (var area in areas)
+        {
+            if (area != SpawnerArea.Center) // Center doesn't have walls
+            {
+                SetWallForArea(area, false); // false = open
+            }
+        }
+        
+        Debug.Log($"Opened walls for areas: {string.Join(", ", areas)}");
+    }
+    
     // Wall state queries
     public bool IsAreaOpen(SpawnerArea area)
     {

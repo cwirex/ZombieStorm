@@ -200,9 +200,10 @@ public class PlayerSpawnManager : MonoBehaviour
     
     private void OnWaveCompleted(int waveNumber)
     {
-        // Teleport player immediately when wave ends (before doors close)
-        Debug.Log($"Wave {waveNumber} completed - teleporting player to center immediately!");
-        SpawnPlayerAtCenter();
+        // Player teleportation now happens when pressing space to start next wave
+        // No longer auto-teleporting at wave end
+        Debug.Log($"Wave {waveNumber} completed - player will be teleported when starting next wave");
+        // SpawnPlayerAtCenter(); // Commented out - teleportation moved to space press
     }
     
     private void OnWaveStarted(int waveNumber)

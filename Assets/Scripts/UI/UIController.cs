@@ -146,6 +146,14 @@ namespace Assets.Scripts.PlayerScripts {
                         enemiesLeftDisplay.gameObject.SetActive(true);
                     }
                     break;
+                case WaveState.Lobby:
+                    // Show "Press SPACE to start" in wave display
+                    UpdateLobbyDisplay();
+                    // Hide enemies left counter in lobby
+                    if (enemiesLeftDisplay != null) {
+                        enemiesLeftDisplay.gameObject.SetActive(false);
+                    }
+                    break;
                 case WaveState.Transition:
                     // Show countdown for next wave, hide enemies left counter
                     if (enemiesLeftDisplay != null) {
@@ -154,6 +162,34 @@ namespace Assets.Scripts.PlayerScripts {
                     StartDialCountdown();
                     break;
             }
+        }
+        
+        private void UpdateLobbyDisplay() {
+            if (waveDisplay != null && WaveManager.Instance != null) {
+                int nextWave = WaveManager.Instance.CurrentWaveNumber == 0 ? 1 : WaveManager.Instance.CurrentWaveNumber + 1;
+                waveDisplay.text = "Press SPACE to start";
+            }
+        }
+        
+        private void Update() {
+            // Handle input for wave start and shop
+            if (WaveManager.Instance != null && WaveManager.Instance.CurrentWaveState == WaveState.Lobby) {
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    // Teleport player to spawn point when starting wave
+                    TeleportPlayerToSpawn();
+                    
+                    WaveManager.Instance.RequestStartWave();
+                }
+                
+                if (Input.GetKeyDown(KeyCode.B)) {
+                    OpenShop();
+                }
+            }
+        }
+        
+        private void OpenShop() {
+            // TODO: Implement shop system
+            Debug.Log("Shop opened! (Not implemented yet)");
         }
         
         private IEnumerator UpdateEnemiesLeftPeriodically() {
@@ -177,6 +213,24 @@ namespace Assets.Scripts.PlayerScripts {
                 
                 // Freeze player during dial countdown
                 FreezePlayer(true);
+                
+                // Update wave display
+                if (WaveManager.Instance != null) {
+                    UpdateWaveDisplay(WaveManager.Instance.CurrentWaveNumber);
+                }
+            }
+        }
+        
+        private void TeleportPlayerToSpawn() {
+            // Use PlayerSpawner's safe teleportation method
+            var playerSpawner = FindObjectOfType<PlayerSpawner>();
+            
+            if (playerSpawner != null) {
+                playerSpawner.SpawnPlayer();
+                Debug.Log("Player teleported to spawn position using PlayerSpawner");
+            }
+            else {
+                Debug.LogWarning("PlayerSpawner not found!");
             }
         }
         
@@ -209,39 +263,20 @@ namespace Assets.Scripts.PlayerScripts {
         private void OnDialCountdownComplete() {
             // Unfreeze player when countdown completes
             FreezePlayer(false);
-        }
-        
-        private void StartInitialWaveCountdown() {
-            if (dialCountdownTimer != null) {
-                // Show wave 1 display during initial countdown
-                if (waveDisplay != null) {
-                    waveDisplay.text = GetWaveDescription(1);
-                }
-                
-                // Start countdown and trigger first wave when complete
-                dialCountdownTimer.SetCountdownDuration(4f);
-                dialCountdownTimer.OnCountdownComplete += StartFirstWaveAfterCountdown;
-                dialCountdownTimer.StartCountdown();
-                
-                // Freeze player during initial countdown
-                FreezePlayer(true);
-                
-                Debug.Log("Initial wave countdown started");
-            }
-        }
-        
-        private void StartFirstWaveAfterCountdown() {
-            // Unsubscribe from this one-time event
-            if (dialCountdownTimer != null) {
-                dialCountdownTimer.OnCountdownComplete -= StartFirstWaveAfterCountdown;
-            }
             
-            // Trigger first wave
+            // Trigger the actual wave start
             if (WaveManager.Instance != null) {
-                WaveManager.Instance.StartWave(1);
+                WaveManager.Instance.StartActualWave();
             }
-            
-            Debug.Log("First wave started after initial countdown");
+        }
+        
+        private void EnterInitialLobby() {
+            if (WaveManager.Instance != null) {
+                // Set WaveManager to lobby state
+                WaveManager.Instance.EnterLobbyMode();
+                
+                Debug.Log("Entered initial lobby mode");
+            }
         }
 
         public void SetMedsCounter(int counter) { medsCounter.text = counter.ToString();}
@@ -321,9 +356,9 @@ namespace Assets.Scripts.PlayerScripts {
                 UpdateCashDisplay(CurrencyManager.Instance.CurrentCash);
             }
             
-            // Start initial countdown for first wave if no wave has started yet
+            // Enter lobby mode for first wave if no wave has started yet
             if (WaveManager.Instance != null && WaveManager.Instance.CurrentWaveNumber == 0) {
-                StartInitialWaveCountdown();
+                EnterInitialLobby();
             }
         }
         

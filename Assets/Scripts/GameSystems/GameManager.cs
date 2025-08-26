@@ -143,11 +143,8 @@ public class GameManager : MonoBehaviour {
     private void OnWaveCompleted(int waveNumber)
     {
         Debug.Log($"GameManager: Wave {waveNumber} completed");
-        // Trigger player spawner wave completion sequence
-        if (playerSpawner != null)
-        {
-            playerSpawner.OnWaveCompleted();
-        }
+        // Note: Player teleportation now happens when pressing space to start next wave
+        // No longer auto-teleporting at wave end
     }
     
     private void SpawnPlayerAtStart()
