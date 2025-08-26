@@ -6,7 +6,6 @@ public class WaveProgressionManager : MonoBehaviour
     public static WaveProgressionManager Instance { get; private set; }
     
     [Header("Wave Progression Configuration")]
-    [SerializeField] private bool useCustomProgression = true;
     [SerializeField] private WaveProgressionConfigSO progressionConfig;
     [SerializeField] private int finalPhaseStartWave = 18;
     

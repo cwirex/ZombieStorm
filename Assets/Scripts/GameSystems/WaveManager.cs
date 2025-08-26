@@ -74,8 +74,8 @@ public class WaveManager : MonoBehaviour
             spawner.OnSpawningComplete += OnSpawnerComplete;
         }
         
-        // Start first wave after a short delay
-        StartCoroutine(StartFirstWaveDelayed());
+        // First wave will be started by UIController after initial countdown
+        // No longer auto-starting first wave
     }
     
     private void OrganizeSpawnersByArea()
@@ -102,11 +102,6 @@ public class WaveManager : MonoBehaviour
         }
     }
     
-    private IEnumerator StartFirstWaveDelayed()
-    {
-        yield return new WaitForSeconds(1f);
-        StartWave(1);
-    }
     
     public void StartWave(int waveNumber)
     {
@@ -525,8 +520,8 @@ public class WaveManager : MonoBehaviour
     {
         ChangeWaveState(WaveState.Transition);
         
-        // Wait between waves
-        float delayBetweenWaves = 3f;
+        // Wait between waves (updated to 4 seconds to match dial countdown)
+        float delayBetweenWaves = 4f;
         Debug.Log($"Next wave starting in {delayBetweenWaves} seconds...");
         yield return new WaitForSeconds(delayBetweenWaves);
         

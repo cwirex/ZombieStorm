@@ -119,7 +119,6 @@ public class WaveProgressionConfigSO : ScriptableObject
         
         // Get the appropriate phase config
         PhaseConfig phaseConfig = null;
-        int wavesInPhase = 0;
         
         if (isBossWave)
         {

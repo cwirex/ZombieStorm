@@ -20,10 +20,13 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance { get; private set; }
     
     [SerializeField] private int currentScore = 0;
+    private int previousScore = 0;
     private const int MAX_LEADERBOARD_ENTRIES = 10;
     private const string LEADERBOARD_KEY = "ZombieStorm_Leaderboard";
     
     public int CurrentScore => currentScore;
+    
+    public int GetPreviousScore() => previousScore;
     
     // Score values for different enemy types
     private readonly Dictionary<System.Type, int> scoreValues = new()
@@ -56,16 +59,32 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         ResetScore();
+        
+        // Subscribe to wave events for bonuses
+        if (WaveManager.Instance != null)
+        {
+            WaveManager.Instance.OnWaveCompleted += OnWaveCompleted;
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        if (WaveManager.Instance != null)
+        {
+            WaveManager.Instance.OnWaveCompleted -= OnWaveCompleted;
+        }
     }
     
     public void ResetScore()
     {
         currentScore = 0;
+        previousScore = 0;
         OnScoreChanged?.Invoke(currentScore);
     }
     
     public void AddScore(Enemy enemy)
     {
+        previousScore = currentScore;
         System.Type enemyType = enemy.GetType();
         
         if (scoreValues.TryGetValue(enemyType, out int points))
@@ -82,6 +101,49 @@ public class ScoreManager : MonoBehaviour
             OnScoreChanged?.Invoke(currentScore);
             Debug.LogWarning($"Unknown enemy type {enemyType.Name}, awarded default {defaultPoints} points");
         }
+    }
+    
+    private void OnWaveCompleted(int waveNumber)
+    {
+        // Calculate wave completion bonus: same as cash (100 * waveNumber + 500 * bossLevel)
+        bool isBoss = IsBossWave(waveNumber);
+        int bossLevel = isBoss ? GetBossLevel(waveNumber) : 0;
+        
+        int waveBonus = 100 * waveNumber;
+        int bossBonus = 500 * bossLevel;
+        int totalBonus = waveBonus + bossBonus;
+        
+        previousScore = currentScore;
+        currentScore += totalBonus;
+        
+        Debug.Log($"Wave {waveNumber} score bonus: {totalBonus} (Wave: {waveBonus}, Boss: {bossBonus})");
+        OnScoreChanged?.Invoke(currentScore);
+    }
+    
+    private bool IsBossWave(int waveNumber)
+    {
+        if (WaveProgressionManager.Instance != null)
+        {
+            var progression = WaveProgressionManager.Instance.GetWaveProgression(waveNumber);
+            return progression.isBossWave;
+        }
+        return false;
+    }
+    
+    private int GetBossLevel(int waveNumber)
+    {
+        // Same logic as CurrencyManager
+        if (waveNumber == 7) return 1;      // First boss
+        if (waveNumber == 12) return 2;     // Second boss  
+        if (waveNumber == 17) return 3;     // Third boss
+        
+        // Final phase bosses scale with wave number
+        if (waveNumber >= 18)
+        {
+            return 3 + ((waveNumber - 18) / 5) + 1;
+        }
+        
+        return 1; // Default boss level
     }
     
     public void GameFinished()
