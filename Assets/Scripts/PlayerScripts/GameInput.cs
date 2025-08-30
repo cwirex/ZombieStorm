@@ -35,6 +35,12 @@ public class GameInput : MonoBehaviour
     }
 
     private void Exit_performed(InputAction.CallbackContext obj) {
+        // If shop is open, close it first
+        if (Assets.Scripts.Shop.ShopManager.Instance != null && Assets.Scripts.Shop.ShopManager.Instance.IsShopOpen) {
+            Assets.Scripts.Shop.ShopManager.Instance.CloseShop();
+            return;
+        }
+        
         // Handle escape key based on current game state
         if (GameManager.Instance != null) {
             switch (GameManager.Instance.CurrentState) {
@@ -80,6 +86,11 @@ public class GameInput : MonoBehaviour
     }
 
     private void InvokeEventHandler(InteractVariant variant) {
+        // Block input when shop is open
+        if (Assets.Scripts.Shop.ShopManager.Instance != null && Assets.Scripts.Shop.ShopManager.Instance.IsShopOpen) {
+            return;
+        }
+        
         // Only process gameplay input when actually playing
         if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameState.Playing) {
             return;
@@ -89,6 +100,11 @@ public class GameInput : MonoBehaviour
     }
 
     public Vector2 GetMovementVectorNormalized() {
+        // Block movement when shop is open
+        if (Assets.Scripts.Shop.ShopManager.Instance != null && Assets.Scripts.Shop.ShopManager.Instance.IsShopOpen) {
+            return Vector2.zero;
+        }
+        
         // Only allow movement when playing
         if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameState.Playing) {
             return Vector2.zero;

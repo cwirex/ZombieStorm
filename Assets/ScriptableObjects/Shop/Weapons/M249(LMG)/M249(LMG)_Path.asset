@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: M249(LMG)_Path
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  weaponType: 5
+  weaponName: M249 (LMG)
+  weaponDescription: Lay down a relentless wall of lead. Perfect for suppressing
+    large areas and melting bosses.
+  upgrades:
+  - {fileID: 11400000, guid: e36ad8171c9021c4483bc981579db474, type: 2}
+  - {fileID: 11400000, guid: 98affe0c6a5c8d042848940a340b2c2b, type: 2}
+  - {fileID: 11400000, guid: 49835b7680e91e747a52e18b9141656b, type: 2}
+  - {fileID: 11400000, guid: 1eef188d9f1a4c54086810a8712faa2f, type: 2}
+  - {fileID: 11400000, guid: 7971dcd0ea3e84f449599cc3c19d0e53, type: 2}
+  - {fileID: 11400000, guid: 1f41b870e5d759846884e4532b0d5887, type: 2}
+  - {fileID: 11400000, guid: 9431603e5aaad9744a710664aea0c01d, type: 2}
+  - {fileID: 11400000, guid: e22c5b8350691e648b9862ec43a718f6, type: 2}
+  - {fileID: 11400000, guid: 7bc1d787245e5ff43b89fba916ea2d70, type: 2}
+  - {fileID: 0}
+  ultimateAbility: {fileID: 11400000, guid: 025c7ac19e0c1974ea7612459c0ff4b3, type: 2}
+  weaponIcon: {fileID: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: UZI(SMG)_Path
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  weaponType: 1
+  weaponName: UZI (SMG)
+  weaponDescription: Overwhelm single targets up close and thin out small groups
+    with a torrent of bullets.
+  upgrades:
+  - {fileID: 11400000, guid: 9790ab44dbf6456428c72301a2849545, type: 2}
+  - {fileID: 11400000, guid: 168125b4d43875041902a0ac3563a3ef, type: 2}
+  - {fileID: 11400000, guid: 8381a40f42dc21847b4d0e2abf098e2f, type: 2}
+  - {fileID: 11400000, guid: 2ecf55392bbc4aa429af70270cb0600d, type: 2}
+  - {fileID: 11400000, guid: 235ec582347ecc246af768782c9d34d6, type: 2}
+  - {fileID: 11400000, guid: 7492371e7a0bc5a498616dead0e1cf06, type: 2}
+  - {fileID: 11400000, guid: 01167ac73459c0c4ab0e74cd21714b16, type: 2}
+  - {fileID: 11400000, guid: 4aac1ef3942cc0242b8c6903ae9df392, type: 2}
+  - {fileID: 11400000, guid: 56b9cc52bb1292b49b5f231bbf4cfa58, type: 2}
+  - {fileID: 0}
+  ultimateAbility: {fileID: 11400000, guid: e5b29235920c89c4e9b366189d1a63e2, type: 2}
+  weaponIcon: {fileID: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 1}

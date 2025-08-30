@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AWPSniper_Path
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  weaponType: 4
+  weaponName: AWP Sniper
+  weaponDescription: One shot, one (or more) kills. A high-skill weapon that deletes
+    priority targets.
+  upgrades:
+  - {fileID: 11400000, guid: 5618e5eb0374dfb4b892da10543bd4f7, type: 2}
+  - {fileID: 11400000, guid: 27d25444ec7d5b046bb5fd5a2237554f, type: 2}
+  - {fileID: 11400000, guid: f0a7b0b8d5284a44f8e0976e98913e44, type: 2}
+  - {fileID: 11400000, guid: 70318f2000ebc204f92d15344edb5494, type: 2}
+  - {fileID: 11400000, guid: d4a9ed12d7c9b134a80d7514cd81c908, type: 2}
+  - {fileID: 11400000, guid: 5a1da2888a18ab54d9e7804a6683bb9d, type: 2}
+  - {fileID: 11400000, guid: d9ec1d0a5913d1347ab74e3f43ada2cc, type: 2}
+  - {fileID: 11400000, guid: d204c8e7d680d96448dff0441ccae1ac, type: 2}
+  - {fileID: 11400000, guid: 0092af54f4e65f942a319ce51cb9ea9a, type: 2}
+  - {fileID: 0}
+  ultimateAbility: {fileID: 11400000, guid: 9029b6eed34ce97499fe5385a6ed454c, type: 2}
+  weaponIcon: {fileID: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Flamethrower_Path
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  weaponType: 7
+  weaponName: Flamethrower
+  weaponDescription: Control space and roast hordes of weaker enemies. Sustained
+    fire becomes increasingly deadly.
+  upgrades:
+  - {fileID: 11400000, guid: bdbffe5a9ba24d4498f5336d3f907a94, type: 2}
+  - {fileID: 11400000, guid: 6501abde48b49b5468c80d5308f6f730, type: 2}
+  - {fileID: 11400000, guid: 7ce7be79c73dcb84a9cfdb33072bf3e4, type: 2}
+  - {fileID: 11400000, guid: a800a6b140f8b1d4b8dd75fb758a7fe6, type: 2}
+  - {fileID: 11400000, guid: 3ff02acd1cb11e741869b55573705d33, type: 2}
+  - {fileID: 11400000, guid: 9dc5e0e7354f8e843b60bbafbf1691fc, type: 2}
+  - {fileID: 11400000, guid: cdccfbb8665ef3e40a69f03e45547862, type: 2}
+  - {fileID: 11400000, guid: 1e2c540c71f5c6a47a5769d0831db8de, type: 2}
+  - {fileID: 11400000, guid: 4093155b17e4e824493d38d1ef97b71c, type: 2}
+  - {fileID: 0}
+  ultimateAbility: {fileID: 11400000, guid: e890f3e65007a194c81dc1083047a91b, type: 2}
+  weaponIcon: {fileID: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 1}

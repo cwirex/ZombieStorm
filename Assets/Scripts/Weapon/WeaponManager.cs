@@ -110,26 +110,51 @@ public class WeaponManager : MonoBehaviour {
     }
     
     private int GetStartingAmmoForWeapon(EWeapons weaponType) {
+        // Get weapon stats to calculate ammo based on magazine system
+        WeaponStats stats = GetWeaponStats(weaponType);
+        if (stats == null) return 0;
+        
+        // Calculate total ammo: (ExtraMagazines * MagazineCapacity)
+        // Player starts with current magazine loaded + extra magazines in reserve
+        int totalExtraAmmo = stats.ExtraMagazines * stats.MagazineCapacity;
+        
+        return totalExtraAmmo;
+    }
+    
+    private WeaponStats GetWeaponStats(EWeapons weaponType) {
         switch (weaponType) {
             case EWeapons.PISTOL:
-                return 50;      // 5 reloads (10 per mag)
+                return WeaponStatsRepository.Pistol();
             case EWeapons.UZI:
-                return 96;      // 4 reloads (24 per mag)
+                return WeaponStatsRepository.SMG();
             case EWeapons.SHOTGUN:
-                return 28;      // 4 reloads (7 per mag)
+                return WeaponStatsRepository.Shotgun();
             case EWeapons.M4:
-                return 120;     // 4 reloads (30 per mag)
+                return WeaponStatsRepository.Rifle();
             case EWeapons.AWP:
-                return 20;      // 4 reloads (5 per mag)
+                return WeaponStatsRepository.SniperRifle();
             case EWeapons.M249:
-                return 300;     // 3 reloads (100 per mag)
+                return WeaponStatsRepository.M249();
             case EWeapons.RPG7:
-                return 12;      // 3 reloads (4 per mag)
+                return WeaponStatsRepository.RPG();
             case EWeapons.FLAMETHROWER:
-                return 150;     // 3 reloads (50 per mag)
+                return WeaponStatsRepository.Flamethrower();
             default:
-                return 50;      // Default fallback
+                return null;
         }
+    }
+    
+    /// <summary>
+    /// Gets a weapon instance by type
+    /// </summary>
+    public Weapon GetWeapon(EWeapons weaponType)
+    {
+        int weaponIndex = (int)weaponType;
+        if (weaponIndex >= 0 && weaponIndex < weapons.Count && weapons[weaponIndex] != null)
+        {
+            return weapons[weaponIndex].GetComponent<Weapon>();
+        }
+        return null;
     }
 
     private void SelectWeapon(int weaponIndex) {

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Pistol_Path
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  weaponType: 0
+  weaponName: Pistol
+  weaponDescription: The reliable backup you never throw away. Its upgrades make
+    it a surprisingly viable sidearm.
+  upgrades:
+  - {fileID: 11400000, guid: 198d621b401865546936692c060c31fd, type: 2}
+  - {fileID: 11400000, guid: 225ac68761bf9634cbc5dbe10a9b2cc2, type: 2}
+  - {fileID: 11400000, guid: ad52720dbcbceb14b86a47f84ebb1a2b, type: 2}
+  - {fileID: 11400000, guid: 0b818e545ea8839479d5b496a763a7fe, type: 2}
+  - {fileID: 11400000, guid: fa7d48f6f58a2a44c856778d31706ae3, type: 2}
+  - {fileID: 11400000, guid: 5ac44d39c9f51ef46a2bf627347c17e8, type: 2}
+  - {fileID: 11400000, guid: 2ea24eb580dd80c4ca5a0a936cb3beba, type: 2}
+  - {fileID: 11400000, guid: 3a1dc908d09783449862f4de0977b970, type: 2}
+  - {fileID: 11400000, guid: a7d20aec93f0fee40847dc6951fe42a2, type: 2}
+  - {fileID: 0}
+  ultimateAbility: {fileID: 11400000, guid: 5d40ece203ed2614397b468a15e6d300, type: 2}
+  weaponIcon: {fileID: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: MainWeaponRepository
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradeRepositorySO
+  weaponPaths:
+  - {fileID: 11400000, guid: 68ab39d3809f2f94da167b3687a23dec, type: 2}
+  - {fileID: 11400000, guid: 9c7c84f9feb2c83499a4089c22413ef2, type: 2}
+  - {fileID: 11400000, guid: 28df1da438edc27459e84e1ec5395e48, type: 2}
+  - {fileID: 11400000, guid: 798dfced72494594980f65dfc1aedbc1, type: 2}
+  - {fileID: 11400000, guid: 00e361fc4d5353f429b498e0afad7039, type: 2}
+  - {fileID: 11400000, guid: f0d33685d550f8e4c936f195a5f47c15, type: 2}
+  - {fileID: 11400000, guid: 02fc1a92244467c47a414b782e9cd1aa, type: 2}
+  - {fileID: 11400000, guid: 60303929fa9d1854eb0a4c4cabec9954, type: 2}

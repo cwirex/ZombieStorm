@@ -12,6 +12,10 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.PlayerScripts {
     public class UIController : MonoBehaviour {
+        [Header("Canvas Management")]
+        [SerializeField] private GameObject gameCanvas;
+        [SerializeField] private GameObject shopCanvas;
+        
         [Header("Game UI Elements")]
         [SerializeField] private Image weaponImage;
         [SerializeField] private TMP_Text medsCounter;
@@ -40,6 +44,15 @@ namespace Assets.Scripts.PlayerScripts {
         [SerializeField] private TMP_Text leaderboardText;
         
         private void Start() {
+            // Initialize canvas states
+            InitializeCanvasStates();
+            
+            // Subscribe to shop events for canvas management
+            if (Assets.Scripts.Shop.ShopManager.Instance != null) {
+                Assets.Scripts.Shop.ShopManager.Instance.OnShopOpened += OnShopOpened;
+                Assets.Scripts.Shop.ShopManager.Instance.OnShopClosed += OnShopClosed;
+            }
+            
             // Subscribe to cash events for gameplay display
             if (CurrencyManager.Instance != null) {
                 CurrencyManager.Instance.OnCashChanged += UpdateCashDisplay;
@@ -71,6 +84,11 @@ namespace Assets.Scripts.PlayerScripts {
         
         private void OnDestroy() {
             // Unsubscribe from events to prevent memory leaks
+            if (Assets.Scripts.Shop.ShopManager.Instance != null) {
+                Assets.Scripts.Shop.ShopManager.Instance.OnShopOpened -= OnShopOpened;
+                Assets.Scripts.Shop.ShopManager.Instance.OnShopClosed -= OnShopClosed;
+            }
+            
             if (CurrencyManager.Instance != null) {
                 CurrencyManager.Instance.OnCashChanged -= UpdateCashDisplay;
             }
@@ -180,16 +198,75 @@ namespace Assets.Scripts.PlayerScripts {
                     
                     WaveManager.Instance.RequestStartWave();
                 }
-                
-                if (Input.GetKeyDown(KeyCode.B)) {
-                    OpenShop();
+            }
+            
+            // Handle B key for shop toggle (works in lobby or paused states)
+            if (Input.GetKeyDown(KeyCode.B)) {
+                HandleShopToggle();
+            }
+        }
+        
+        private void HandleShopToggle() {
+            // Only allow shop access in lobby state or when paused
+            bool canAccessShop = (WaveManager.Instance != null && WaveManager.Instance.CurrentWaveState == WaveState.Lobby) ||
+                                (GameManager.Instance != null && GameManager.Instance.CurrentState == GameState.Paused);
+            
+            if (canAccessShop && Assets.Scripts.Shop.ShopManager.Instance != null) {
+                Assets.Scripts.Shop.ShopManager.Instance.ToggleShop();
+            } else if (Assets.Scripts.Shop.ShopManager.Instance == null) {
+                Debug.LogWarning("Shop system not initialized! Make sure ShopManager is in the scene.");
+            }
+        }
+        
+        
+        private void InitializeCanvasStates() {
+            // Set initial canvas states - both disabled at start, let code manage them
+            if (gameCanvas != null) {
+                gameCanvas.SetActive(false);
+            }
+            
+            if (shopCanvas != null) {
+                shopCanvas.SetActive(false);
+            }
+        }
+        
+        private void OnShopOpened() {
+            // Show shop canvas, keep game canvas active but disable game UI
+            if (shopCanvas != null) {
+                shopCanvas.SetActive(true);
+            }
+            
+            if (gameUI != null) {
+                gameUI.SetActive(false);
+            }
+        }
+        
+        private void OnShopClosed() {
+            // Hide shop canvas, restore game UI based on current game state
+            if (shopCanvas != null) {
+                shopCanvas.SetActive(false);
+            }
+            
+            // Restore proper UI state based on game state
+            if (GameManager.Instance != null) {
+                switch (GameManager.Instance.CurrentState) {
+                    case GameState.Playing:
+                        ShowGameplay();
+                        break;
+                    case GameState.Paused:
+                        ShowPauseMenu();
+                        break;
                 }
             }
         }
         
         private void OpenShop() {
-            // TODO: Implement shop system
-            Debug.Log("Shop opened! (Not implemented yet)");
+            // Legacy method for backward compatibility
+            if (Assets.Scripts.Shop.ShopManager.Instance != null) {
+                Assets.Scripts.Shop.ShopManager.Instance.OpenShop();
+            } else {
+                Debug.LogWarning("Shop system not initialized! Make sure ShopManager is in the scene.");
+            }
         }
         
         private IEnumerator UpdateEnemiesLeftPeriodically() {
@@ -332,6 +409,15 @@ namespace Assets.Scripts.PlayerScripts {
 
         // Methods called by GameManager for different states
         public void ShowMainMenu() {
+            // Make sure game canvas is active and shop canvas is hidden
+            if (gameCanvas != null) {
+                gameCanvas.SetActive(true);
+            }
+            
+            if (shopCanvas != null) {
+                shopCanvas.SetActive(false);
+            }
+            
             pauseUI.SetActive(true);
             gameUI.SetActive(false);
             
@@ -340,6 +426,15 @@ namespace Assets.Scripts.PlayerScripts {
         }
         
         public void ShowGameplay() {
+            // Make sure game canvas is active and shop canvas is hidden
+            if (gameCanvas != null) {
+                gameCanvas.SetActive(true);
+            }
+            
+            if (shopCanvas != null) {
+                shopCanvas.SetActive(false);
+            }
+            
             pauseUI.SetActive(false);
             gameUI.SetActive(true);
             
@@ -363,6 +458,15 @@ namespace Assets.Scripts.PlayerScripts {
         }
         
         public void ShowPauseMenu() {
+            // Make sure game canvas is active and shop canvas is hidden
+            if (gameCanvas != null) {
+                gameCanvas.SetActive(true);
+            }
+            
+            if (shopCanvas != null) {
+                shopCanvas.SetActive(false);
+            }
+            
             pauseUI.SetActive(true);
             gameUI.SetActive(false);
             
@@ -376,6 +480,15 @@ namespace Assets.Scripts.PlayerScripts {
         }
         
         public void ShowGameOver() {
+            // Make sure game canvas is active and shop canvas is hidden
+            if (gameCanvas != null) {
+                gameCanvas.SetActive(true);
+            }
+            
+            if (shopCanvas != null) {
+                shopCanvas.SetActive(false);
+            }
+            
             pauseUI.SetActive(true);
             gameUI.SetActive(false);
             

@@ -12,6 +12,9 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
         
     protected float lastTimeAttacked = 0f;
     public Rigidbody rb { get; set; }
+    
+    // Public property to access health for kill tracking
+    public float CurrentHealth => Health;
 
     protected virtual void Start() {
         agent = GetComponent<NavMeshAgent>();

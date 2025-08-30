@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Shotgun_Path
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  weaponType: 2
+  weaponName: Shotgun
+  weaponDescription: Annihilate anything that gets too close with massive burst damage.
+  upgrades:
+  - {fileID: 11400000, guid: 65dee5b1b212f6a4ea86b49bf4bcbe9c, type: 2}
+  - {fileID: 11400000, guid: dda74f5450c25724683aba27b0cb6e0a, type: 2}
+  - {fileID: 11400000, guid: 1ffc05c7f83c2fb45a3c7bf1cf01ec86, type: 2}
+  - {fileID: 11400000, guid: c1c7bab402c374a4c8eb9c6439001c8d, type: 2}
+  - {fileID: 11400000, guid: bfe8902ef1e14624bbec912184125cf9, type: 2}
+  - {fileID: 11400000, guid: cb3b5e8edb91f9740b5874328ac5a093, type: 2}
+  - {fileID: 11400000, guid: 2505838ed96bbfe47a9eef725549bb09, type: 2}
+  - {fileID: 11400000, guid: 0825bed2d95c70e40bc11e5ac79ae4f7, type: 2}
+  - {fileID: 11400000, guid: b7da97d60a81c43479fd684cd3c0751a, type: 2}
+  - {fileID: 0}
+  ultimateAbility: {fileID: 11400000, guid: c9ad9b930de3cd0459a0131ec8070a29, type: 2}
+  weaponIcon: {fileID: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 1}

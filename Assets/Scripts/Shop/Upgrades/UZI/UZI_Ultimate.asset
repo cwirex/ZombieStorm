@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: UZI_Ultimate
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:UltimateAbilitySO
+  abilityName: Critical Spray
+  description: 25% chance per shot for +100% damage critical hit.
+  abilityType: 1
+  triggerChance: 0.25
+  effectDuration: 0
+  effectValue: 0
+  effectRadius: 0
+  effectPrefab: {fileID: 0}
+  activationSound: {fileID: 0}
+  effectColor: {r: 1, g: 1, b: 1, a: 1}
+  abilityIcon: {fileID: 0}

@@ -7,6 +7,10 @@ namespace Assets.Scripts.Weapon {
         public int AmmoLeft { get; private set; }
         public int CurrentAmmoInMagazine { get; private set; }
         public int MagazineCapacity { get; set; }
+        
+        // Ammo regeneration properties for LMG/Flamethrower
+        public float AmmoRegenPercentage { get; set; } = 0f; // Percentage of total ammo restored on kill
+        private int maxAmmoCapacity = 0; // Store original max ammo for regeneration calculations
 
         public static UIController UIController { get; set; }
 
@@ -37,6 +41,28 @@ namespace Assets.Scripts.Weapon {
 
         public void AddAmmo(int amount) {
             AmmoLeft += amount;
+        }
+        
+        /// <summary>
+        /// Sets the maximum ammo capacity for regeneration calculations
+        /// </summary>
+        public void SetMaxAmmoCapacity(int maxCapacity) {
+            maxAmmoCapacity = maxCapacity;
+        }
+        
+        /// <summary>
+        /// Regenerates ammo based on percentage when enemy is killed (for LMG/Flamethrower)
+        /// </summary>
+        public void RegenerateAmmoOnKill() {
+            if (AmmoRegenPercentage <= 0f || maxAmmoCapacity <= 0) return;
+            
+            int ammoToRestore = Mathf.RoundToInt(maxAmmoCapacity * (AmmoRegenPercentage / 100f));
+            if (ammoToRestore > 0) {
+                AmmoLeft += ammoToRestore;
+                // Cap at max capacity to prevent infinite ammo buildup
+                AmmoLeft = Mathf.Min(AmmoLeft, maxAmmoCapacity);
+                UpdateUI();
+            }
         }
 
         public bool IsMagazineEmpty() {

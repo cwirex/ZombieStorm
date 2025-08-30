@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: RPG-7_Path
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  weaponType: 6
+  weaponName: RPG-7
+  weaponDescription: Erase entire groups of enemies from existence. Very limited
+    ammo, very big boom.
+  upgrades:
+  - {fileID: 11400000, guid: 79a8a84a5c6abee4ab1a9ff4693adc8f, type: 2}
+  - {fileID: 11400000, guid: f2a69dc47d043cd4cb1f23fc64571100, type: 2}
+  - {fileID: 11400000, guid: ae7210e2be70ebc4ab6d65b40f63f679, type: 2}
+  - {fileID: 11400000, guid: 2690741b48797be40b6271d27d8c55e8, type: 2}
+  - {fileID: 11400000, guid: 437ec16d921ed1b4d8eaa89ead05e09d, type: 2}
+  - {fileID: 11400000, guid: 1c4cbdbae6987684a8c375dbf4781ff4, type: 2}
+  - {fileID: 11400000, guid: ef755b3b9b4432b4680ccb007433e2d6, type: 2}
+  - {fileID: 11400000, guid: fd5f1e58c6e058746b8c14ece28c7496, type: 2}
+  - {fileID: 11400000, guid: 5ef3e8b68a3d6d146897f606fb049619, type: 2}
+  - {fileID: 0}
+  ultimateAbility: {fileID: 11400000, guid: 049e5c2b41fa969428dfaa8081c45ef1, type: 2}
+  weaponIcon: {fileID: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 1}

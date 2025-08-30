@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: M4Rifle_Ultimate
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:UltimateAbilitySO
+  abilityName: Armor Piercer
+  description: Each shot deals +1% of target's max health as bonus damage
+  abilityType: 3
+  triggerChance: 1
+  effectDuration: 0
+  effectValue: 0
+  effectRadius: 0
+  effectPrefab: {fileID: 0}
+  activationSound: {fileID: 0}
+  effectColor: {r: 1, g: 1, b: 1, a: 1}
+  abilityIcon: {fileID: 0}

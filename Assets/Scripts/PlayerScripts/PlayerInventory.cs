@@ -12,6 +12,10 @@ public class PlayerInventory : MonoBehaviour {
 
     [SerializeField] private GameObject pfTnt;
     [SerializeField] private LayerMask physicalObjects;
+    
+    // Maximum storage capacities
+    public const int MAX_MEDKITS = 5;
+    public const int MAX_TNT = 100;
 
     private Player player;
     private List<Item> items = new List<Item>();
@@ -25,8 +29,8 @@ public class PlayerInventory : MonoBehaviour {
     }
 
     public void InitializeInventory() {
-        int nMedkits = 3;
-        int nTnt = 15;
+        int nMedkits = 1; // Starting amount - max storage is 5
+        int nTnt = 3;     // Starting amount - max storage is 100  
         AddItem(new Medkit(200f, nMedkits));
         AddItem(new TNT(nTnt));
     }
@@ -87,5 +91,75 @@ public class PlayerInventory : MonoBehaviour {
 
     private void SpawnTNT(Vector3 position) {
         Instantiate(pfTnt, position, Quaternion.identity);
+    }
+    
+    /// <summary>
+    /// Gets the current amount of medkits in inventory
+    /// </summary>
+    public int GetMedkitCount() {
+        if (TryGetItem(out Medkit medkit)) {
+            return medkit.Amount;
+        }
+        return 0;
+    }
+    
+    /// <summary>
+    /// Gets the current amount of TNT in inventory  
+    /// </summary>
+    public int GetTNTCount() {
+        if (TryGetItem(out TNT tnt)) {
+            return tnt.Amount;
+        }
+        return 0;
+    }
+    
+    /// <summary>
+    /// Checks if player can store more medkits
+    /// </summary>
+    public bool CanAddMedkits(int amount = 1) {
+        return GetMedkitCount() + amount <= MAX_MEDKITS;
+    }
+    
+    /// <summary>
+    /// Checks if player can store more TNT
+    /// </summary>
+    public bool CanAddTNT(int amount = 1) {
+        return GetTNTCount() + amount <= MAX_TNT;
+    }
+    
+    /// <summary>
+    /// Adds medkits to inventory if there's space
+    /// </summary>
+    public bool TryAddMedkits(int amount) {
+        if (!CanAddMedkits(amount)) {
+            Debug.Log($"Cannot add {amount} medkits - would exceed max capacity of {MAX_MEDKITS}");
+            return false;
+        }
+        
+        if (TryGetItem(out Medkit medkit)) {
+            medkit.AddAmount(amount);
+            uiController.SetMedsCounter(medkit.Amount);
+        } else {
+            AddItem(new Medkit(200f, amount));
+        }
+        return true;
+    }
+    
+    /// <summary>
+    /// Adds TNT to inventory if there's space
+    /// </summary>
+    public bool TryAddTNT(int amount) {
+        if (!CanAddTNT(amount)) {
+            Debug.Log($"Cannot add {amount} TNT - would exceed max capacity of {MAX_TNT}");
+            return false;
+        }
+        
+        if (TryGetItem(out TNT tnt)) {
+            tnt.AddAmount(amount);
+            uiController.SetTntsCounter(tnt.Amount);
+        } else {
+            AddItem(new TNT(amount));
+        }
+        return true;
     }
 }

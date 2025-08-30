@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: M4Rifle_Level9
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradeSO
+  level: 9
+  costPercentage: 50
+  description: +8% Fire Rate (9.51) & -10% Recoil
+  statModifiers:
+  - statType: 2
+    modifierType: 2
+    value: 8
+    description: +8% Fire Rate
+  - statType: 6
+    modifierType: 2
+    value: -10
+    description: -10% Recoil
+  upgradeIcon: {fileID: 0}
+  upgradeColor: {r: 1, g: 1, b: 1, a: 1}
