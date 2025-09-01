@@ -226,7 +226,8 @@ namespace Assets.Scripts.Shop
                 return (0, 0, 0);
             }
             
-            int bulkPrice = strategy.GetBulkPrice();
+            // Calculate dynamic bulk price based on current quantity
+            int bulkPrice = GetBulkPrice(itemType, currentQuantity, bulkQuantity);
             
             // Calculate individual prices sum for savings calculation
             int individualTotal = 0;

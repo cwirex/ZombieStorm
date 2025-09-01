@@ -69,7 +69,6 @@ namespace Assets.Scripts.Weapon {
                     if (Ammo.Reload()) {
                         // Shoot();
                     } else {
-                        Debug.Log("No ammo in magazine and unable to reload.");
                     }
                 }
             }   

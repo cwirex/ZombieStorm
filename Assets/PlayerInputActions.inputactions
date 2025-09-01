@@ -51,15 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Inventory",
-                    "type": "Button",
-                    "id": "6221ccb0-1f47-4bea-b396-cbc49306d42c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Exit",
                     "type": "Button",
                     "id": "16c8af73-a006-4982-8ae5-9eacbdb63b32",
@@ -193,6 +184,17 @@
                 },
                 {
                     "name": "",
+                    "id": "73c45d15-e260-4a23-b236-8f2ada34f7d2",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "962fc038-676a-4137-aa27-f6cbe608d78e",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -248,12 +250,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1de83d70-616e-4266-8751-7994bc9bbd70",
-                    "path": "<Keyboard>/i",
+                    "id": "35a25079-41f3-4873-b6c7-e4fef71576f5",
+                    "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventory",
+                    "action": "Heal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

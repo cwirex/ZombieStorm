@@ -101,8 +101,6 @@ public class Wall : MonoBehaviour
         }
         
         OnWallStateChanged?.Invoke(this, active);
-        
-        Debug.Log($"Wall {wallPosition} set to {(active ? "ACTIVE (blocking AI)" : "INACTIVE (AI can pass)")}");
     }
     
     public void TakeDamage(float damage)

@@ -91,7 +91,7 @@ public class WaveCountdownTimer : MonoBehaviour
         dialTimer.StopTimer(); // Reset if running
         dialTimer.StartTimer();
         
-        Debug.Log($"Wave countdown started: {countdownDuration} seconds");
+        Debug.Log($"Wave countdown timer started for {countdownDuration} seconds");
         
         // Start coroutine to track countdown ticks
         StartCoroutine(CountdownTickCoroutine());
@@ -105,7 +105,6 @@ public class WaveCountdownTimer : MonoBehaviour
         dialTimer.StopTimer();
         gameObject.SetActive(false);
         
-        Debug.Log("Wave countdown stopped");
     }
     
     private IEnumerator CountdownTickCoroutine()
@@ -132,7 +131,6 @@ public class WaveCountdownTimer : MonoBehaviour
         isCountdownActive = false;
         gameObject.SetActive(false);
         
-        Debug.Log("Wave countdown completed");
         OnCountdownComplete?.Invoke();
     }
     

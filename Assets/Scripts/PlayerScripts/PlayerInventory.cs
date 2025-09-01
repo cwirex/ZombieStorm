@@ -14,8 +14,8 @@ public class PlayerInventory : MonoBehaviour {
     [SerializeField] private LayerMask physicalObjects;
     
     // Maximum storage capacities
-    public const int MAX_MEDKITS = 5;
-    public const int MAX_TNT = 100;
+    public const int MAX_MEDKITS = 3;
+    public const int MAX_TNT = 30;
 
     private Player player;
     private List<Item> items = new List<Item>();

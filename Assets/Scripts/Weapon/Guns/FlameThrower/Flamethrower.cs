@@ -54,7 +54,6 @@ namespace Assets.Scripts.Weapon {
                 if (Ammo.Reload()) {
                     OnShootPerformed(); // Try again after reload
                 } else {
-                    Debug.Log("Flamethrower: No fuel left to reload.");
                 }
             }
         }
@@ -75,7 +74,6 @@ namespace Assets.Scripts.Weapon {
                     // Out of fuel - stop shooting
                     OnShootCanceled();
                     if (!Ammo.Reload()) {
-                        Debug.Log("Flamethrower: Out of fuel!");
                     }
                 } else {
                     Ammo.Use(1); // Consume 1 fuel unit

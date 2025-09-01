@@ -44,6 +44,21 @@ namespace Assets.Scripts.Weapon {
         }
         
         /// <summary>
+        /// Sets ammo to zero (clears all ammo)
+        /// </summary>
+        public void ClearAmmo() {
+            AmmoLeft = 0;
+            CurrentAmmoInMagazine = 0;
+        }
+        
+        /// <summary>
+        /// Sets total reserve ammo (not including magazine)
+        /// </summary>
+        public void SetReserveAmmo(int amount) {
+            AmmoLeft = amount;
+        }
+        
+        /// <summary>
         /// Sets the maximum ammo capacity for regeneration calculations
         /// </summary>
         public void SetMaxAmmoCapacity(int maxCapacity) {

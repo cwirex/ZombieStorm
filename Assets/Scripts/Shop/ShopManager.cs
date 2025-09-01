@@ -22,7 +22,6 @@ namespace Assets.Scripts.Shop
         // Core services
         private WeaponUpgradeService upgradeService;
         private WeaponUpgradeRepositorySO weaponRepository;
-        private Dictionary<EWeapons, WeaponStatsAdapter> weaponAdapters;
         
         // Static instance for easy access
         public static ShopManager Instance { get; private set; }
@@ -73,9 +72,6 @@ namespace Assets.Scripts.Shop
         
         private void InitializeShop()
         {
-            // Initialize weapon adapters dictionary
-            weaponAdapters = new Dictionary<EWeapons, WeaponStatsAdapter>();
-            
             // Load the auto-generated weapon repository
             LoadMainWeaponRepository();
             
@@ -184,6 +180,8 @@ namespace Assets.Scripts.Shop
             // Purchase weapon (set to level 1)
             WeaponLevelTracker.Instance.PurchaseWeapon(weaponType);
             
+            Debug.Log($"🛒 PURCHASED {weaponType} for ${cost} - now owned at level 1");
+            
             // Initialize weapon adapter with base stats
             InitializeWeaponAdapter(weaponType);
             
@@ -251,10 +249,7 @@ namespace Assets.Scripts.Shop
             // Trigger events
             OnWeaponUpgraded?.Invoke(weaponType, nextLevel, cost);
             
-            if (debugMode)
-            {
-                Debug.Log($"Upgraded {weaponType} to level {nextLevel} for ${cost}");
-            }
+            Debug.Log($"Upgraded {weaponType} to level {nextLevel} for ${cost}");
             
             return true;
         }
@@ -323,6 +318,21 @@ namespace Assets.Scripts.Shop
             // Get current quantity owned
             int currentQuantity = GetConsumableQuantity(itemType);
             
+            // Check inventory capacity
+            bool canAdd = itemType switch
+            {
+                ConsumableType.Medkit => playerInventory.CanAddMedkits(quantity),
+                ConsumableType.TNT => playerInventory.CanAddTNT(quantity),
+                _ => false
+            };
+            
+            if (!canAdd)
+            {
+                if (debugMode)
+                    Debug.Log($"Cannot purchase {quantity}x {itemType}: would exceed inventory capacity");
+                return false;
+            }
+            
             // Calculate cost
             int totalCost = quantity == 1
                 ? ConsumablePricingService.Instance.GetPrice(itemType, currentQuantity)
@@ -361,10 +371,12 @@ namespace Assets.Scripts.Shop
             if (playerInventory == null)
                 return 0;
             
-            // This would need to be implemented based on how PlayerInventory stores items
-            // For now, we'll return a placeholder
-            // TODO: Implement actual inventory quantity checking
-            return 0;
+            return itemType switch
+            {
+                ConsumableType.Medkit => playerInventory.GetMedkitCount(),
+                ConsumableType.TNT => playerInventory.GetTNTCount(),
+                _ => 0
+            };
         }
         
         /// <summary>
@@ -469,26 +481,73 @@ namespace Assets.Scripts.Shop
         
         private void ApplyUpgradeToWeapon(EWeapons weaponType, int level)
         {
-            if (upgradeService == null)
+            if (upgradeService == null || weaponManager == null)
                 return;
             
-            // Get weapon adapter or create one
-            if (!weaponAdapters.TryGetValue(weaponType, out var adapter))
+            // Get weapon adapter from WeaponManager
+            var adapter = weaponManager.GetWeaponAdapter(weaponType);
+            if (adapter == null)
             {
-                // This would need actual weapon stats from the weapon system
-                // For now, it's a placeholder
                 if (debugMode)
                 {
-                    Debug.Log($"Would apply level {level} upgrade to {weaponType}");
+                    Debug.LogWarning($"No weapon adapter found for {weaponType}. Weapon may not be owned or initialized.");
                 }
                 return;
             }
             
-            // Apply upgrade
-            upgradeService.ApplyUpgrade(weaponType, level, adapter);
+            Debug.Log($"🔧 UPGRADING {weaponType} to level {level}:");
+            Debug.Log($"  Before upgrade: Damage={adapter.Damage}, MagCap={adapter.MagazineCapacity}, ExtraMags={adapter.ExtraMagazines}");
             
-            // Update weapon ammo to reflect new magazine capacity and extra magazines
-            UpdateWeaponAmmo(weaponType);
+            // Apply upgrade
+            bool success = upgradeService.ApplyUpgrade(weaponType, level, adapter);
+            if (success)
+            {
+                Debug.Log($"  After upgrade: Damage={adapter.Damage}, MagCap={adapter.MagazineCapacity}, ExtraMags={adapter.ExtraMagazines}");
+                
+                // Instead of syncing to old weapon, recreate weapon with upgraded stats!
+                if (weaponManager != null)
+                {
+                    weaponManager.RecreateWeaponWithUpgrades(weaponType);
+                    Debug.Log($"🔄 Recreating {weaponType} with upgraded stats");
+                }
+                else
+                {
+                    // Fallback: sync to existing weapon (old approach)
+                    adapter.SyncToOriginalStats();
+                    UpdateWeaponAmmo(weaponType);
+                }
+                
+            }
+            else
+            {
+                Debug.LogError($"❌ Failed to upgrade {weaponType} to level {level}");
+            }
+        }
+        
+        /// <summary>
+        /// Applies all upgrades from level 2 to target level to a weapon adapter
+        /// Called by WeaponManager during weapon initialization
+        /// </summary>
+        public void ApplyAllUpgradesToAdapter(EWeapons weaponType, int targetLevel, WeaponStatsAdapter adapter)
+        {
+            if (upgradeService == null)
+            {
+                Debug.LogError($"ApplyAllUpgradesToAdapter: upgradeService is null for {weaponType}");
+                return;
+            }
+            
+            if (adapter == null)
+            {
+                Debug.LogError($"ApplyAllUpgradesToAdapter: adapter is null for {weaponType}");
+                return;
+            }
+            
+            bool success = upgradeService.ApplyAllUpgrades(weaponType, targetLevel, adapter);
+            
+            if (!success)
+            {
+                Debug.LogError($"❌ Failed to apply all upgrades to {weaponType} adapter");
+            }
         }
         
         /// <summary>
@@ -552,18 +611,20 @@ namespace Assets.Scripts.Shop
             if (playerInventory == null)
                 return;
             
-            // This would add items to the actual inventory
-            // Implementation depends on existing inventory system
             switch (itemType)
             {
                 case ConsumableType.Medkit:
-                    var medkit = new Medkit(50f, quantity); // 50% healing
-                    playerInventory.AddItem(medkit);
+                    if (!playerInventory.TryAddMedkits(quantity))
+                    {
+                        Debug.LogWarning($"Failed to add {quantity} medkits - inventory may be full");
+                    }
                     break;
                     
                 case ConsumableType.TNT:
-                    var tnt = new TNT(quantity);
-                    playerInventory.AddItem(tnt);
+                    if (!playerInventory.TryAddTNT(quantity))
+                    {
+                        Debug.LogWarning($"Failed to add {quantity} TNT - inventory may be full");
+                    }
                     break;
             }
         }

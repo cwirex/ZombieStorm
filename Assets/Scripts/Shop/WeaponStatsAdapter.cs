@@ -342,11 +342,6 @@ namespace Assets.Scripts.Shop
             baseStats.BulletSpeed = calculatedBulletSpeed;
             baseStats.MagazineCapacity = calculatedMagazineCapacity;
             baseStats.ExtraMagazines = calculatedExtraMagazines;
-            
-            if (debugMode)
-            {
-                Debug.Log("Synchronized adapter stats to original WeaponStats object");
-            }
         }
         
         /// <summary>

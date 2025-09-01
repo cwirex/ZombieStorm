@@ -304,7 +304,6 @@ namespace Assets.Scripts.PlayerScripts {
             
             if (playerSpawner != null) {
                 playerSpawner.SpawnPlayer();
-                Debug.Log("Player teleported to spawn position using PlayerSpawner");
             }
             else {
                 Debug.LogWarning("PlayerSpawner not found!");
@@ -334,7 +333,7 @@ namespace Assets.Scripts.PlayerScripts {
         
         private void OnDialCountdownTick(int secondsRemaining) {
             // Could display remaining seconds somewhere if needed
-            Debug.Log($"Wave countdown: {secondsRemaining}");
+            // Countdown progress shown via UI, no need to log each second
         }
         
         private void OnDialCountdownComplete() {

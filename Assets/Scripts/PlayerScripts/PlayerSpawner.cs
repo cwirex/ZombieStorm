@@ -29,7 +29,6 @@ public class PlayerSpawner : MonoBehaviour
             player = FindObjectOfType<Player>();
         }
         
-        Debug.Log($"PlayerSpawner ready at position {transform.position}");
     }
     
     public void SpawnPlayer()
@@ -69,7 +68,6 @@ public class PlayerSpawner : MonoBehaviour
         player.transform.position = transform.position;
         player.transform.rotation = transform.rotation;
         
-        Debug.Log($"Teleported player to: {transform.position}, actual position: {player.transform.position}");
         
         // Wait another frame
         yield return null;
@@ -89,7 +87,6 @@ public class PlayerSpawner : MonoBehaviour
         
         hasSpawned = true;
         
-        Debug.Log($"Player teleported safely to position: {transform.position}");
         OnPlayerSpawned?.Invoke();
     }
     
@@ -140,18 +137,16 @@ public class PlayerSpawner : MonoBehaviour
         // Teleport player safely
         yield return StartCoroutine(TeleportPlayerSafely());
         
-        Debug.Log("Player teleported - ready for next wave");
     }
     
     private System.Collections.IEnumerator StartWaveCountdown()
     {
-        Debug.Log("Starting wave countdown");
+        Debug.Log($"Wave countdown initiated for {(int)countdownDuration} seconds");
         OnCountdownStarted?.Invoke();
         
         // Countdown 3...2...1...
         for (int i = (int)countdownDuration; i > 0; i--)
         {
-            Debug.Log($"Wave starting in: {i}");
             yield return new WaitForSeconds(1f);
         }
         
@@ -202,7 +197,6 @@ public class PlayerSpawner : MonoBehaviour
         var gameInput = player.GetComponent<GameInput>();
         if (gameInput) gameInput.enabled = true;
         
-        Debug.Log("Player unfrozen - wave started");
     }
     
     // Debug visualization

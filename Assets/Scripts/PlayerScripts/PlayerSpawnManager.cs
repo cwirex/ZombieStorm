@@ -65,7 +65,6 @@ public class PlayerSpawnManager : MonoBehaviour
         // Subscribe to game events
         if (GameManager.Instance != null)
         {
-            Debug.Log("PlayerSpawnManager connected to GameManager");
         }
         
         // Subscribe to wave events
@@ -74,7 +73,6 @@ public class PlayerSpawnManager : MonoBehaviour
         {
             waveManager.OnWaveCompleted += OnWaveCompleted; // Teleport immediately when wave ends
             waveManager.OnWaveStarted += OnWaveStarted;
-            Debug.Log("PlayerSpawnManager connected to WaveManager");
         }
         
         // Spawn player at center on game start
@@ -97,7 +95,6 @@ public class PlayerSpawnManager : MonoBehaviour
         // Reset player rotation to face north (forward)
         player.transform.rotation = Quaternion.identity;
         
-        Debug.Log($"Player spawned at center position: {spawnPos}");
         
         // Ensure player is in the center area
         ValidatePlayerInCenter();
@@ -209,7 +206,6 @@ public class PlayerSpawnManager : MonoBehaviour
     private void OnWaveStarted(int waveNumber)
     {
         // Wave started - player should already be in center from wave completion
-        Debug.Log($"Wave {waveNumber} started - player should already be centered");
     }
     
     public void OnWaveStart(int waveNumber)

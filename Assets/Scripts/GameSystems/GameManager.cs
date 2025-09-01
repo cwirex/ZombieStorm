@@ -173,7 +173,6 @@ public class GameManager : MonoBehaviour {
     
     private void OnWaveStateChanged(object waveState)
     {
-        Debug.Log($"GameManager: Wave state changed to {waveState}");
         // Future: Handle different wave states (preparing, active, cleanup, etc.)
     }
     

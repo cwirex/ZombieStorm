@@ -97,7 +97,13 @@ namespace Assets.Scripts.Shop
             {
                 buyButton.onClick.RemoveAllListeners();
                 buyButton.onClick.AddListener(() => shopUI.OnConsumablePurchaseClicked(itemInfo.itemType, 1));
-                buyButton.interactable = CurrencyManager.Instance.CurrentCash >= itemInfo.nextPrice;
+                
+                // Check both money and inventory capacity
+                int maxQuantity = ConsumablePricingService.Instance.GetMaxQuantity(itemInfo.itemType);
+                bool hasEnoughMoney = CurrencyManager.Instance.CurrentCash >= itemInfo.nextPrice;
+                bool hasInventorySpace = itemInfo.currentQuantity < maxQuantity;
+                
+                buyButton.interactable = hasEnoughMoney && hasInventorySpace;
                 
                 // Set button text to simply "BUY"
                 var buttonText = buyButton.GetComponentInChildren<TMP_Text>();
@@ -115,7 +121,13 @@ namespace Assets.Scripts.Shop
                     buyBulkButton.gameObject.SetActive(true);
                     buyBulkButton.onClick.RemoveAllListeners();
                     buyBulkButton.onClick.AddListener(() => shopUI.OnConsumablePurchaseClicked(itemInfo.itemType, itemInfo.bulkQuantity));
-                    buyBulkButton.interactable = CurrencyManager.Instance.CurrentCash >= itemInfo.bulkPrice;
+                    
+                    // Check both money and inventory capacity for bulk purchase
+                    int maxQuantity = ConsumablePricingService.Instance.GetMaxQuantity(itemInfo.itemType);
+                    bool hasEnoughMoney = CurrencyManager.Instance.CurrentCash >= itemInfo.bulkPrice;
+                    bool hasInventorySpace = itemInfo.currentQuantity + itemInfo.bulkQuantity <= maxQuantity;
+                    
+                    buyBulkButton.interactable = hasEnoughMoney && hasInventorySpace;
                     
                     // Set bulk button text (e.g., "x10")
                     var buttonText = buyBulkButton.GetComponentInChildren<TMP_Text>();

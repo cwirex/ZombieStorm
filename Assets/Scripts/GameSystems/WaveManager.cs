@@ -500,6 +500,7 @@ public class WaveManager : MonoBehaviour
         // Check if all active spawners are complete
         bool allComplete = true;
         int activeSpawnersCount = 0;
+        int remainingSpawners = 0;
         
         foreach (var spawner in allSpawners)
         {
@@ -510,8 +511,7 @@ public class WaveManager : MonoBehaviour
                 if (!spawner.IsSpawningComplete())
                 {
                     allComplete = false;
-                    Debug.Log($"Spawner {spawner.name} still spawning: {spawner.GetRemainingEnemies()} enemies left");
-                    break;
+                    remainingSpawners++;
                 }
             }
         }
@@ -519,7 +519,7 @@ public class WaveManager : MonoBehaviour
         if (allComplete && activeSpawnersCount > 0)
         {
             allSpawnersComplete = true;
-            Debug.Log($"All {activeSpawnersCount} active spawners completed spawning");
+            Debug.Log($"All {activeSpawnersCount} spawners completed wave spawning");
             CheckWaveCompletion();
         }
         else if (activeSpawnersCount == 0)
@@ -530,7 +530,6 @@ public class WaveManager : MonoBehaviour
     
     private void CheckWaveCompletion()
     {
-        Debug.Log($"CheckWaveCompletion: State={currentWaveState}, SpawnersComplete={allSpawnersComplete}, ActiveEnemies={activeEnemyCount}");
         
         if ((currentWaveState == WaveState.Active || currentWaveState == WaveState.Cleanup) && allSpawnersComplete && activeEnemyCount == 0)
         {
@@ -611,7 +610,6 @@ public class WaveManager : MonoBehaviour
     {
         currentWaveState = newState;
         OnWaveStateChanged?.Invoke(currentWaveState);
-        Debug.Log($"Wave state changed to: {currentWaveState}");
     }
     
     public int GetActiveEnemyCount()

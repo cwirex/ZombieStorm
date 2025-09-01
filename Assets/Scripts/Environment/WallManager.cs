@@ -171,7 +171,6 @@ public class WallManager : MonoBehaviour
             if (area != SpawnerArea.Center) // Center doesn't need walls opened
             {
                 SetWallForArea(area, false); // false = open wall
-                Debug.Log($"Opened wall for {area}");
             }
         }
     }

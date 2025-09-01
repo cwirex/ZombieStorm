@@ -20,7 +20,7 @@ namespace Assets.Scripts.Weapon {
         public static WeaponStats Pistol() {
             // Base Stats: 30 Dmg, 2.0 FR, 10 Mag, 3 Magazines = 60 DPS
             WeaponStats stats = BaseStats();
-            stats.ExtraMagazines = 2; // 3 total magazines (1 + 2 extra)
+            stats.ExtraMagazines = 11; // More magazines for pistol (base weapon)
             return stats;
         }
 

@@ -92,7 +92,7 @@ Add components:
   - Description (Text - TMP) - shows short upgrade descriptions like "+10% DMG"
   - Price (Text - TMP) - upgrade cost
   - ActionButton (Button) - contains child TMP_Text that shows "BUY", "UPGRADE", or "MAX"
-
+.
 Save as Prefab in Assets/Prefabs/UI/
 ```
 

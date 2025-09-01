@@ -50,7 +50,6 @@ public class Spawner : MonoBehaviour
         currentWaveEnemiesSpawned = 0;
         currentWaveTargetCount = currentWaveConfig.enemyCount;
         
-        Debug.Log($"Spawner {gameObject.name} starting wave with {currentWaveTargetCount} enemies");
         
         isSpawning = true;
         spawningCoroutine = StartCoroutine(SpawnEnemiesCoroutine());
@@ -65,7 +64,6 @@ public class Spawner : MonoBehaviour
         }
         
         isSpawning = false;
-        Debug.Log($"Spawner {gameObject.name} stopped spawning");
     }
     
     public bool IsSpawningComplete()
@@ -128,7 +126,6 @@ public class Spawner : MonoBehaviour
         
         // Spawning complete
         isSpawning = false;
-        Debug.Log($"Spawner {gameObject.name} completed spawning {currentWaveEnemiesSpawned} enemies");
         OnSpawningComplete?.Invoke();
     }
     

@@ -47,7 +47,6 @@ namespace Assets.Scripts.Weapon {
                     if (Ammo.Reload()) {
                         // Successfully reloaded, could try shooting again
                     } else {
-                        Debug.Log("SMG: No ammo left to reload.");
                     }
                 }
             }

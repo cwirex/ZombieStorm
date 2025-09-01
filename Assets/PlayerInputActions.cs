@@ -73,15 +73,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Inventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""6221ccb0-1f47-4bea-b396-cbc49306d42c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Exit"",
                     ""type"": ""Button"",
                     ""id"": ""16c8af73-a006-4982-8ae5-9eacbdb63b32"",
@@ -215,6 +206,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""73c45d15-e260-4a23-b236-8f2ada34f7d2"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""962fc038-676a-4137-aa27-f6cbe608d78e"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -270,12 +272,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1de83d70-616e-4266-8751-7994bc9bbd70"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""id"": ""35a25079-41f3-4873-b6c7-e4fef71576f5"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Inventory"",
+                    ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -302,7 +304,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_SelectWeapon = m_Player.FindAction("SelectWeapon", throwIfNotFound: true);
         m_Player_Heal = m_Player.FindAction("Heal", throwIfNotFound: true);
-        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
     }
 
@@ -370,7 +371,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_SelectWeapon;
     private readonly InputAction m_Player_Heal;
-    private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Exit;
     public struct PlayerActions
     {
@@ -381,7 +381,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @SelectWeapon => m_Wrapper.m_Player_SelectWeapon;
         public InputAction @Heal => m_Wrapper.m_Player_Heal;
-        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Exit => m_Wrapper.m_Player_Exit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -407,9 +406,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Heal.started += instance.OnHeal;
             @Heal.performed += instance.OnHeal;
             @Heal.canceled += instance.OnHeal;
-            @Inventory.started += instance.OnInventory;
-            @Inventory.performed += instance.OnInventory;
-            @Inventory.canceled += instance.OnInventory;
             @Exit.started += instance.OnExit;
             @Exit.performed += instance.OnExit;
             @Exit.canceled += instance.OnExit;
@@ -432,9 +428,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Heal.started -= instance.OnHeal;
             @Heal.performed -= instance.OnHeal;
             @Heal.canceled -= instance.OnHeal;
-            @Inventory.started -= instance.OnInventory;
-            @Inventory.performed -= instance.OnInventory;
-            @Inventory.canceled -= instance.OnInventory;
             @Exit.started -= instance.OnExit;
             @Exit.performed -= instance.OnExit;
             @Exit.canceled -= instance.OnExit;
@@ -462,7 +455,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnSelectWeapon(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
-        void OnInventory(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
     }
 }
