@@ -251,7 +251,9 @@ namespace Assets.Scripts.Shop
                 ? WeaponUpgradeCostCalculator.CalculateNextLevelCost(weaponType, currentLevel)
                 : -1;
             
-            int totalInvestment = WeaponUpgradeCostCalculator.CalculateCumulativeCost(weaponType, currentLevel);
+            int totalInvestment = isOwned && currentLevel > 0 
+                ? WeaponUpgradeCostCalculator.CalculateCumulativeCost(weaponType, currentLevel)
+                : 0;
             
             string nextUpgradeDescription = "";
             if (isOwned && currentLevel < 10 && upgradeService != null)
@@ -352,9 +354,8 @@ namespace Assets.Scripts.Shop
             int currentQuantity = GetConsumableQuantity(itemType);
             int nextPrice = ConsumablePricingService.Instance.GetPrice(itemType, currentQuantity);
             
-            var bulkOption = itemType == ConsumableType.TNT 
-                ? ConsumablePricingService.Instance.GetTNTBulkOption()
-                : (quantity: 0, totalPrice: 0, savings: 0);
+            // Use the new generic bulk option method
+            var bulkOption = ConsumablePricingService.Instance.GetBulkOption(itemType, currentQuantity);
             
             return new ConsumableShopInfo
             {

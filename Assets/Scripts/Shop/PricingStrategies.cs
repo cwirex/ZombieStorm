@@ -115,4 +115,85 @@ namespace Assets.Scripts.Shop
             return bulkQuantity;
         }
     }
+    
+    /// <summary>
+    /// Fixed pricing for medkits with bulk discount only when player has none
+    /// Prices: $150, $250, $450 (max 3 medkits)
+    /// Bulk: 3 for $750 (save $100) only when owning 0 medkits
+    /// </summary>
+    public class FixedMedkitPricingStrategy : IPricingStrategy
+    {
+        private readonly int[] fixedPrices = { 150, 250, 450 }; // Prices for 1st, 2nd, 3rd medkit
+        private readonly int bulkQuantity = 3;
+        private readonly int bulkPrice = 750; // $850 - $100 savings = $750
+        private readonly int maxQuantity = 3;
+        
+        public int CalculatePrice(int currentQuantity)
+        {
+            if (currentQuantity < 0 || currentQuantity >= maxQuantity)
+                return 0; // No more medkits can be purchased
+            
+            return fixedPrices[currentQuantity];
+        }
+        
+        public int GetBulkPrice()
+        {
+            return bulkPrice;
+        }
+        
+        public int GetBulkQuantity()
+        {
+            return bulkQuantity;
+        }
+        
+        public int GetMaxQuantity()
+        {
+            return maxQuantity;
+        }
+        
+        public bool CanPurchaseBulk(int currentQuantity)
+        {
+            return currentQuantity == 0; // Only allow bulk purchase when player has 0 medkits
+        }
+    }
+    
+    /// <summary>
+    /// Fixed pricing for TNT with max limit and bulk discount
+    /// Price: $50 each, max 30 TNT, bulk 10 for 50% savings
+    /// </summary>
+    public class TNTPricingStrategy : IPricingStrategy
+    {
+        private readonly int singlePrice = 50;
+        private readonly int bulkQuantity = 10;
+        private readonly int maxQuantity = 30;
+        private readonly float discountPercentage = 0.5f; // 50% savings
+        
+        public int CalculatePrice(int currentQuantity)
+        {
+            if (currentQuantity >= maxQuantity)
+                return 0; // Cannot purchase more TNT
+                
+            return singlePrice;
+        }
+        
+        public int GetBulkPrice()
+        {
+            return 450; // Fixed bulk price of $450 for 10 TNT
+        }
+        
+        public int GetBulkQuantity()
+        {
+            return bulkQuantity;
+        }
+        
+        public int GetMaxQuantity()
+        {
+            return maxQuantity;
+        }
+        
+        public bool CanPurchaseBulk(int currentQuantity)
+        {
+            return currentQuantity + bulkQuantity <= maxQuantity; // Can buy bulk if won't exceed max
+        }
+    }
 }

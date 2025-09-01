@@ -21,6 +21,14 @@ namespace Assets.Scripts.Shop
     public interface IPricingStrategy
     {
         int CalculatePrice(int currentQuantity);
+        
+        // Optional bulk purchase support
+        int GetBulkQuantity() => 0;
+        int GetBulkPrice() => 0;
+        
+        // Optional max quantity support  
+        int GetMaxQuantity() => int.MaxValue;
+        bool CanPurchaseBulk(int currentQuantity) => GetBulkQuantity() > 0;
     }
 
     /// <summary>

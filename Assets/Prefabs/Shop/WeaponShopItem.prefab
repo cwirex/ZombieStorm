@@ -66,9 +66,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 256b17f65ca4560449866be321c6b6b2, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -85,6 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 530068038241095850}
+  - component: {fileID: 8617493653467852363}
   m_Layer: 5
   m_Name: WeaponShopItem
   m_TagString: Untagged
@@ -119,6 +120,33 @@ RectTransform:
   m_AnchoredPosition: {x: -490, y: 250}
   m_SizeDelta: {x: 900, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8617493653467852363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348249351488944860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e53bd6d54473d24ab95c21822966f68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 5157466010855464562}
+  icon: {fileID: 3019438785158275041}
+  nameText: {fileID: 2056214379678511773}
+  lvlText: {fileID: 1214855457743581721}
+  descriptionText: {fileID: 8017426785551521290}
+  priceText: {fileID: 3245691043508780881}
+  actionButton: {fileID: 513628636409450282}
+  pistolIcon: {fileID: 21300000, guid: fc651c0e129af8043a97b38056a97789, type: 2}
+  uziIcon: {fileID: 21300000, guid: 14cc9890b2c728d49b7cb429d7f53ffd, type: 2}
+  shotgunIcon: {fileID: 21300000, guid: e2b02d21d8b8cee43b67f350734e6d92, type: 2}
+  flamethrowerIcon: {fileID: 21300000, guid: b1e3f0a7c7816b44090701631f69ce78, type: 3}
+  m4Icon: {fileID: 21300000, guid: e43b5da70ab8f5b4dabc7bd620f56137, type: 2}
+  awpIcon: {fileID: 21300000, guid: d807110569436274c881adab20ea3f39, type: 2}
+  m249Icon: {fileID: 21300000, guid: e0095bc7b5a309c48ae010a8498b78b3, type: 3}
+  rpgIcon: {fileID: 21300000, guid: aa82b17eb6863d84c99402fec325fa16, type: 2}
 --- !u!1 &2753878627821949159
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,12 +978,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 42
+  m_fontSizeMax: 36
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512

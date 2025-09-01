@@ -43,12 +43,12 @@ namespace Assets.Scripts.Shop
         /// </summary>
         private void InitializeDefaultStrategies()
         {
-            // Medkits: Exponential pricing to prevent stockpiling
-            // Formula: $150 × (1.7)^(Number of Medkits Owned) - bulk of x3 available
-            RegisterPricingStrategy(ConsumableType.Medkit, new ExponentialBulkPricingStrategy(150, 1.7f, 3, 400)); // Bulk: 3 for $400 (save $50)
+            // Medkits: Fixed pricing with max limit of 3
+            // Prices: $150, $250, $450 - bulk x3 for $750 (save $100) only when owning 0
+            RegisterPricingStrategy(ConsumableType.Medkit, new FixedMedkitPricingStrategy()); // Max 3, bulk only when owning 0
             
-            // TNT: Fixed pricing with bulk option
-            RegisterPricingStrategy(ConsumableType.TNT, new BulkPricingStrategy(50, 10, 450)); // Bulk: 10 for $450 (save $50)
+            // TNT: Fixed pricing with max 30 and bulk discount
+            RegisterPricingStrategy(ConsumableType.TNT, new TNTPricingStrategy()); // $50 each, max 30, bulk 10 for $450 (save $50)
             
             if (debugMode)
             {
@@ -208,6 +208,49 @@ namespace Assets.Scripts.Shop
             const int savings = 20;
             
             return (bulkQuantity, bulkPrice, savings);
+        }
+        
+        /// <summary>
+        /// Gets bulk purchase information for any consumable type
+        /// </summary>
+        public (int quantity, int totalPrice, int savings) GetBulkOption(ConsumableType itemType, int currentQuantity)
+        {
+            if (!strategies.TryGetValue(itemType, out var strategy))
+            {
+                return (0, 0, 0);
+            }
+            
+            int bulkQuantity = strategy.GetBulkQuantity();
+            if (bulkQuantity <= 0 || !strategy.CanPurchaseBulk(currentQuantity))
+            {
+                return (0, 0, 0);
+            }
+            
+            int bulkPrice = strategy.GetBulkPrice();
+            
+            // Calculate individual prices sum for savings calculation
+            int individualTotal = 0;
+            for (int i = 0; i < bulkQuantity; i++)
+            {
+                individualTotal += strategy.CalculatePrice(currentQuantity + i);
+            }
+            
+            int savings = individualTotal - bulkPrice;
+            
+            return (bulkQuantity, bulkPrice, savings);
+        }
+        
+        /// <summary>
+        /// Gets the maximum quantity allowed for this consumable type
+        /// </summary>
+        public int GetMaxQuantity(ConsumableType itemType)
+        {
+            if (!strategies.TryGetValue(itemType, out var strategy))
+            {
+                return int.MaxValue;
+            }
+            
+            return strategy.GetMaxQuantity();
         }
         
         /// <summary>
