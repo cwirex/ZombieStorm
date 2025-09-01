@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 791cc661eced20940b70af2c5d4c1e21, type: 3}
   m_Name: MainWeaponRepository
-  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradeRepositorySO
+  m_EditorClassIdentifier: 
   weaponPaths:
   - {fileID: 11400000, guid: 68ab39d3809f2f94da167b3687a23dec, type: 2}
   - {fileID: 11400000, guid: 9c7c84f9feb2c83499a4089c22413ef2, type: 2}

@@ -166,7 +166,6 @@ namespace Assets.Scripts.Shop
         private readonly int singlePrice = 50;
         private readonly int bulkQuantity = 10;
         private readonly int maxQuantity = 30;
-        private readonly float discountPercentage = 0.5f; // 50% savings
         
         public int CalculatePrice(int currentQuantity)
         {

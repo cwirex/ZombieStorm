@@ -45,6 +45,9 @@ namespace Assets.Scripts.Shop
             CreateWeaponRepository(createdPaths);
             AssetDatabase.Refresh();
             
+            // Reload the repository provider so ShopManager gets the new data
+            MainWeaponRepositoryProvider.ReloadRepository();
+            
             Debug.Log($"✅ Successfully generated {createdPaths.Count} complete weapon upgrade paths!");
         }
         
@@ -53,6 +56,33 @@ namespace Assets.Scripts.Shop
         {
             var weaponDefinitions = GetAllWeaponDefinitions();
             ValidateWeaponDefinitions(weaponDefinitions);
+        }
+        
+        [MenuItem("Tools/Shop/Debug Repository Status")]
+        public static void DebugRepositoryStatus()
+        {
+            Debug.Log("🔍 Repository Status:");
+            Debug.Log(MainWeaponRepositoryProvider.GetDebugInfo());
+            Debug.Log($"Repository Valid: {MainWeaponRepositoryProvider.IsValid()}");
+            
+            var repo = MainWeaponRepositoryProvider.Instance;
+            if (repo != null)
+            {
+                Debug.Log("📋 Available Weapons:");
+                foreach (EWeapons weapon in System.Enum.GetValues(typeof(EWeapons)))
+                {
+                    var path = repo.GetUpgradePath(weapon);
+                    if (path != null)
+                    {
+                        string pathName = (path as WeaponUpgradePathSO)?.name ?? "Unknown Path";
+                        Debug.Log($"  ✓ {weapon}: {pathName}");
+                    }
+                    else
+                    {
+                        Debug.Log($"  ❌ {weapon}: Not found");
+                    }
+                }
+            }
         }
         
         private static void ValidateWeaponDefinitions(WeaponDefinition[] definitions)

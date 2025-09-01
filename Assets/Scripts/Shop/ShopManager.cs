@@ -12,7 +12,6 @@ namespace Assets.Scripts.Shop
     public class ShopManager : MonoBehaviour
     {
         [Header("Shop Configuration")]
-        [SerializeField] private WeaponUpgradeRepositorySO weaponRepository;
         [SerializeField] private bool debugMode = false;
         [SerializeField] private bool autoRefillAmmo = true; // New design: no ammo purchases
         
@@ -22,6 +21,7 @@ namespace Assets.Scripts.Shop
         
         // Core services
         private WeaponUpgradeService upgradeService;
+        private WeaponUpgradeRepositorySO weaponRepository;
         private Dictionary<EWeapons, WeaponStatsAdapter> weaponAdapters;
         
         // Static instance for easy access
@@ -76,6 +76,9 @@ namespace Assets.Scripts.Shop
             // Initialize weapon adapters dictionary
             weaponAdapters = new Dictionary<EWeapons, WeaponStatsAdapter>();
             
+            // Load the auto-generated weapon repository
+            LoadMainWeaponRepository();
+            
             // Create upgrade service
             if (weaponRepository != null)
             {
@@ -83,12 +86,32 @@ namespace Assets.Scripts.Shop
             }
             else
             {
-                Debug.LogError("ShopManager: WeaponUpgradeRepository not assigned!");
+                Debug.LogError("ShopManager: Failed to load MainWeaponRepository!");
             }
             
             if (debugMode)
             {
                 Debug.Log("ShopManager initialized successfully");
+            }
+        }
+        
+        /// <summary>
+        /// Automatically loads the MainWeaponRepository from the auto-generated assets
+        /// Uses the MainWeaponRepositoryProvider to get the repository instance
+        /// </summary>
+        private void LoadMainWeaponRepository()
+        {
+            weaponRepository = MainWeaponRepositoryProvider.Instance;
+            
+            if (weaponRepository == null)
+            {
+                Debug.LogError("ShopManager: MainWeaponRepository not found! Make sure to:\n" +
+                             "1. Run 'Tools/Shop/Generate All Weapon Upgrades (Automated)' first\n" +
+                             "2. The MainWeaponRepository.asset exists in Assets/ScriptableObjects/Shop/");
+            }
+            else if (debugMode)
+            {
+                Debug.Log($"ShopManager: Successfully loaded MainWeaponRepository: {weaponRepository.name}");
             }
         }
         
@@ -98,7 +121,7 @@ namespace Assets.Scripts.Shop
             
             if (weaponRepository == null)
             {
-                Debug.LogError("ShopManager: WeaponUpgradeRepository not assigned!");
+                Debug.LogError("ShopManager: MainWeaponRepository failed to load!");
                 hasErrors = true;
             }
             

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Shop
     {
         private static readonly string AssetPath = "Assets/Scripts/Shop/Upgrades/";
         
-        [MenuItem("Tools/Shop/Create All Weapon Upgrade Assets")]
+        // [MenuItem("Tools/Shop/Create All Weapon Upgrade Assets")] // DISABLED: Using AutomatedWeaponUpgradeGenerator instead
         public static void CreateAllWeaponUpgradeAssets()
         {
             // Ensure directory exists

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -129,35 +130,70 @@ namespace Assets.Scripts.Shop
                     };
                     descriptionText.text = shortDesc;
                 }
+                else if (weaponInfo.currentLevel >= 10)
+                {
+                    // Max level - check for ultimate ability
+                    if (weaponInfo.hasUltimateAbility)
+                    {
+                        descriptionText.text = "ULTIMATE UNLOCKED";
+                    }
+                    else
+                    {
+                        descriptionText.text = "Fully upgraded";
+                    }
+                }
                 else if (!string.IsNullOrEmpty(weaponInfo.nextUpgradeDescription))
                 {
                     // Format upgrade description to be shorter (e.g., "+10% DMG")
                     string shortUpgrade = FormatUpgradeDescription(weaponInfo.nextUpgradeDescription);
                     descriptionText.text = shortUpgrade;
                 }
-                else if (weaponInfo.hasUltimateAbility)
-                {
-                    descriptionText.text = "ULTIMATE UNLOCKED";
-                }
                 else
                 {
-                    descriptionText.text = "Fully upgraded";
+                    // Fallback - should not happen if upgrade system is working properly
+                    descriptionText.text = "Upgrade available";
                 }
             }
         }
         
         private string FormatUpgradeDescription(string fullDescription)
         {
+            if (string.IsNullOrEmpty(fullDescription))
+                return "Upgrade available";
+
             // Convert long descriptions to short format
             // E.g., "+15% Damage & +5% Fire Rate" -> "+15% DMG & +5% FR"
-            return fullDescription
+            string formatted = fullDescription
                 .Replace("Damage", "DMG")
-                .Replace("Fire Rate", "FR")
+                .Replace("Fire Rate", "FR") 
                 .Replace("Magazine Capacity", "MAG")
+                .Replace("Magazine", "MAG")
                 .Replace("Accuracy", "ACC")
                 .Replace("Recoil", "REC")
                 .Replace("Range", "RNG")
-                .Replace("Reload Speed", "RLD");
+                .Replace("Reload Speed", "RLD")
+                .Replace("Reload", "RLD")
+                .Replace("Bullet Speed", "BS")
+                .Replace("Extra Magazines", "XM")
+                .Replace("percent", "%")
+                .Replace("Percent", "%");
+
+            // If description is still too long, truncate but keep essential info
+            if (formatted.Length > 25)
+            {
+                // Try to keep the most important part (first upgrade mentioned)
+                string[] parts = formatted.Split('&', StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 0)
+                {
+                    formatted = parts[0].Trim();
+                    if (parts.Length > 1)
+                    {
+                        formatted += " & more";
+                    }
+                }
+            }
+
+            return formatted;
         }
         
         private void SetupButton()

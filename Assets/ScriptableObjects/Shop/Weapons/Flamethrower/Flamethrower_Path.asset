@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 490b188e9d3a41343b5c28164c382d13, type: 3}
   m_Name: Flamethrower_Path
-  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Shop:WeaponUpgradePathSO
+  m_EditorClassIdentifier: 
   weaponType: 7
   weaponName: Flamethrower
   weaponDescription: Control space and roast hordes of weaker enemies. Sustained
