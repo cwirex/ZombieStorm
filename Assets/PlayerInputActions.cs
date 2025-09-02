@@ -80,6 +80,78 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon1"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1b2c3d4-e5f6-7890-1234-567890abcdef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon2"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2c3d4e5-f678-9012-3456-7890abcdef12"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon3"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3d4e5f6-7890-1234-5678-90abcdef1234"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon4"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4e5f678-9012-3456-7890-abcdef123456"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon5"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5f67890-1234-5678-90ab-cdef12345678"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon6"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6789012-3456-7890-abcd-ef1234567890"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon7"",
+                    ""type"": ""Button"",
+                    ""id"": ""67890123-4567-890a-bcde-f12345678901"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon8"",
+                    ""type"": ""Button"",
+                    ""id"": ""78901234-5678-90ab-cdef-123456789012"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -291,6 +363,94 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11111111-1111-1111-1111-111111111111"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22222222-2222-2222-2222-222222222222"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33333333-3333-3333-3333-333333333333"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44444444-4444-4444-4444-444444444444"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55555555-5555-5555-5555-555555555555"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66666666-6666-6666-6666-666666666666"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77777777-7777-7777-7777-777777777777"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88888888-8888-8888-8888-888888888888"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -305,6 +465,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_SelectWeapon = m_Player.FindAction("SelectWeapon", throwIfNotFound: true);
         m_Player_Heal = m_Player.FindAction("Heal", throwIfNotFound: true);
         m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
+        m_Player_SelectWeapon1 = m_Player.FindAction("SelectWeapon1", throwIfNotFound: true);
+        m_Player_SelectWeapon2 = m_Player.FindAction("SelectWeapon2", throwIfNotFound: true);
+        m_Player_SelectWeapon3 = m_Player.FindAction("SelectWeapon3", throwIfNotFound: true);
+        m_Player_SelectWeapon4 = m_Player.FindAction("SelectWeapon4", throwIfNotFound: true);
+        m_Player_SelectWeapon5 = m_Player.FindAction("SelectWeapon5", throwIfNotFound: true);
+        m_Player_SelectWeapon6 = m_Player.FindAction("SelectWeapon6", throwIfNotFound: true);
+        m_Player_SelectWeapon7 = m_Player.FindAction("SelectWeapon7", throwIfNotFound: true);
+        m_Player_SelectWeapon8 = m_Player.FindAction("SelectWeapon8", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -372,6 +540,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectWeapon;
     private readonly InputAction m_Player_Heal;
     private readonly InputAction m_Player_Exit;
+    private readonly InputAction m_Player_SelectWeapon1;
+    private readonly InputAction m_Player_SelectWeapon2;
+    private readonly InputAction m_Player_SelectWeapon3;
+    private readonly InputAction m_Player_SelectWeapon4;
+    private readonly InputAction m_Player_SelectWeapon5;
+    private readonly InputAction m_Player_SelectWeapon6;
+    private readonly InputAction m_Player_SelectWeapon7;
+    private readonly InputAction m_Player_SelectWeapon8;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -382,6 +558,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @SelectWeapon => m_Wrapper.m_Player_SelectWeapon;
         public InputAction @Heal => m_Wrapper.m_Player_Heal;
         public InputAction @Exit => m_Wrapper.m_Player_Exit;
+        public InputAction @SelectWeapon1 => m_Wrapper.m_Player_SelectWeapon1;
+        public InputAction @SelectWeapon2 => m_Wrapper.m_Player_SelectWeapon2;
+        public InputAction @SelectWeapon3 => m_Wrapper.m_Player_SelectWeapon3;
+        public InputAction @SelectWeapon4 => m_Wrapper.m_Player_SelectWeapon4;
+        public InputAction @SelectWeapon5 => m_Wrapper.m_Player_SelectWeapon5;
+        public InputAction @SelectWeapon6 => m_Wrapper.m_Player_SelectWeapon6;
+        public InputAction @SelectWeapon7 => m_Wrapper.m_Player_SelectWeapon7;
+        public InputAction @SelectWeapon8 => m_Wrapper.m_Player_SelectWeapon8;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -409,6 +593,30 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Exit.started += instance.OnExit;
             @Exit.performed += instance.OnExit;
             @Exit.canceled += instance.OnExit;
+            @SelectWeapon1.started += instance.OnSelectWeapon1;
+            @SelectWeapon1.performed += instance.OnSelectWeapon1;
+            @SelectWeapon1.canceled += instance.OnSelectWeapon1;
+            @SelectWeapon2.started += instance.OnSelectWeapon2;
+            @SelectWeapon2.performed += instance.OnSelectWeapon2;
+            @SelectWeapon2.canceled += instance.OnSelectWeapon2;
+            @SelectWeapon3.started += instance.OnSelectWeapon3;
+            @SelectWeapon3.performed += instance.OnSelectWeapon3;
+            @SelectWeapon3.canceled += instance.OnSelectWeapon3;
+            @SelectWeapon4.started += instance.OnSelectWeapon4;
+            @SelectWeapon4.performed += instance.OnSelectWeapon4;
+            @SelectWeapon4.canceled += instance.OnSelectWeapon4;
+            @SelectWeapon5.started += instance.OnSelectWeapon5;
+            @SelectWeapon5.performed += instance.OnSelectWeapon5;
+            @SelectWeapon5.canceled += instance.OnSelectWeapon5;
+            @SelectWeapon6.started += instance.OnSelectWeapon6;
+            @SelectWeapon6.performed += instance.OnSelectWeapon6;
+            @SelectWeapon6.canceled += instance.OnSelectWeapon6;
+            @SelectWeapon7.started += instance.OnSelectWeapon7;
+            @SelectWeapon7.performed += instance.OnSelectWeapon7;
+            @SelectWeapon7.canceled += instance.OnSelectWeapon7;
+            @SelectWeapon8.started += instance.OnSelectWeapon8;
+            @SelectWeapon8.performed += instance.OnSelectWeapon8;
+            @SelectWeapon8.canceled += instance.OnSelectWeapon8;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -431,6 +639,30 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Exit.started -= instance.OnExit;
             @Exit.performed -= instance.OnExit;
             @Exit.canceled -= instance.OnExit;
+            @SelectWeapon1.started -= instance.OnSelectWeapon1;
+            @SelectWeapon1.performed -= instance.OnSelectWeapon1;
+            @SelectWeapon1.canceled -= instance.OnSelectWeapon1;
+            @SelectWeapon2.started -= instance.OnSelectWeapon2;
+            @SelectWeapon2.performed -= instance.OnSelectWeapon2;
+            @SelectWeapon2.canceled -= instance.OnSelectWeapon2;
+            @SelectWeapon3.started -= instance.OnSelectWeapon3;
+            @SelectWeapon3.performed -= instance.OnSelectWeapon3;
+            @SelectWeapon3.canceled -= instance.OnSelectWeapon3;
+            @SelectWeapon4.started -= instance.OnSelectWeapon4;
+            @SelectWeapon4.performed -= instance.OnSelectWeapon4;
+            @SelectWeapon4.canceled -= instance.OnSelectWeapon4;
+            @SelectWeapon5.started -= instance.OnSelectWeapon5;
+            @SelectWeapon5.performed -= instance.OnSelectWeapon5;
+            @SelectWeapon5.canceled -= instance.OnSelectWeapon5;
+            @SelectWeapon6.started -= instance.OnSelectWeapon6;
+            @SelectWeapon6.performed -= instance.OnSelectWeapon6;
+            @SelectWeapon6.canceled -= instance.OnSelectWeapon6;
+            @SelectWeapon7.started -= instance.OnSelectWeapon7;
+            @SelectWeapon7.performed -= instance.OnSelectWeapon7;
+            @SelectWeapon7.canceled -= instance.OnSelectWeapon7;
+            @SelectWeapon8.started -= instance.OnSelectWeapon8;
+            @SelectWeapon8.performed -= instance.OnSelectWeapon8;
+            @SelectWeapon8.canceled -= instance.OnSelectWeapon8;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -456,5 +688,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSelectWeapon(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
+        void OnSelectWeapon1(InputAction.CallbackContext context);
+        void OnSelectWeapon2(InputAction.CallbackContext context);
+        void OnSelectWeapon3(InputAction.CallbackContext context);
+        void OnSelectWeapon4(InputAction.CallbackContext context);
+        void OnSelectWeapon5(InputAction.CallbackContext context);
+        void OnSelectWeapon6(InputAction.CallbackContext context);
+        void OnSelectWeapon7(InputAction.CallbackContext context);
+        void OnSelectWeapon8(InputAction.CallbackContext context);
     }
 }

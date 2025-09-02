@@ -199,13 +199,40 @@ public class WeaponManager : MonoBehaviour {
         return null;
     }
 
-    private void SelectWeapon(int weaponIndex) {
+    public void SelectWeapon(int weaponIndex) {
+        // Validate weapon index
+        if (weaponIndex < 0 || weaponIndex >= weapons.Count || weapons[weaponIndex] == null) {
+            return; // Invalid weapon index or weapon not available
+        }
+
         weapons[currentWeaponIndex]?.SetActive(false);
         currentWeaponIndex = weaponIndex;
         weapons[weaponIndex].SetActive(true);
         weapon = weapons[weaponIndex].GetComponent<Weapon>();
         player?.EquipWeapon(weapon);
         weapon.Ammo.UpdateUI();
+    }
+
+    /// <summary>
+    /// Selects a weapon by its type (EWeapons enum), ensuring consistent key bindings
+    /// </summary>
+    public void SelectWeaponByType(EWeapons weaponType) {
+        // Find the weapon in the list by its type
+        for (int i = 0; i < weapons.Count; i++) {
+            if (weapons[i] != null) {
+                Weapon weaponComponent = weapons[i].GetComponent<Weapon>();
+                if (weaponComponent != null && weaponComponent.id == weaponType) {
+                    // Check if player owns this weapon
+                    bool isOwned = Assets.Scripts.Shop.WeaponLevelTracker.Instance?.OwnsWeapon(weaponType) ?? (weaponType == EWeapons.PISTOL);
+                    if (isOwned) {
+                        SelectWeapon(i);
+                        return;
+                    }
+                    break; // Found the weapon but not owned
+                }
+            }
+        }
+        // Weapon not found or not owned - do nothing
     }
 
     /// <summary>

@@ -40,6 +40,22 @@ public class InteractController : MonoBehaviour {
             weaponManager?.SwapWeapon(true);
         } else if (args.variant == InteractVariant.SelectWeaponPrevious) {
             weaponManager?.SwapWeapon(false);
+        } else if (args.variant == InteractVariant.SelectWeapon1) {
+            weaponManager?.SelectWeaponByType(EWeapons.PISTOL);    // Key 1 = Pistol
+        } else if (args.variant == InteractVariant.SelectWeapon2) {
+            weaponManager?.SelectWeaponByType(EWeapons.UZI);       // Key 2 = UZI  
+        } else if (args.variant == InteractVariant.SelectWeapon3) {
+            weaponManager?.SelectWeaponByType(EWeapons.SHOTGUN);   // Key 3 = Shotgun
+        } else if (args.variant == InteractVariant.SelectWeapon4) {
+            weaponManager?.SelectWeaponByType(EWeapons.M4);        // Key 4 = M4
+        } else if (args.variant == InteractVariant.SelectWeapon5) {
+            weaponManager?.SelectWeaponByType(EWeapons.AWP);       // Key 5 = AWP
+        } else if (args.variant == InteractVariant.SelectWeapon6) {
+            weaponManager?.SelectWeaponByType(EWeapons.M249);      // Key 6 = M249
+        } else if (args.variant == InteractVariant.SelectWeapon7) {
+            weaponManager?.SelectWeaponByType(EWeapons.RPG7);      // Key 7 = RPG7
+        } else if (args.variant == InteractVariant.SelectWeapon8) {
+            weaponManager?.SelectWeaponByType(EWeapons.FLAMETHROWER); // Key 8 = Flamethrower
         } else if(args.variant == InteractVariant.ExitPerformed) {
             uiController?.TogglePause();
         }

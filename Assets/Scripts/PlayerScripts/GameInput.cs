@@ -18,6 +18,14 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Shoot.performed += Shoot_performed;
         playerInputActions.Player.Shoot.canceled += Shoot_canceled;
         playerInputActions.Player.SelectWeapon.performed += SelectWeapon_performed;
+        playerInputActions.Player.SelectWeapon1.performed += SelectWeapon1_performed;
+        playerInputActions.Player.SelectWeapon2.performed += SelectWeapon2_performed;
+        playerInputActions.Player.SelectWeapon3.performed += SelectWeapon3_performed;
+        playerInputActions.Player.SelectWeapon4.performed += SelectWeapon4_performed;
+        playerInputActions.Player.SelectWeapon5.performed += SelectWeapon5_performed;
+        playerInputActions.Player.SelectWeapon6.performed += SelectWeapon6_performed;
+        playerInputActions.Player.SelectWeapon7.performed += SelectWeapon7_performed;
+        playerInputActions.Player.SelectWeapon8.performed += SelectWeapon8_performed;
         playerInputActions.Player.Heal.performed += Heal_performed;
         playerInputActions.Player.Exit.performed += Exit_performed; ;
     }
@@ -28,6 +36,14 @@ public class GameInput : MonoBehaviour
             playerInputActions.Player.Shoot.performed -= Shoot_performed;
             playerInputActions.Player.Shoot.canceled -= Shoot_canceled;
             playerInputActions.Player.SelectWeapon.performed -= SelectWeapon_performed;
+            playerInputActions.Player.SelectWeapon1.performed -= SelectWeapon1_performed;
+            playerInputActions.Player.SelectWeapon2.performed -= SelectWeapon2_performed;
+            playerInputActions.Player.SelectWeapon3.performed -= SelectWeapon3_performed;
+            playerInputActions.Player.SelectWeapon4.performed -= SelectWeapon4_performed;
+            playerInputActions.Player.SelectWeapon5.performed -= SelectWeapon5_performed;
+            playerInputActions.Player.SelectWeapon6.performed -= SelectWeapon6_performed;
+            playerInputActions.Player.SelectWeapon7.performed -= SelectWeapon7_performed;
+            playerInputActions.Player.SelectWeapon8.performed -= SelectWeapon8_performed;
             playerInputActions.Player.Heal.performed -= Heal_performed;
             playerInputActions.Player.Exit.performed -= Exit_performed;
             playerInputActions.Dispose();
@@ -85,6 +101,15 @@ public class GameInput : MonoBehaviour
         InvokeEventHandler(variant);
     }
 
+    private void SelectWeapon1_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon1);
+    private void SelectWeapon2_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon2);
+    private void SelectWeapon3_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon3);
+    private void SelectWeapon4_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon4);
+    private void SelectWeapon5_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon5);
+    private void SelectWeapon6_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon6);
+    private void SelectWeapon7_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon7);
+    private void SelectWeapon8_performed(InputAction.CallbackContext context) => InvokeEventHandler(InteractVariant.SelectWeapon8);
+
     private void InvokeEventHandler(InteractVariant variant) {
         // Block input when shop is open
         if (Assets.Scripts.Shop.ShopManager.Instance != null && Assets.Scripts.Shop.ShopManager.Instance.IsShopOpen) {
@@ -128,6 +153,14 @@ public enum InteractVariant {
     ShootCanceled,
     SelectWeaponNext,
     SelectWeaponPrevious,
+    SelectWeapon1,
+    SelectWeapon2,
+    SelectWeapon3,
+    SelectWeapon4,
+    SelectWeapon5,
+    SelectWeapon6,
+    SelectWeapon7,
+    SelectWeapon8,
     HealPerformed,
     ExitPerformed,
 }
