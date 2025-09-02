@@ -130,6 +130,27 @@ namespace Assets.Scripts.Shop
         }
         
         /// <summary>
+        /// Gets the simplified description for a specific upgrade level using the calculator
+        /// </summary>
+        /// <param name="weaponType">Type of weapon</param>
+        /// <param name="level">Level to get description for</param>
+        /// <returns>Simplified upgrade description or empty string if not found</returns>
+        public string GetSimplifiedUpgradeDescription(EWeapons weaponType, int level)
+        {
+            var upgradePath = repository.GetUpgradePath(weaponType);
+            if (upgradePath == null)
+                return string.Empty;
+            
+            var upgrade = upgradePath.GetUpgradeForLevel(level);
+            if (upgrade is WeaponUpgradeSO weaponUpgradeSO)
+            {
+                return UpgradeDescriptionCalculator.GenerateSimplifiedDescription(weaponUpgradeSO.statModifiers, weaponType);
+            }
+            
+            return upgrade?.GetDescription() ?? string.Empty;
+        }
+        
+        /// <summary>
         /// Gets all upgrade descriptions for a weapon
         /// </summary>
         /// <param name="weaponType">Type of weapon</param>

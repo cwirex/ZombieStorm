@@ -144,8 +144,8 @@ namespace Assets.Scripts.Shop
                 }
                 else if (!string.IsNullOrEmpty(weaponInfo.nextUpgradeDescription))
                 {
-                    // Format upgrade description to be shorter (e.g., "+10% DMG")
-                    string shortUpgrade = FormatUpgradeDescription(weaponInfo.nextUpgradeDescription);
+                    // Use simplified upgrade description if possible, otherwise fall back to formatted version
+                    string shortUpgrade = GetSimplifiedUpgradeDescription() ?? FormatUpgradeDescription(weaponInfo.nextUpgradeDescription);
                     descriptionText.text = shortUpgrade;
                 }
                 else
@@ -194,6 +194,25 @@ namespace Assets.Scripts.Shop
             }
 
             return formatted;
+        }
+        
+        /// <summary>
+        /// Gets simplified upgrade description using the UpgradeDescriptionCalculator
+        /// </summary>
+        /// <returns>Simplified description or null if not available</returns>
+        private string GetSimplifiedUpgradeDescription()
+        {
+            if (weaponInfo.isOwned && weaponInfo.currentLevel < 10)
+            {
+                // Try to get the simplified description from the upgrade service
+                var upgradeService = ShopManager.Instance?.GetUpgradeService();
+                if (upgradeService != null)
+                {
+                    return upgradeService.GetSimplifiedUpgradeDescription(weaponInfo.weaponType, weaponInfo.currentLevel + 1);
+                }
+            }
+            
+            return null;
         }
         
         private void SetupButton()

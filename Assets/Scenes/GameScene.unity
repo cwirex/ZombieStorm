@@ -3665,7 +3665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe6f795c7c727e4fabc62911b13753d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCash: 100000
+  startingCash: 1000
 --- !u!1 &304535901
 GameObject:
   m_ObjectHideFlags: 0
@@ -4116,7 +4116,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.55739, y: -0.000000029450538, z: 0.000000019771658, w: 0.83025086}
+  m_LocalRotation: {x: 0.55739, y: 0.000000029450547, z: -0.000000019771665, w: 0.83025086}
   m_LocalPosition: {x: 0, y: 22, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8305,7 +8305,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608741655}
-  m_LocalRotation: {x: 0.55739, y: -0.000000029450538, z: 0.000000019771658, w: 0.83025086}
+  m_LocalRotation: {x: 0.55739, y: 0.000000029450547, z: -0.000000019771665, w: 0.83025086}
   m_LocalPosition: {x: 0, y: 22, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11783,9 +11783,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Controls:\n_____________\n\nwsad - movement\nmouse - shoot\n\nB - shop\nE
-    / H - medkit\nQ / X - tnt\n\nesc - pause\nspace - start\n\n_____________\n\xA92025
-    MateuszO."
+  m_text: "Controls:\n_____________\n\nwsad - movement\nmouse - shoot\n1..8 / wheel
+    - weapon selection\n\nB - shop\nE / H - medkit\nQ / X - tnt\n\nesc - pause\nspace
+    - start\n\n_____________\n\xA92025 MateuszO."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

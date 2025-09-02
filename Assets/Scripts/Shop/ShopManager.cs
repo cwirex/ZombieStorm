@@ -663,6 +663,19 @@ namespace Assets.Scripts.Shop
             }
         }
         
+        #region Public Access Methods
+        
+        /// <summary>
+        /// Provides access to the weapon upgrade service for other components
+        /// </summary>
+        /// <returns>Weapon upgrade service instance</returns>
+        public WeaponUpgradeService GetUpgradeService()
+        {
+            return upgradeService;
+        }
+        
+        #endregion
+        
         #region Debug Methods
         
         [ContextMenu("Log All Weapon Prices")]
