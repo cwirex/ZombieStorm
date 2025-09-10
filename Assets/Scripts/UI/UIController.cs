@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Player;
 using Assets.Scripts.Weapon;
 using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -193,6 +194,9 @@ namespace Assets.Scripts.PlayerScripts {
             // Handle input for wave start and shop
             if (WaveManager.Instance != null && WaveManager.Instance.CurrentWaveState == WaveState.Lobby) {
                 if (Input.GetKeyDown(KeyCode.Space)) {
+                    // Play Sound A - Space press sound
+                    SoundEvents.TriggerSpacePressed();
+                    
                     // Teleport player to spawn point when starting wave
                     TeleportPlayerToSpawn();
                     
@@ -285,11 +289,14 @@ namespace Assets.Scripts.PlayerScripts {
         
         private void StartDialCountdown() {
             if (dialCountdownTimer != null) {
-                dialCountdownTimer.SetCountdownDuration(4f); // Updated to 4 seconds
+                dialCountdownTimer.SetCountdownDuration(2.9f); // Keep 2.9 seconds
                 dialCountdownTimer.StartCountdown();
                 
                 // Freeze player during dial countdown
                 FreezePlayer(true);
+                
+                // Start unified tick sound coroutine
+                StartCoroutine(PlayAllTickSounds());
                 
                 // Update wave display
                 if (WaveManager.Instance != null) {
@@ -332,11 +339,16 @@ namespace Assets.Scripts.PlayerScripts {
         }
         
         private void OnDialCountdownTick(int secondsRemaining) {
+            // All tick sounds are now handled by the unified coroutine
+            // No tick sounds triggered here anymore
+            
             // Could display remaining seconds somewhere if needed
             // Countdown progress shown via UI, no need to log each second
         }
         
         private void OnDialCountdownComplete() {
+            // No sound here - the 3rd tick should be the final sound
+            
             // Unfreeze player when countdown completes
             FreezePlayer(false);
             
@@ -344,6 +356,18 @@ namespace Assets.Scripts.PlayerScripts {
             if (WaveManager.Instance != null) {
                 WaveManager.Instance.StartActualWave();
             }
+        }
+        
+        private IEnumerator PlayAllTickSounds() {
+            // Wait 0.4 seconds after space press, then play tick sounds
+            yield return new WaitForSeconds(0.8f);
+            SoundEvents.TriggerCountdownTick(); // 1st tick at 0.8s
+            
+            yield return new WaitForSeconds(1.0f);
+            SoundEvents.TriggerCountdownTick(); // 2nd tick at 1.8s
+            
+            yield return new WaitForSeconds(1.0f);
+            SoundEvents.TriggerCountdownTick(); // 3rd tick at 2.8s
         }
         
         private void EnterInitialLobby() {

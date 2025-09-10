@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Player;
+using Assets.Scripts.Audio;
 
 namespace Assets.Scripts.Shop
 {
@@ -188,6 +189,9 @@ namespace Assets.Scripts.Shop
             // Trigger events
             OnWeaponPurchased?.Invoke(weaponType, 1, cost);
             
+            // Play purchase sound
+            SoundEvents.TriggerWeaponPurchased();
+            
             if (debugMode)
             {
                 Debug.Log($"Purchased {weaponType} for ${cost}");
@@ -248,6 +252,9 @@ namespace Assets.Scripts.Shop
             
             // Trigger events
             OnWeaponUpgraded?.Invoke(weaponType, nextLevel, cost);
+            
+            // Play upgrade sound
+            SoundEvents.TriggerWeaponPurchased();
             
             Debug.Log($"Upgraded {weaponType} to level {nextLevel} for ${cost}");
             
@@ -352,6 +359,9 @@ namespace Assets.Scripts.Shop
             
             // Trigger events
             OnConsumablePurchased?.Invoke(itemType, quantity, totalCost);
+            
+            // Play purchase sound for consumables
+            SoundEvents.TriggerWeaponPurchased();
             
             if (debugMode)
             {

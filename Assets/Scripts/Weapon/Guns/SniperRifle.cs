@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngineInternal;
+using Assets.Scripts.Audio;
 
 namespace Assets.Scripts.Weapon {
     /// <summary>
@@ -26,6 +27,9 @@ namespace Assets.Scripts.Weapon {
                 // Check ammo before shooting
                 if (!Ammo.IsMagazineEmpty()) {
                     Ammo.Use(1); // AWP uses 1 bullet per shot
+                    
+                    // Trigger weapon sound
+                    SoundEvents.TriggerWeaponShoot(id);
                     
                     RaycastHit[] hits;
 

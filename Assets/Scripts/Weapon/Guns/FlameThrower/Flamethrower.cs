@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Assets.Scripts.Audio;
 
 namespace Assets.Scripts.Weapon {
     /// <summary>
@@ -46,6 +47,10 @@ namespace Assets.Scripts.Weapon {
         override internal void OnShootPerformed() {
             // Only start shooting if we have ammo
             if (!Ammo.IsMagazineEmpty()) {
+                if (!isShooting) {
+                    // Trigger sound only when starting to shoot (not continuously)
+                    SoundEvents.TriggerFlamethrowerStart();
+                }
                 isShooting = true;
                 lastAmmoConsumeTime = Time.time;
                 flamesGO?.SetActive(true);
@@ -59,6 +64,10 @@ namespace Assets.Scripts.Weapon {
         }
 
         override internal void OnShootCanceled() {
+            if (isShooting) {
+                // Trigger stop sound when stopping shooting
+                SoundEvents.TriggerFlamethrowerStop();
+            }
             isShooting = false;
             float smallDelay = 0.12f;
             StartCoroutine(DelayCancel(smallDelay));

@@ -1,4 +1,5 @@
 using Assets.Scripts.Weapon;
+using Assets.Scripts.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -28,6 +29,9 @@ namespace Assets.Scripts.Weapon {
                 // Check ammo before shooting
                 if (!Ammo.IsMagazineEmpty()) {
                     Ammo.Use(1);
+                    
+                    // Trigger weapon sound
+                    SoundEvents.TriggerWeaponShoot(id);
                     
                     // Calculate random spread angle
                     Vector2 spread = Random.insideUnitCircle * spreadAngle;

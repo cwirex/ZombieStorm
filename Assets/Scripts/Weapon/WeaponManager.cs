@@ -1,6 +1,7 @@
 using Assets.Scripts.Shop;
 using Assets.Scripts.Weapon;
 using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -203,6 +204,11 @@ public class WeaponManager : MonoBehaviour {
         // Validate weapon index
         if (weaponIndex < 0 || weaponIndex >= weapons.Count || weapons[weaponIndex] == null) {
             return; // Invalid weapon index or weapon not available
+        }
+
+        // Stop any continuous weapon sounds (like flamethrower) before switching
+        if (weaponIndex != currentWeaponIndex) {
+            SoundEvents.TriggerWeaponSwitch();
         }
 
         weapons[currentWeaponIndex]?.SetActive(false);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Audio;
 
 public class Explosive : MonoBehaviour
 {
@@ -52,6 +53,9 @@ public class Explosive : MonoBehaviour
 
         var controller = FindObjectOfType<ExplosionController>();
         controller?.MakeMediumExplosion(transform.position);
+
+        // Play TNT explosion sound
+        SoundEvents.TriggerTntExplosion();
 
         foreach (var explosive in otherExplosives) {
             if(explosive.gameObject != gameObject) {

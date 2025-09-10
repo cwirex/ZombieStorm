@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Assets.Scripts.Player;
+using Assets.Scripts.Audio;
 
 public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
     [SerializeField] private float maxHealth = 1000f;
@@ -22,6 +23,10 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
 
     public void TakeDamage(float damage) {
         health -= damage;
+        
+        // Play damage sound
+        SoundEvents.TriggerPlayerTakeDamage();
+        
         Debug.Log("Player took damage: " + (int)damage);
         updateHealtBar();
 
@@ -59,6 +64,12 @@ public class HealthController : MonoBehaviour, IDamagable, IKnockbackable {
     }
 
     public void Die() {
+        // Stop walking sound immediately before playing death sound
+        SoundEvents.TriggerPlayerStopWalking();
+        
+        // Play death sound
+        SoundEvents.TriggerPlayerDeath();
+        
         Debug.Log("Player died!");
         StartCoroutine(PlayerDeathAnimation());
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.Audio;
 
 public enum GameState {
     MainMenu,    // Game hasn't started yet
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour {
         
         // Start in MainMenu only on first load, go to Playing on restart
         if (!hasStartedGameBefore) {
+            // Play game initialization sound on first run
+            SoundEvents.TriggerGameInitialized();
             ChangeState(GameState.MainMenu);
         } else {
             // This is a restart - go directly to playing and spawn player
@@ -69,6 +72,12 @@ public class GameManager : MonoBehaviour {
             case GameState.Playing:
                 Time.timeScale = 1f;
                 uiController?.ShowGameplay();
+                
+                // Stop ghost manifestation sound when game starts
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.StopGameInitializationSound();
+                }
                 break;
                 
             case GameState.Paused:
@@ -78,6 +87,10 @@ public class GameManager : MonoBehaviour {
                 
             case GameState.GameOver:
                 uiController?.ShowGameOver();
+                
+                // Start game over ambient music
+                SoundEvents.TriggerGameOverStart();
+                
                 // Don't modify Time.timeScale here - HealthController handles slowdown
                 break;
         }
@@ -115,6 +128,9 @@ public class GameManager : MonoBehaviour {
     
     
     public void RestartGame() {
+        // Stop game over ambient music
+        SoundEvents.TriggerGameOverEnd();
+        
         // Mark that game has started (so next load goes to Playing)
         hasStartedGameBefore = true;
         
@@ -177,6 +193,9 @@ public class GameManager : MonoBehaviour {
     }
     
     public void QuitGame() {
+        // Stop game over ambient music
+        SoundEvents.TriggerGameOverEnd();
+        
         Debug.Log("Quit Game requested");
         
         #if UNITY_EDITOR

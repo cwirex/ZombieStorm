@@ -1,4 +1,5 @@
 using Assets.Scripts.Weapon;
+using Assets.Scripts.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -29,6 +30,9 @@ namespace Assets.Scripts.Weapon {
                 // Check ammo before shooting
                 if (!Ammo.IsMagazineEmpty()) {
                     Ammo.Use(1); // Shotgun uses 1 shell to fire multiple bullets
+                    
+                    // Trigger weapon sound
+                    SoundEvents.TriggerWeaponShoot(id);
                     
                     for (int i = 0; i < nBullets; i++) {
                         // Calculate random spread angle for each bullet.

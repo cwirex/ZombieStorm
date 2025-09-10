@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Audio;
 
 public class WaveCountdownTimer : MonoBehaviour
 {
@@ -130,6 +131,9 @@ public class WaveCountdownTimer : MonoBehaviour
     {
         isCountdownActive = false;
         gameObject.SetActive(false);
+        
+        // Round start sound replaced by final countdown tick
+        // SoundEvents.TriggerRoundStart(); // Removed
         
         OnCountdownComplete?.Invoke();
     }

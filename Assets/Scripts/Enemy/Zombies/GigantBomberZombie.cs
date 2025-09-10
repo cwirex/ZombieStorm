@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Assets.Scripts.Audio;
 
 public class GigantBomberZombie : Enemy
 {
@@ -55,6 +56,9 @@ public class GigantBomberZombie : Enemy
 
         var controller = FindObjectOfType<ExplosionController>();
         controller?.MakeLargeExplosion(transform.position);
+
+        // Play mega bomber explosion sound
+        SoundEvents.TriggerMegaBomberExplosion();
 
         foreach (var explosive in otherExplosives) {
             explosive.TriggerExplosion();

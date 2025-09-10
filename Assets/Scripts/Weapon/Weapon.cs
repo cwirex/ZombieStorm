@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading;
 using UnityEngine;
 using Assets.Scripts.Shop;
+using Assets.Scripts.Audio;
 
 namespace Assets.Scripts.Weapon {
     public abstract class Weapon : MonoBehaviour, IWeapon {
@@ -58,6 +59,9 @@ namespace Assets.Scripts.Weapon {
                     Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
                     bulletRigidbody.velocity = Thread.forward * Stats.BulletSpeed;
                     Destroy(bulletGO, Stats.Range);
+                    
+                    // Trigger weapon sound after bullet is created (more universal)
+                    SoundEvents.TriggerWeaponShoot(id);
 
                     // Handle extra shot for Double Tap (Pistol ultimate)
                     if (extraShot) {
@@ -138,6 +142,11 @@ namespace Assets.Scripts.Weapon {
 
         internal virtual void OnShootCanceled() {
             isShooting = false;
+            
+            // Stop flamethrower sound if this is a flamethrower
+            if (id == EWeapons.FLAMETHROWER) {
+                SoundEvents.TriggerFlamethrowerStop();
+            }
         }
     }
 }

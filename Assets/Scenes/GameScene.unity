@@ -3665,7 +3665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe6f795c7c727e4fabc62911b13753d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCash: 1000
+  startingCash: 100000
 --- !u!1 &304535901
 GameObject:
   m_ObjectHideFlags: 0
@@ -4116,7 +4116,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.55739, y: 0.000000029450547, z: -0.000000019771665, w: 0.83025086}
+  m_LocalRotation: {x: 0.55739, y: -0.000000029450538, z: 0.000000019771658, w: 0.83025086}
   m_LocalPosition: {x: 0, y: 22, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4505,6 +4505,87 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 349521010}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &349600345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 349600346}
+  - component: {fileID: 349600347}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &349600346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349600345}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2028780571}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &349600347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349600345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5c3bd0f41edb8419e2001e1bea1278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion1: {fileID: 8300000, guid: 4577e2bdb5a7cd942a1b824140767416, type: 3}
+  explosion2: {fileID: 8300000, guid: a8b419199f675ae4e91ca48ab9a1adfd, type: 3}
+  bloodyPunch: {fileID: 8300000, guid: 76e34d50429ed154983ffd8e181effa6, type: 3}
+  walkingChainMail: {fileID: 8300000, guid: 5201b6d59d6ae974ca991fcfe6e79cd8, type: 3}
+  indianaJonesPunch: {fileID: 8300000, guid: f8a871760afc31e438fd6983a0ec6019, type: 3}
+  m4RifleSound: {fileID: 8300000, guid: f8cd007df5790c04da37027278a49f70, type: 3}
+  pistolSound: {fileID: 8300000, guid: 4cd021b8b1f594b4ab18ea87faeb227a, type: 3}
+  uziSound: {fileID: 8300000, guid: 99bcccbe083bb84438f4f164292e8f93, type: 3}
+  lmgSound: {fileID: 8300000, guid: 313de6d6b38a7a945b1a91bd6e9cfe65, type: 3}
+  shotgunSound: {fileID: 8300000, guid: 2ba7c714bd9cb474c8d6f5d840045d6f, type: 3}
+  sniperSound: {fileID: 8300000, guid: eca5c1e301d0db24fbd737a46a8686d8, type: 3}
+  flamethrowerSound: {fileID: 8300000, guid: 14e47c004c1b52a44b624e298c6ab4a8, type: 3}
+  rpgSound: {fileID: 8300000, guid: ee61b02125049a34d93a74a0e9e3ff80, type: 3}
+  rpgExplosionSound: {fileID: 8300000, guid: 65ccf13cf76dd414597401e7bc1891c2, type: 3}
+  heal: {fileID: 8300000, guid: 0e4c73760fc73864f98fef26c26a1d59, type: 3}
+  buySell: {fileID: 8300000, guid: 132a8fd0567a7754db64b090c7af08c3, type: 3}
+  placeTnt: {fileID: 8300000, guid: fab1a63153c15d64f9b57522095fda5c, type: 3}
+  ghostManifestation: {fileID: 8300000, guid: e185e42e5519dcb44abb8106464f7770, type: 3}
+  roundStartSound: {fileID: 0}
+  zombieDieSound: {fileID: 8300000, guid: 45bb4e2316259024e9757773d78f4a67, type: 3}
+  gameOverAmbient: {fileID: 8300000, guid: f14e8bfdac498dd4f82766090b48e582, type: 3}
+  spacePressSound: {fileID: 8300000, guid: b3cbb96044bd5eb48bb8159c6fe39d34, type: 3}
+  countdownTickSound: {fileID: 8300000, guid: 1d74880bed4586644a16a79a2d9dc8af, type: 3}
+  effectsSource: {fileID: 0}
+  walkingSource: {fileID: 0}
+  weaponSource: {fileID: 0}
+  ambientSource: {fileID: 0}
+  explosionSource: {fileID: 0}
+  gameSystemSource: {fileID: 0}
+  gameOverSource: {fileID: 0}
+  masterVolume: 1
+  effectsVolume: 0.85
+  weaponVolume: 0.7
+  walkingVolume: 0.04
+  explosionVolume: 0.3
+  ambientVolume: 0.08
+  gameOverVolume: 0.1
 --- !u!1 &363179824
 GameObject:
   m_ObjectHideFlags: 3
@@ -8305,7 +8386,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608741655}
-  m_LocalRotation: {x: 0.55739, y: 0.000000029450547, z: -0.000000019771665, w: 0.83025086}
+  m_LocalRotation: {x: 0.55739, y: -0.000000029450538, z: 0.000000019771658, w: 0.83025086}
   m_LocalPosition: {x: 0, y: 22, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -24835,6 +24916,7 @@ Transform:
   m_Children:
   - {fileID: 1815455358}
   - {fileID: 1250479457}
+  - {fileID: 349600346}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

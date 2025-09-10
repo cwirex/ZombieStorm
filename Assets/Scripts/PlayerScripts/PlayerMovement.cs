@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Assets.Scripts.Audio;
 
 namespace Assets.Scripts.Player {
     public class PlayerMovement : MonoBehaviour {
@@ -23,7 +24,15 @@ namespace Assets.Scripts.Player {
 
         public void Move(Vector2 inputVector) {
             Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+            bool wasWalking = isWalking;
             isWalking = moveDir != Vector3.zero;
+            
+            // Handle walking sound events
+            if (isWalking && !wasWalking) {
+                SoundEvents.TriggerPlayerStartWalking();
+            } else if (!isWalking && wasWalking) {
+                SoundEvents.TriggerPlayerStopWalking();
+            }
 
 
             if (!IsPlayerColliding(moveDir)) {

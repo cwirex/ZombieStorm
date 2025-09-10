@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Player;
 using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,6 +62,10 @@ public class PlayerInventory : MonoBehaviour {
                 uiController.SetMedsCounter(medkit.Amount);
 
                 if (medkit.IsEmpty()) items.Remove(medkit);
+                
+                // Play heal sound
+                SoundEvents.TriggerHealUsed();
+                
                 Debug.Log("Used medkit - healed 50% of max health!");
             } else {
                 Debug.Log("Already at full health!");
@@ -81,6 +86,9 @@ public class PlayerInventory : MonoBehaviour {
                 uiController.SetTntsCounter(tnt.Amount);
 
                 if (tnt.IsEmpty()) items.Remove(tnt);
+                
+                // Play TNT placement sound
+                SoundEvents.TriggerTntPlaced();
             } else {
                 Debug.Log("Cannot place TNT. There are physical objects nearby.");
             }

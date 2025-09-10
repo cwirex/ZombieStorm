@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Assets.Scripts.Audio;
 
 public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
 {
@@ -33,6 +34,9 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
     }
 
     public virtual void Die() {
+        // Play zombie die sound
+        SoundEvents.TriggerZombieDie();
+        
         StartCoroutine(DeathAnimation());
     }
     

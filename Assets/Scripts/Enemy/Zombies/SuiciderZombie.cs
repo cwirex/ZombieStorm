@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Audio;
 
 public class SuiciderZombie : Enemy
 {
@@ -37,6 +38,9 @@ public class SuiciderZombie : Enemy
 
         var controller = FindObjectOfType<ExplosionController>();
         controller?.MakeSmallExplosion(transform.position);
+
+        // Play explosion sound
+        SoundEvents.TriggerTntExplosion();
 
         Destroy(gameObject);
     }

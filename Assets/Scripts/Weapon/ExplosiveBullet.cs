@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Audio;
 
 /// <summary>
 /// Class of a flying Bullet (Instantiated by Weapon)
@@ -39,6 +40,10 @@ public class ExplosiveBullet : Bullet
             foreach (var explosive in otherExplosives) {
                 explosive.TriggerExplosion();
             }
+            
+            // Play RPG explosion sound
+            SoundEvents.TriggerRPGExplosion();
+            
             var controller = FindObjectOfType<ExplosionController>();
             controller?.MakeSmallExplosion(transform.position);
             Destroy(gameObject);
