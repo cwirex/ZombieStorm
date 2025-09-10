@@ -15,6 +15,7 @@ public class Toxic : Enemy {
     private ToxicWeapon weapon;
     private Transform weaponTF;
     private Transform playerTF;
+    private bool isDead = false;
 
     private void Awake() {
         weaponTF = transform.Find("Weapon");
@@ -32,11 +33,21 @@ public class Toxic : Enemy {
     }
 
     void Update() {
+        if (isDead) return;
+        
         float distanceToPlayer = (playerTF.position - weaponTF.position).magnitude;
         if(distanceToPlayer <= Range) {
             weapon.OnShootPerformed();
         } else {
             weapon.OnShootCanceled();
         }
+    }
+
+    public override void Die() {
+        isDead = true;
+        if (weapon != null) {
+            weapon.OnShootCanceled();
+        }
+        base.Die();
     }
 }

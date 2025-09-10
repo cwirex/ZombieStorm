@@ -259,7 +259,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 12
   m_Acceleration: 40
   avoidancePriority: 70
   m_AngularSpeed: 1080
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateFrequency: 10
+  updateFrequency: 20
 --- !u!54 &2026811335574568766
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2774681883900447588}
   serializedVersion: 4
-  m_Mass: 30
+  m_Mass: 100
   m_Drag: 4
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -346,9 +346,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3caaa291b17a9c459d427019aa1c4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 70
+  Health: 150
   Damage: 200
-  MovementSpeed: 10
+  MovementSpeed: 12
   ExplosionRadius: 3.5
   ExplosionForce: 500
 --- !u!1 &3674756723175987831

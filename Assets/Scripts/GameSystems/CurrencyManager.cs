@@ -107,12 +107,12 @@ public class CurrencyManager : MonoBehaviour
     
     private void OnWaveCompleted(int waveNumber)
     {
-        // Calculate wave completion bonus: 100 * waveNumber + 500 * bossLevel
+        // Calculate wave completion bonus: 200 * waveNumber + 1000 * bossLevel (doubled from original)
         bool isBoss = IsBossWave(waveNumber);
         int bossLevel = isBoss ? GetBossLevel(waveNumber) : 0;
         
-        waveCompletionBonus = 100 * waveNumber;
-        bossBonus = 500 * bossLevel;
+        waveCompletionBonus = 200 * waveNumber;  // Increased by 100% (was 100)
+        bossBonus = 1000 * bossLevel;            // Increased by 100% (was 500)
         
         int totalBonus = waveCompletionBonus + bossBonus;
         currentCash += totalBonus;

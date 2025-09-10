@@ -41,7 +41,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
     }
     
     protected virtual IEnumerator DeathAnimation() {
-        return DeathAnimationWithDuration(0.5f, 3f);
+        return DeathAnimationWithDuration(0.3f, 2f);
     }
     
     protected IEnumerator DeathAnimationWithDuration(float deathDelay, float fadeOutDuration) {
@@ -55,9 +55,14 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IKnockbackable
         if (triggerCollider != null && triggerCollider.isTrigger) {
             triggerCollider.enabled = false;
         }
+        NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
+        if (navMeshAgent != null) {
+            navMeshAgent.enabled = false;
+        }
         
         // Freeze rigidbody
-        if (rb != null) {
+        if (rb != null)
+        {
             rb.mass *= 999f;
         }
         

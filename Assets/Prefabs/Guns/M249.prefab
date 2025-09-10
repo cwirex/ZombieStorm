@@ -186,9 +186,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfBullet: {fileID: 7687725423027177471, guid: fbd1da89ae752174a9d24c53698303aa,
     type: 3}
-  minSpreadAngle: 1
-  maxSpreadAngle: 50
-  spreadAngleSteps: 15
+  id: 0
+  minSpreadAngle: 0
+  maxSpreadAngle: 30
+  spreadAngleSteps: 5
 --- !u!1 &1564110021164438
 GameObject:
   m_ObjectHideFlags: 0

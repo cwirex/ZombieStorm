@@ -15,6 +15,7 @@ namespace Assets.Scripts.Shop
         [Header("Shop Configuration")]
         [SerializeField] private bool debugMode = false;
         [SerializeField] private bool autoRefillAmmo = true; // New design: no ammo purchases
+        [SerializeField] private bool autoOpenOnWaveEnd = true; // Auto-open shop when wave ends
         
         [Header("Dependencies")]
         [SerializeField] private WeaponManager weaponManager;
@@ -62,10 +63,18 @@ namespace Assets.Scripts.Shop
             if (playerInventory == null)
                 playerInventory = FindObjectOfType<PlayerInventory>();
             
-            // Subscribe to wave events for auto-ammo refill
-            if (autoRefillAmmo && WaveManager.Instance != null)
+            // Subscribe to wave events for auto-ammo refill and auto-shop open
+            if (WaveManager.Instance != null)
             {
-                WaveManager.Instance.OnWaveStarted += OnWaveStarted;
+                if (autoRefillAmmo)
+                {
+                    WaveManager.Instance.OnWaveStarted += OnWaveStarted;
+                }
+                
+                if (autoOpenOnWaveEnd)
+                {
+                    WaveManager.Instance.OnWaveCompleted += OnWaveCompleted;
+                }
             }
             
             ValidateDependencies();
@@ -647,6 +656,32 @@ namespace Assets.Scripts.Shop
             }
         }
         
+        /// <summary>
+        /// Called when a wave is completed - auto-opens shop if enabled
+        /// </summary>
+        private void OnWaveCompleted(int waveNumber)
+        {
+            if (autoOpenOnWaveEnd && !IsShopOpen)
+            {
+                // Add a small delay to let wave completion effects finish
+                StartCoroutine(OpenShopAfterDelay(0.5f));
+                
+                if (debugMode)
+                {
+                    Debug.Log($"Auto-opening shop after wave {waveNumber} completion");
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Opens the shop after a short delay
+        /// </summary>
+        private System.Collections.IEnumerator OpenShopAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            OpenShop();
+        }
+        
         private void RefillAllAmmo()
         {
             // This would refill ammo for all owned weapons
@@ -670,6 +705,7 @@ namespace Assets.Scripts.Shop
             if (WaveManager.Instance != null)
             {
                 WaveManager.Instance.OnWaveStarted -= OnWaveStarted;
+                WaveManager.Instance.OnWaveCompleted -= OnWaveCompleted;
             }
         }
         

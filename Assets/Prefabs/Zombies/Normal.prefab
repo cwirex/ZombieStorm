@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c8b94f4525be5409e7dfd4e4a6a86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 250
+  Health: 200
   Damage: 50
   MovementSpeed: 3
 --- !u!65 &2417881069764623800
@@ -116,7 +116,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2774681883900447588}
   serializedVersion: 4
-  m_Mass: 40
+  m_Mass: 65
   m_Drag: 5
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}

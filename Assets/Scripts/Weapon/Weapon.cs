@@ -87,13 +87,31 @@ namespace Assets.Scripts.Weapon {
         /// </summary>
         public virtual void StartReload() {
             if (Stats != null && Stats.ReloadSpeed > 0) {
-                // Calculate reload time: base 1 second divided by reload speed multiplier
-                float reloadTime = 1.0f / Stats.ReloadSpeed;
+                // Calculate reload time based on weapon type with base times varying by weapon power
+                float baseReloadTime = GetBaseReloadTimeForWeapon(id);
+                float reloadTime = baseReloadTime / Stats.ReloadSpeed;
                 Ammo.StartReload(reloadTime);
             } else {
                 // Fallback to instant reload if no stats available
                 Ammo.Reload();
             }
+        }
+        
+        /// <summary>
+        /// Gets the base reload time for different weapon types (stronger weapons take longer)
+        /// </summary>
+        private float GetBaseReloadTimeForWeapon(EWeapons weaponType) {
+            return weaponType switch {
+                EWeapons.PISTOL => 1.0f,        // Fastest - lightweight sidearm
+                EWeapons.UZI => 1.2f,           // Fast - compact SMG
+                EWeapons.SHOTGUN => 1.8f,       // Slower - shells take time to load
+                EWeapons.M4 => 1.5f,            // Medium - assault rifle
+                EWeapons.AWP => 2.2f,           // Slow - heavy sniper rifle
+                EWeapons.M249 => 2.8f,          // Very slow - heavy machine gun
+                EWeapons.RPG7 => 3.0f,          // Slowest - rocket launcher
+                EWeapons.FLAMETHROWER => 2.0f,  // Slow - fuel tank refill
+                _ => 1.0f                       // Default fallback
+            };
         }
         
         /// <summary>

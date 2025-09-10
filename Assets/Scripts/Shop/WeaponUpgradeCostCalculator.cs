@@ -12,14 +12,14 @@ namespace Assets.Scripts.Shop
         // Base weapon prices according to our new pricing structure
         private static readonly Dictionary<EWeapons, int> BaseWeaponPrices = new()
         {
-            { EWeapons.PISTOL, 200 },      // Special case: free weapon, but upgrades cost as if $200
-            { EWeapons.UZI, 300 },
-            { EWeapons.SHOTGUN, 400 },
-            { EWeapons.FLAMETHROWER, 700 },
-            { EWeapons.M4, 800 },
-            { EWeapons.AWP, 1500 },
-            { EWeapons.M249, 1800 },
-            { EWeapons.RPG7, 2000 }
+            { EWeapons.PISTOL, 600 },      // Special case: free weapon, but upgrades cost as if $800
+            { EWeapons.UZI, 500 },
+            { EWeapons.SHOTGUN, 1100 },
+            { EWeapons.FLAMETHROWER, 3600 },
+            { EWeapons.M4, 2100 },
+            { EWeapons.AWP, 3200 },
+            { EWeapons.M249, 2800 },
+            { EWeapons.RPG7, 5000 }
         };
         
         // Universal cost percentages for each level

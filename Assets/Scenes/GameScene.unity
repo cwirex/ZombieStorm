@@ -2857,7 +2857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3665,7 +3665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe6f795c7c727e4fabc62911b13753d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCash: 100000
+  startingCash: 3000
 --- !u!1 &304535901
 GameObject:
   m_ObjectHideFlags: 0
@@ -4563,6 +4563,7 @@ MonoBehaviour:
   flamethrowerSound: {fileID: 8300000, guid: 14e47c004c1b52a44b624e298c6ab4a8, type: 3}
   rpgSound: {fileID: 8300000, guid: ee61b02125049a34d93a74a0e9e3ff80, type: 3}
   rpgExplosionSound: {fileID: 8300000, guid: 65ccf13cf76dd414597401e7bc1891c2, type: 3}
+  reloadSound: {fileID: 8300000, guid: cbeca7ab865f891448b2d6d4b383e59e, type: 3}
   heal: {fileID: 8300000, guid: 0e4c73760fc73864f98fef26c26a1d59, type: 3}
   buySell: {fileID: 8300000, guid: 132a8fd0567a7754db64b090c7af08c3, type: 3}
   placeTnt: {fileID: 8300000, guid: fab1a63153c15d64f9b57522095fda5c, type: 3}
@@ -16129,6 +16130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 1
   autoRefillAmmo: 1
+  autoOpenOnWaveEnd: 1
   weaponManager: {fileID: 0}
   playerInventory: {fileID: 0}
 --- !u!1 &1257189880
@@ -17416,7 +17418,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -28,15 +28,15 @@ public class ScoreManager : MonoBehaviour
     
     public int GetPreviousScore() => previousScore;
     
-    // Score values for different enemy types
+    // Score values for different enemy types (increased by 50% from original)
     private readonly Dictionary<System.Type, int> scoreValues = new()
     {
-        { typeof(NormalZombie), 10 },
-        { typeof(GigantZombie), 25 },
-        { typeof(GigantBomberZombie), 35 },
-        { typeof(Toxic), 20 },
-        { typeof(PhoenixZombie), 40 },
-        { typeof(SuiciderZombie), 15 }
+        { typeof(NormalZombie), 25 },
+        { typeof(GigantZombie), 50 },
+        { typeof(GigantBomberZombie), 250 },
+        { typeof(Toxic), 30 },
+        { typeof(PhoenixZombie), 100 },
+        { typeof(SuiciderZombie), 20 }
     };
     
     // Events
@@ -105,13 +105,13 @@ public class ScoreManager : MonoBehaviour
     
     private void OnWaveCompleted(int waveNumber)
     {
-        // Calculate wave completion bonus: same as cash (100 * waveNumber + 500 * bossLevel)
         bool isBoss = IsBossWave(waveNumber);
         int bossLevel = isBoss ? GetBossLevel(waveNumber) : 0;
-        
-        int waveBonus = 100 * waveNumber;
-        int bossBonus = 500 * bossLevel;
-        int totalBonus = waveBonus + bossBonus;
+
+        int baseBonus = 1000;
+        int waveBonus = 500 * (waveNumber -1);
+        int bossBonus = 3000 * bossLevel;
+        int totalBonus = waveBonus + bossBonus + baseBonus;
         
         previousScore = currentScore;
         currentScore += totalBonus;

@@ -186,7 +186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfBullet: {fileID: 7687725423027177471, guid: fbd1da89ae752174a9d24c53698303aa,
     type: 3}
-  spreadAngle: 18
+  id: 0
+  spreadAngle: 12
 --- !u!1 &1382682361031114
 GameObject:
   m_ObjectHideFlags: 0

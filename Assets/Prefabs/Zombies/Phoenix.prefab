@@ -49,9 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf3e1f212dd56a4090bc5fb1a8c88e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 120
+  Health: 200
   Damage: 30
-  MovementSpeed: 3.5
+  MovementSpeed: 3.6
   respawnMaterial: {fileID: 2100000, guid: 874e968446c933942a2e13d2e840aa73, type: 2}
   respawnDuration: 3
   Boost: 4
@@ -65,7 +65,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 7
   m_Acceleration: 6
   avoidancePriority: 60
   m_AngularSpeed: 180
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateFrequency: 10
 --- !u!65 &2417881069764623800
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2774681883900447588}
   serializedVersion: 4
-  m_Mass: 60
+  m_Mass: 125
   m_Drag: 5
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}

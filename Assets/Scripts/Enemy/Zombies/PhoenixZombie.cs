@@ -60,6 +60,6 @@ public class PhoenixZombie : Enemy
         navAgent.speed = MovementSpeed * Boost / 2f;
         navAgent.acceleration *= Boost;
         navAgent.angularSpeed *= Boost;
-        rb.mass *= Boost / 2f;
+        rb.mass *= Boost / 1.5f;
     }
 }

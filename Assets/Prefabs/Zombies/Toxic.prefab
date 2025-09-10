@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateFrequency: 10
+  updateFrequency: 1
 --- !u!114 &8504026601931509777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a892b3b7ec0b1429577a09a6d53a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 300
-  Damage: 120
+  Health: 150
+  Damage: 100
   MovementSpeed: 1.5
   weaponPF: {fileID: 1694449805434718, guid: 6828f5ecd5ed72d4d94b9fb56f30f7d7, type: 3}
   Range: 15
@@ -121,7 +121,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2774681883900447588}
   serializedVersion: 4
-  m_Mass: 120
+  m_Mass: 50
   m_Drag: 6
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}

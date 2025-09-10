@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.UIElements.ToolbarMenu;
 
 
 public class GameInput : MonoBehaviour

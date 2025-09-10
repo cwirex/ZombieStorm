@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateFrequency: 10
+  updateFrequency: 3
 --- !u!65 &2417881069764623800
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -101,7 +101,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2774681883900447588}
   serializedVersion: 4
-  m_Mass: 300
+  m_Mass: 500
   m_Drag: 5
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d440a83f8fb2210418294c1f04b86688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 1200
+  Health: 800
   Damage: 260
   MovementSpeed: 2.1
 --- !u!1 &3674756723175987831
