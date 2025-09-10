@@ -45,6 +45,9 @@ namespace Assets.Scripts.Weapon {
         }
 
         override internal void OnShootPerformed() {
+            // Cannot shoot while reloading
+            if (Ammo.IsReloading) return;
+            
             // Only start shooting if we have ammo
             if (!Ammo.IsMagazineEmpty()) {
                 if (!isShooting) {
@@ -55,11 +58,8 @@ namespace Assets.Scripts.Weapon {
                 lastAmmoConsumeTime = Time.time;
                 flamesGO?.SetActive(true);
             } else {
-                // Try to reload if magazine is empty
-                if (Ammo.Reload()) {
-                    OnShootPerformed(); // Try again after reload
-                } else {
-                }
+                // Start timed reload instead of instant reload
+                StartReload();
             }
         }
 
@@ -82,8 +82,7 @@ namespace Assets.Scripts.Weapon {
                 if (Ammo.IsMagazineEmpty()) {
                     // Out of fuel - stop shooting
                     OnShootCanceled();
-                    if (!Ammo.Reload()) {
-                    }
+                    StartReload();
                 } else {
                     Ammo.Use(1); // Consume 1 fuel unit
                     lastAmmoConsumeTime = currentTime;

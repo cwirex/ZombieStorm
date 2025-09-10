@@ -209,6 +209,12 @@ public class WeaponManager : MonoBehaviour {
         // Stop any continuous weapon sounds (like flamethrower) before switching
         if (weaponIndex != currentWeaponIndex) {
             SoundEvents.TriggerWeaponSwitch();
+            
+            // Cancel reload on current weapon before switching
+            if (weapons[currentWeaponIndex] != null) {
+                Weapon currentWeapon = weapons[currentWeaponIndex].GetComponent<Weapon>();
+                currentWeapon?.OnWeaponDeactivated();
+            }
         }
 
         weapons[currentWeaponIndex]?.SetActive(false);

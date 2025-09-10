@@ -27,7 +27,10 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.SelectWeapon7.performed += SelectWeapon7_performed;
         playerInputActions.Player.SelectWeapon8.performed += SelectWeapon8_performed;
         playerInputActions.Player.Heal.performed += Heal_performed;
-        playerInputActions.Player.Exit.performed += Exit_performed; ;
+        playerInputActions.Player.Exit.performed += Exit_performed;
+        
+        // Add reload key (R key) - using simple input since it's not in input actions
+        StartCoroutine(CheckForReloadInput());
     }
     
     private void OnDestroy() {
@@ -145,6 +148,16 @@ public class GameInput : MonoBehaviour
 
         return inputVector;
     }
+    
+    private IEnumerator CheckForReloadInput() {
+        while (true) {
+            // Check for R key press
+            if (Input.GetKeyDown(KeyCode.R)) {
+                InvokeEventHandler(InteractVariant.ReloadPerformed);
+            }
+            yield return null;
+        }
+    }
 }
 
 public enum InteractVariant {
@@ -163,6 +176,7 @@ public enum InteractVariant {
     SelectWeapon8,
     HealPerformed,
     ExitPerformed,
+    ReloadPerformed,
 }
 
 public class InteractEventArgs : EventArgs {

@@ -25,6 +25,7 @@ namespace Assets.Scripts.PlayerScripts {
         [SerializeField] private TMP_Text scoreCounter;
         [SerializeField] List<Sprite> weaponSprites = new List<Sprite>();
         [SerializeField] private Slider ammoSlider;
+        private Coroutine ammoReloadAnimation;
         [SerializeField] private GameObject pauseUI;
         [SerializeField] private GameObject gameUI;
         
@@ -397,7 +398,62 @@ namespace Assets.Scripts.PlayerScripts {
             }
         }
 
-        public void SetAmmoSlider(float fillAmount) { ammoSlider.value = fillAmount; }
+        public void SetAmmoSlider(float fillAmount) { 
+            if (ammoSlider != null) {
+                // Stop any reload animation in progress when setting value manually
+                if (ammoReloadAnimation != null) {
+                    StopCoroutine(ammoReloadAnimation);
+                    ammoReloadAnimation = null;
+                }
+                
+                ammoSlider.value = Mathf.Clamp01(fillAmount);
+            } else {
+                Debug.LogWarning("AmmoSlider is null! Make sure it's assigned in the Inspector.");
+            }
+        }
+        
+        /// <summary>
+        /// Animates the ammo slider during reload to show progress
+        /// </summary>
+        /// <param name="reloadTime">Time in seconds for the reload</param>
+        public void StartAmmoReloadAnimation(float reloadTime) {
+            if (ammoSlider != null) {
+                if (ammoReloadAnimation != null) {
+                    StopCoroutine(ammoReloadAnimation);
+                }
+                ammoReloadAnimation = StartCoroutine(AmmoReloadAnimationCoroutine(reloadTime));
+            }
+        }
+        
+        /// <summary>
+        /// Stops the reload animation
+        /// </summary>
+        public void StopAmmoReloadAnimation() {
+            if (ammoReloadAnimation != null) {
+                StopCoroutine(ammoReloadAnimation);
+                ammoReloadAnimation = null;
+            }
+        }
+        
+        private IEnumerator AmmoReloadAnimationCoroutine(float reloadTime) {
+            if (ammoSlider == null) yield break;
+            
+            float startValue = ammoSlider.value;
+            float elapsedTime = 0f;
+            
+            while (elapsedTime < reloadTime) {
+                float progress = elapsedTime / reloadTime;
+                // Animate from current value to 1.0 (full magazine)
+                ammoSlider.value = Mathf.Lerp(startValue, 1f, progress);
+                
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            
+            // Ensure we end at full
+            ammoSlider.value = 1f;
+            ammoReloadAnimation = null;
+        }
         
         // Public method to set wave display (can be called from external systems)
         public void SetWaveDisplay(int waveNumber) {
@@ -427,7 +483,10 @@ namespace Assets.Scripts.PlayerScripts {
 
         internal void UpdateAmmoCounter(int ammoInMagazine, int ammoLeft, int magazineCapacity) {
             SetAmmoCounter($"{ammoInMagazine}/{ammoLeft}");
-            SetAmmoSlider((float)ammoInMagazine / (float)magazineCapacity);
+            
+            // Calculate and set slider value
+            float fillAmount = magazineCapacity > 0 ? (float)ammoInMagazine / (float)magazineCapacity : 0f;
+            SetAmmoSlider(fillAmount);
         }
 
         // Methods called by GameManager for different states

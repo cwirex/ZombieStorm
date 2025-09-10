@@ -25,6 +25,9 @@ namespace Assets.Scripts.Weapon {
         }
 
         public override void Shoot() {
+            // Cannot shoot while reloading
+            if (Ammo.IsReloading) return;
+            
             if (Time.time > nextFireTime) {
                 // Check ammo before shooting
                 if (!Ammo.IsMagazineEmpty()) {
@@ -41,17 +44,15 @@ namespace Assets.Scripts.Weapon {
                     GameObject bulletGO = Instantiate(pfBullet, Thread.position, Thread.rotation);
                     Bullet bullet = bulletGO.GetComponent<Bullet>();
                     bullet.SetDamage(Stats.Damage);
+                    bullet.SetSourceWeapon(this); // Set weapon reference for kill tracking
                     Rigidbody bulletRigidbody = bulletGO.GetComponent<Rigidbody>();
                     bulletRigidbody.velocity = spreadDirection.normalized * Stats.BulletSpeed;
 
                     Destroy(bulletGO, Stats.Range);
                     nextFireTime = Time.time + 1f / Stats.FireRate;
                 } else {
-                    // Try to reload if magazine is empty
-                    if (Ammo.Reload()) {
-                        // Successfully reloaded, could try shooting again
-                    } else {
-                    }
+                    // Start timed reload instead of instant reload
+                    StartReload();
                 }
             }
         }

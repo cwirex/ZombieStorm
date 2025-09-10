@@ -30,6 +30,9 @@ namespace Assets.Scripts.Weapon {
             if (Thread == null) {
                 Thread = transform;
             }
+            
+            // Set this weapon as the coroutine runner for ammo system
+            Ammo.SetCoroutineRunner(this);
         }
 
         protected virtual void Update() {
@@ -39,6 +42,9 @@ namespace Assets.Scripts.Weapon {
         }
 
         public virtual void Shoot() {
+            // Cannot shoot while reloading
+            if (Ammo.IsReloading) return;
+            
             if(Time.time > nextFireTime) {
                 if (!Ammo.IsMagazineEmpty()) {
                     // Check for ultimate abilities that trigger on shot
@@ -70,12 +76,31 @@ namespace Assets.Scripts.Weapon {
 
                     nextFireTime = Time.time + 1f / Stats.FireRate;
                 } else {
-                    if (Ammo.Reload()) {
-                        // Shoot();
-                    } else {
-                    }
+                    // Start timed reload instead of instant reload
+                    StartReload();
                 }
             }   
+        }
+        
+        /// <summary>
+        /// Starts a timed reload using the weapon's ReloadSpeed stat
+        /// </summary>
+        public virtual void StartReload() {
+            if (Stats != null && Stats.ReloadSpeed > 0) {
+                // Calculate reload time: base 1 second divided by reload speed multiplier
+                float reloadTime = 1.0f / Stats.ReloadSpeed;
+                Ammo.StartReload(reloadTime);
+            } else {
+                // Fallback to instant reload if no stats available
+                Ammo.Reload();
+            }
+        }
+        
+        /// <summary>
+        /// Called when weapon is deactivated/switched - cancels reload
+        /// </summary>
+        public virtual void OnWeaponDeactivated() {
+            Ammo.CancelReload();
         }
         
         /// <summary>

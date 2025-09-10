@@ -56,6 +56,8 @@ public class InteractController : MonoBehaviour {
             weaponManager?.SelectWeaponByType(EWeapons.RPG7);      // Key 7 = RPG7
         } else if (args.variant == InteractVariant.SelectWeapon8) {
             weaponManager?.SelectWeaponByType(EWeapons.FLAMETHROWER); // Key 8 = Flamethrower
+        } else if (args.variant == InteractVariant.ReloadPerformed) {
+            currentWeapon?.StartReload(); // R key = Manual reload
         } else if(args.variant == InteractVariant.ExitPerformed) {
             uiController?.TogglePause();
         }

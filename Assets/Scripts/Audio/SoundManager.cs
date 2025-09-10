@@ -30,6 +30,7 @@ namespace Assets.Scripts.Audio
         [SerializeField] private AudioClip flamethrowerSound;   // Flamethrower (start only)
         [SerializeField] private AudioClip rpgSound;            // RPG-7
         [SerializeField] private AudioClip rpgExplosionSound;   // RPG explosion
+        [SerializeField] private AudioClip reloadSound;         // Weapon reload
         
         [Header("=== ITEM & SHOP SOUNDS ===")]
         [SerializeField] private AudioClip heal;                // Medkit use
@@ -277,6 +278,11 @@ namespace Assets.Scripts.Audio
         {
             OnFlamethrowerStopShooting();
             // Add other continuous weapon sounds here if needed
+        }
+        
+        public void PlayReloadSound()
+        {
+            PlaySound(reloadSound, weaponSource);
         }
         
         #endregion

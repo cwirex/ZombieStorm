@@ -24,6 +24,7 @@ namespace Assets.Scripts.Audio
         public static event Action OnFlamethrowerStart;      // Flamethrower starts shooting
         public static event Action OnFlamethrowerStop;       // Flamethrower stops shooting
         public static event Action OnWeaponSwitch;           // When weapon is switched
+        public static event Action OnWeaponReload;           // When weapon starts reloading
         
         // Item & Shop events
         public static event Action OnHealUsed;               // Medkit used successfully
@@ -54,6 +55,7 @@ namespace Assets.Scripts.Audio
         public static void TriggerFlamethrowerStart() => OnFlamethrowerStart?.Invoke();
         public static void TriggerFlamethrowerStop() => OnFlamethrowerStop?.Invoke();
         public static void TriggerWeaponSwitch() => OnWeaponSwitch?.Invoke();
+        public static void TriggerWeaponReload() => OnWeaponReload?.Invoke();
         
         public static void TriggerHealUsed() => OnHealUsed?.Invoke();
         public static void TriggerWeaponPurchased() => OnWeaponPurchased?.Invoke();
@@ -92,6 +94,7 @@ namespace Assets.Scripts.Audio
             OnFlamethrowerStart += soundManager.OnFlamethrowerStartShooting;
             OnFlamethrowerStop += soundManager.OnFlamethrowerStopShooting;
             OnWeaponSwitch += soundManager.StopAllWeaponSounds;
+            OnWeaponReload += soundManager.PlayReloadSound;
             
             // Item & Shop sounds
             OnHealUsed += soundManager.PlayHealSound;
@@ -129,6 +132,7 @@ namespace Assets.Scripts.Audio
             OnFlamethrowerStart -= soundManager.OnFlamethrowerStartShooting;
             OnFlamethrowerStop -= soundManager.OnFlamethrowerStopShooting;
             OnWeaponSwitch -= soundManager.StopAllWeaponSounds;
+            OnWeaponReload -= soundManager.PlayReloadSound;
             
             // Item & Shop sounds
             OnHealUsed -= soundManager.PlayHealSound;
