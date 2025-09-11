@@ -193,9 +193,14 @@ public class WaveProgressionManager : MonoBehaviour
             // First and third boss: Center only
             return new SpawnerArea[] { SpawnerArea.Center };
         }
+        else if (waveNumber == 12)
+        {
+            // Second boss: All directions except South (South is clear fighting area)
+            return new SpawnerArea[] { SpawnerArea.North, SpawnerArea.East, SpawnerArea.West };
+        }
         else
         {
-            // Second boss and final phase bosses: All directions
+            // Final phase bosses: All directions
             return new SpawnerArea[] { SpawnerArea.North, SpawnerArea.East, SpawnerArea.South, SpawnerArea.West };
         }
     }
@@ -205,7 +210,7 @@ public class WaveProgressionManager : MonoBehaviour
         if (waveNumber == 7)
             return "🏆 FIRST BOSS - Center Arena";
         else if (waveNumber == 12)
-            return "🏆 SECOND BOSS - All Directions";
+            return "🏆 SECOND BOSS - North/East/West Attack";
         else if (waveNumber == 17)
             return "🏆 THIRD BOSS - Final Center Fight";
         else
