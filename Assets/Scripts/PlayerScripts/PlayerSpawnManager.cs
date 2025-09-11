@@ -9,6 +9,12 @@ public class PlayerSpawnManager : MonoBehaviour
     [SerializeField] private Vector3 centerPosition = Vector3.zero;
     [SerializeField] private bool useTransformPosition = true;
     
+    [Header("Area Spawn Points")]
+    [SerializeField] private Transform northSpawnPoint;
+    [SerializeField] private Transform southSpawnPoint;
+    [SerializeField] private Transform eastSpawnPoint;
+    [SerializeField] private Transform westSpawnPoint;
+    
     private Vector3 originalCenterPosition; // Store the original center position permanently
     
     [Header("Spawn Area Validation")]
@@ -81,28 +87,104 @@ public class PlayerSpawnManager : MonoBehaviour
     
     public void SpawnPlayerAtCenter()
     {
+        SpawnPlayerAtArea(SpawnerArea.Center);
+    }
+    
+    public void SpawnPlayerAtArea(SpawnerArea area)
+    {
         if (player == null)
         {
             Debug.LogError("PlayerSpawnManager: No player assigned!");
             return;
         }
         
-        Vector3 spawnPos = FindValidSpawnPosition();
+        Vector3 spawnPos = GetSpawnPositionForArea(area);
+        Quaternion spawnRot = GetRotationForArea(area);
         
-        // Move player to center
-        player.transform.position = spawnPos;
-        
-        // Reset player rotation to face north (forward)
-        player.transform.rotation = Quaternion.identity;
-        
-        
-        // Ensure player is in the center area
-        ValidatePlayerInCenter();
+        StartCoroutine(TeleportPlayerSafely(spawnPos, spawnRot, area));
     }
     
-    private Vector3 FindValidSpawnPosition()
+    private System.Collections.IEnumerator TeleportPlayerSafely(Vector3 targetPosition, Quaternion targetRotation, SpawnerArea area)
     {
-        Vector3 targetPosition = originalCenterPosition;
+        // Get all components that might block teleportation
+        Rigidbody playerRb = player.GetComponent<Rigidbody>();
+        Collider playerCollider = player.GetComponent<Collider>();
+        UnityEngine.AI.NavMeshAgent navAgent = player.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        
+        // Store original states
+        bool wasKinematic = playerRb != null && playerRb.isKinematic;
+        bool hadCollider = playerCollider != null && playerCollider.enabled;
+        bool hadNavAgent = navAgent != null && navAgent.enabled;
+        
+        // Disable all movement constraints
+        if (playerRb) playerRb.isKinematic = true;
+        if (playerCollider) playerCollider.enabled = false;
+        if (navAgent) navAgent.enabled = false;
+        
+        Debug.Log($"Teleporting to {area}: Disabled NavAgent: {hadNavAgent}, Rigidbody: {!wasKinematic}, Collider: {hadCollider}");
+        
+        // Wait a frame to ensure components are disabled
+        yield return null;
+        
+        // Teleport
+        player.transform.position = targetPosition;
+        player.transform.rotation = targetRotation;
+        
+        // Wait another frame
+        yield return null;
+        
+        // Restore components
+        if (playerRb) playerRb.isKinematic = wasKinematic;
+        if (playerCollider && hadCollider) playerCollider.enabled = true;
+        if (navAgent && hadNavAgent) 
+        {
+            navAgent.enabled = true;
+            // Warp the NavMeshAgent to the new position
+            if (navAgent.isOnNavMesh)
+            {
+                navAgent.Warp(targetPosition);
+            }
+        }
+        
+        Debug.Log($"Player safely teleported to {area} area: {targetPosition}");
+    }
+    
+    private Vector3 GetSpawnPositionForArea(SpawnerArea area)
+    {
+        Transform spawnPoint = area switch
+        {
+            SpawnerArea.North => northSpawnPoint,
+            SpawnerArea.South => southSpawnPoint,
+            SpawnerArea.East => eastSpawnPoint,
+            SpawnerArea.West => westSpawnPoint,
+            _ => centerSpawnPoint
+        };
+        
+        // Use exact spawn point position, no validation needed
+        if (spawnPoint != null)
+        {
+            return spawnPoint.position;
+        }
+        
+        // Fallback to center if spawn point not assigned
+        Debug.LogWarning($"No spawn point assigned for {area}, using center");
+        return originalCenterPosition;
+    }
+    
+    private Quaternion GetRotationForArea(SpawnerArea area)
+    {
+        return area switch
+        {
+            SpawnerArea.North => Quaternion.LookRotation(Vector3.back),    // Face south towards center
+            SpawnerArea.South => Quaternion.LookRotation(Vector3.forward), // Face north towards center
+            SpawnerArea.East => Quaternion.LookRotation(Vector3.left),     // Face west towards center
+            SpawnerArea.West => Quaternion.LookRotation(Vector3.right),    // Face east towards center
+            _ => Quaternion.identity // Face north from center
+        };
+    }
+    
+    private Vector3 FindValidSpawnPosition(Vector3 targetPosition)
+    {
         
         // Check if spawn position is clear
         if (IsPositionClear(targetPosition))

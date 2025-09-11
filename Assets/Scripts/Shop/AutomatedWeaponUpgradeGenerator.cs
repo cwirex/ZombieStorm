@@ -504,23 +504,23 @@ namespace Assets.Scripts.Shop
                             Stat(StatType.MagazineCapacity, ModifierType.Add, 1f, "+1 Rocket"),
                             Stat(StatType.ExtraMagazines, ModifierType.Add, 1f, "+1 Extra Magazine")
                         } },
-                        new UpgradeLevel { Level = 3, Description = "+10% Blast Radius (3.3m), +1 Extra Magazine", StatChanges = new[] { 
-                            Stat(StatType.BlastRadius, ModifierType.Percentage, 10f, "+10% Blast Radius"),
-                            Stat(StatType.ExtraMagazines, ModifierType.Add, 1f, "+1 Extra Magazine")
-                        } },
-                        new UpgradeLevel { Level = 4, Description = "+10% Damage (330), +1 Extra Magazine", StatChanges = new[] { 
+                        new UpgradeLevel { Level = 3, Description = "+10% Damage, +1 Extra Magazine", StatChanges = new[] { 
                             Stat(StatType.Damage, ModifierType.Percentage, 10f, "+10% Damage"),
                             Stat(StatType.ExtraMagazines, ModifierType.Add, 1f, "+1 Extra Magazine")
                         } },
-                        new UpgradeLevel { Level = 5, Description = "+25% Damage (412), +1 Max Rocket (6)", StatChanges = new[] { 
+                        new UpgradeLevel { Level = 4, Description = "+10% Damage, +1 Extra Magazine", StatChanges = new[] { 
+                            Stat(StatType.Damage, ModifierType.Percentage, 10f, "+10% Damage"),
+                            Stat(StatType.ExtraMagazines, ModifierType.Add, 1f, "+1 Extra Magazine")
+                        } },
+                        new UpgradeLevel { Level = 5, Description = "+25% Damage, +1 Max Rocket", StatChanges = new[] { 
                             Stat(StatType.Damage, ModifierType.Percentage, 25f, "+25% Damage"),
                             Stat(StatType.MagazineCapacity, ModifierType.Add, 1f, "+1 Rocket") 
                         }},
-                        new UpgradeLevel { Level = 6, Description = "+20% Blast Radius (4m), +1 Reload Speed", StatChanges = new[] { 
-                            Stat(StatType.BlastRadius, ModifierType.Percentage, 20f, "+20% Blast Radius"),
+                        new UpgradeLevel { Level = 6, Description = "+20% Damage, +1 Reload Speed", StatChanges = new[] { 
+                            Stat(StatType.Damage, ModifierType.Percentage, 20f, "+20% Damage"),
                             Stat(StatType.ReloadSpeed, ModifierType.Add, 1f, "+1 Reload Speed") 
                         }},
-                        new UpgradeLevel { Level = 7, Description = "+25% Damage (515), +1 Max Rocket (7)", StatChanges = new[] { 
+                        new UpgradeLevel { Level = 7, Description = "+25% Damage, +1 Max Rocket", StatChanges = new[] { 
                             Stat(StatType.Damage, ModifierType.Percentage, 25f, "+25% Damage"),
                             Stat(StatType.MagazineCapacity, ModifierType.Add, 1f, "+1 Rocket") 
                         }},
@@ -529,13 +529,13 @@ namespace Assets.Scripts.Shop
                             Stat(StatType.ReloadSpeed, ModifierType.Add, 1f, "+1 Reload Speed"),
                             Stat(StatType.ExtraMagazines, ModifierType.Add, 1f, "+1 Extra Magazine")
                         }},
-                        new UpgradeLevel { Level = 9, Description = "+25% Damage (644), +1 Max Rocket (8)", StatChanges = new[] { 
+                        new UpgradeLevel { Level = 9, Description = "+25% Damage, +1 Max Rocket", StatChanges = new[] { 
                             Stat(StatType.Damage, ModifierType.Percentage, 25f, "+25% Damage"),
                             Stat(StatType.MagazineCapacity, ModifierType.Add, 1f, "+1 Rocket") 
                         }},
-                        new UpgradeLevel { Level = 10, Description = "Thermobaric Warhead: Blast radius +25% and stuns enemies", StatChanges = new StatChange[0] }
+                        new UpgradeLevel { Level = 10, Description = "Thermobaric Warhead: +50% damage and stuns enemies", StatChanges = new StatChange[0] }
                     },
-                    Ultimate = new UltimateDefinition { Name = "Thermobaric Warhead", Description = "Blast radius +25% (5m) and briefly stuns all enemies hit", Type = UltimateAbilityType.ThermobaricBlast, TriggerChance = 1.0f }
+                    Ultimate = new UltimateDefinition { Name = "Thermobaric Warhead", Description = "+50% damage and briefly stuns all enemies hit", Type = UltimateAbilityType.ThermobaricBlast, TriggerChance = 1.0f }
                 }
             };
         }

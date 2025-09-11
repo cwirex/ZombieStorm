@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 3
   costPercentage: 8
-  description: +10% Blast Radius (3.3m), +1 Extra Magazine
+  description: +10% Damage, +1 Extra Magazine
   statModifiers:
-  - statType: 10
+  - statType: 0
     modifierType: 2
     value: 10
-    description: +10% Blast Radius
+    description: +10% Damage
   - statType: 19
     modifierType: 0
     value: 1

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 6
   costPercentage: 35
-  description: +20% Blast Radius (4m), +1 Reload Speed
+  description: +20% Damage, +1 Reload Speed
   statModifiers:
-  - statType: 10
+  - statType: 0
     modifierType: 2
     value: 20
-    description: +20% Blast Radius
+    description: +20% Damage
   - statType: 7
     modifierType: 0
     value: 1

@@ -27,7 +27,6 @@ public class AIMovement : MonoBehaviour
 
                 float distanceFromPlayer = Vector3.Distance(transform.position, playerTransform.position);
                 nextUpdate = Time.time + distanceFromPlayer / updateFrequency;
-                agent.stoppingDistance = Mathf.Clamp((distanceFromPlayer-2) * 0.1f -1, 0f, 5f);
             }
         }
 

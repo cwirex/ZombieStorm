@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 7
   costPercentage: 40
-  description: +25% Damage (515), +1 Max Rocket (7)
+  description: +25% Damage, +1 Max Rocket
   statModifiers:
   - statType: 0
     modifierType: 2

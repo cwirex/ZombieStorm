@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Audio;
+using System;
 
 /// <summary>
 /// Class of a flying Bullet (Instantiated by Weapon)
@@ -9,7 +10,7 @@ using Assets.Scripts.Audio;
 public class ExplosiveBullet : Bullet
 {
     [SerializeField] private float ExplosionRadius = 2.5f;
-    [SerializeField] private float ExplosionForce = 600f;
+    [SerializeField] private float ExplosionForce = 2000f;
 
     override protected void OnTriggerEnter(Collider collider) {
         if (collider.TryGetComponent(out Enemy _) || collider.GetComponent<Obstacle>() != null || collider.GetComponent<Explosive>() != null) {
@@ -22,7 +23,12 @@ public class ExplosiveBullet : Bullet
                 if (surroundingObject.TryGetComponent<Rigidbody>(out var rb)) {    // Is any other RigidBody
                     rb.AddExplosionForce(ExplosionForce, transform.position, ExplosionRadius, 0f, ForceMode.Impulse);
                     if (surroundingObject.TryGetComponent<IDamagable>(out var damagable)) {
-                        float damage = BulletDamage;
+                        float distance = Vector3.Distance(transform.position, surroundingObject.transform.position);
+                        float damageMultiplier = Mathf.Clamp01((ExplosionRadius - (distance - .8f)) / ExplosionRadius); // 1 at center (+1m), 0 at edge
+                        damageMultiplier = ((damageMultiplier + 1f) * (damageMultiplier + 1f)) - 1f; // Quadratic curve for damage falloff  
+                        float damage = BulletDamage * damageMultiplier;
+
+                        float finalDamage = damage * damageMultiplier; // More damage closer to center
 
                         damagable.TakeDamage(damage);
                     }

@@ -103,7 +103,7 @@ MonoBehaviour:
     type: 3}
   id: 0
   spreadAngle: 25
-  nBullets: 9
+  nBullets: 8
 --- !u!1 &1326079549577358
 GameObject:
   m_ObjectHideFlags: 0

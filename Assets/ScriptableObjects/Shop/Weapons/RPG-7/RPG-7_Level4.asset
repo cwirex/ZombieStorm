@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 4
   costPercentage: 12
-  description: +10% Damage (330), +1 Extra Magazine
+  description: +10% Damage, +1 Extra Magazine
   statModifiers:
   - statType: 0
     modifierType: 2

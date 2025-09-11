@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: -6915835917032637737}
   - component: {fileID: 7027076865625639633}
   - component: {fileID: 4281706966487858725}
-  - component: {fileID: 2417881069764623800}
   - component: {fileID: 2026811335574568766}
+  - component: {fileID: 8473925020351325579}
   m_Layer: 7
   m_Name: Phoenix
   m_TagString: Untagged
@@ -49,12 +49,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf3e1f212dd56a4090bc5fb1a8c88e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 200
-  Damage: 30
-  MovementSpeed: 3.6
+  Health: 150
+  Damage: 20
+  MovementSpeed: 2
   respawnMaterial: {fileID: 2100000, guid: 874e968446c933942a2e13d2e840aa73, type: 2}
   respawnDuration: 3
-  Boost: 4
+  Boost: 6
 --- !u!195 &7027076865625639633
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -64,8 +64,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 2774681883900447588}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 7
+  m_Radius: 0.2
+  m_Speed: 12
   m_Acceleration: 6
   avoidancePriority: 60
   m_AngularSpeed: 180
@@ -89,28 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateFrequency: 10
---- !u!65 &2417881069764623800
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2774681883900447588}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.1, y: 2.3, z: 1.1}
-  m_Center: {x: 0, y: 1.15, z: 0}
+  updateFrequency: 20
 --- !u!54 &2026811335574568766
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -138,6 +117,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &8473925020351325579
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2774681883900447588}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Height: 2.41
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.15, z: 0}
 --- !u!1 &3674756723175987831
 GameObject:
   m_ObjectHideFlags: 0

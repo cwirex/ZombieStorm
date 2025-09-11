@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2774681883900447588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.85, y: 0.9, z: 0.85}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4868209355590021979}
@@ -50,7 +50,7 @@ NavMeshAgent:
   m_Speed: 3
   m_Acceleration: 6
   avoidancePriority: 20
-  m_AngularSpeed: 180
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateFrequency: 3
+  updateFrequency: 10
 --- !u!65 &2417881069764623800
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 800
   Damage: 260
-  MovementSpeed: 2.1
+  MovementSpeed: 3
 --- !u!1 &3674756723175987831
 GameObject:
   m_ObjectHideFlags: 0

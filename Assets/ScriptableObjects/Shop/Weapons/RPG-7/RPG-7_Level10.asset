@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 10
   costPercentage: 75
-  description: 'Thermobaric Warhead: Blast radius +25% and stuns enemies'
+  description: 'Thermobaric Warhead: +50% damage and stuns enemies'
   statModifiers: []
   upgradeIcon: {fileID: 0}
   upgradeColor: {r: 1, g: 1, b: 1, a: 1}

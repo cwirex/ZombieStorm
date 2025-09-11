@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RPG-7_Ultimate
   m_EditorClassIdentifier: 
   abilityName: Thermobaric Warhead
-  description: Blast radius +25% (5m) and briefly stuns all enemies hit
+  description: +50% damage and briefly stuns all enemies hit
   abilityType: 7
   triggerChance: 1
   effectDuration: 0

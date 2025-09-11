@@ -26,7 +26,12 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance { get; private set; }
     
     [SerializeField] private int currentWaveNumber = 0;
+    [Header("Testing")]
+    [SerializeField] private int startingWaveNumber = 0;
     [SerializeField] private WaveState currentWaveState = WaveState.Lobby;
+    
+    // Store escape area to ensure teleportation and gate opening use the same area
+    private SpawnerArea? currentEscapeArea = null;
     [SerializeField] private GateState currentGateState = GateState.AllOpen;
     [SerializeField] private List<Spawner> allSpawners = new List<Spawner>();
     
@@ -59,14 +64,51 @@ public class WaveManager : MonoBehaviour
     {
         if (currentWaveState == WaveState.Lobby)
         {
+            int nextWaveNumber;
             if (currentWaveNumber == 0)
             {
-                StartWaveCountdown(1);
+                nextWaveNumber = startingWaveNumber + 1;
             }
             else
             {
-                StartWaveCountdown(currentWaveNumber + 1);
+                nextWaveNumber = currentWaveNumber + 1;
             }
+            
+            // Handle player teleportation before wave starts
+            HandlePlayerTeleportation(nextWaveNumber);
+            
+            StartWaveCountdown(nextWaveNumber);
+        }
+    }
+    
+    private void HandlePlayerTeleportation(int waveNumber)
+    {
+        if (PlayerSpawnManager.Instance == null) return;
+        
+        // Reset escape area for new wave
+        currentEscapeArea = null;
+        
+        // For waves 5+, try to teleport to escape area
+        if (waveNumber >= 5)
+        {
+            var areasForWave = GetAreasForWave(waveNumber);
+            currentEscapeArea = GetRandomEscapeArea(areasForWave);
+            
+            if (currentEscapeArea.HasValue)
+            {
+                PlayerSpawnManager.Instance.SpawnPlayerAtArea(currentEscapeArea.Value);
+                Debug.Log($"Player teleported to escape area: {currentEscapeArea.Value}");
+            }
+            else
+            {
+                PlayerSpawnManager.Instance.SpawnPlayerAtCenter();
+                Debug.Log("No escape area available, player spawned at center");
+            }
+        }
+        else
+        {
+            // For waves 1-4, spawn at center as usual
+            PlayerSpawnManager.Instance.SpawnPlayerAtCenter();
         }
     }
     
@@ -101,6 +143,16 @@ public class WaveManager : MonoBehaviour
         
         // Get areas for this wave and notify WallManager
         SpawnerArea[] areasToSpawn = GetAreasForWave(currentWaveNumber);
+        
+        // For waves 5+, add the same escape route that was used for teleportation
+        if (currentWaveNumber >= 5 && currentEscapeArea.HasValue)
+        {
+            var areasWithEscape = new List<SpawnerArea>(areasToSpawn);
+            areasWithEscape.Add(currentEscapeArea.Value);
+            areasToSpawn = areasWithEscape.ToArray();
+            Debug.Log($"Added escape route gate: {currentEscapeArea.Value}");
+        }
+        
         OnWaveAreasActivated?.Invoke(areasToSpawn);
         
         // Start spawners
@@ -601,9 +653,40 @@ public class WaveManager : MonoBehaviour
     
     private void OpenGatesForNextWaveAreas()
     {
-        var areas = GetAreasForWave(currentWaveNumber + 1);
+        var areas = GetAreasForWave(currentWaveNumber);  // Use current wave, not +1
+        
+        // For waves 5+, add one escape route (random area not spawning zombies)
+        if (currentWaveNumber >= 5)
+        {
+            var escapeArea = GetRandomEscapeArea(areas);
+            if (escapeArea.HasValue)
+            {
+                var areasWithEscape = new List<SpawnerArea>(areas);
+                areasWithEscape.Add(escapeArea.Value);
+                areas = areasWithEscape.ToArray();
+                Debug.Log($"Added escape route: {escapeArea.Value}");
+            }
+        }
+        
         WallManager.Instance.OpenWallsForAreas(areas);
-        Debug.Log($"Opened gates for next wave areas: {string.Join(", ", areas)}");
+        Debug.Log($"Opened gates for wave {currentWaveNumber} areas: {string.Join(", ", areas)}");
+    }
+    
+    private SpawnerArea? GetRandomEscapeArea(SpawnerArea[] spawnAreas)
+    {
+        // Get edge areas only (North, South, East, West) - center is always open
+        var edgeAreas = new[] { SpawnerArea.North, SpawnerArea.South, SpawnerArea.East, SpawnerArea.West };
+        
+        // Find edge areas that are NOT spawning zombies
+        var closedAreas = edgeAreas.Where(area => !spawnAreas.Contains(area)).ToArray();
+        
+        if (closedAreas.Length > 0)
+        {
+            // Return a random closed area as escape route
+            return closedAreas[Random.Range(0, closedAreas.Length)];
+        }
+        
+        return null;  // All edge areas are spawning - no escape needed
     }
     
     private void ChangeWaveState(WaveState newState)

@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa4bea4849d93543b5ca33abdecf51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateFrequency: 1
+  updateFrequency: 10
 --- !u!114 &8504026601931509777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 150
   Damage: 100
-  MovementSpeed: 1.5
+  MovementSpeed: 3
   weaponPF: {fileID: 1694449805434718, guid: 6828f5ecd5ed72d4d94b9fb56f30f7d7, type: 3}
   Range: 15
   FireRate: 0.5
