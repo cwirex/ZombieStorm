@@ -21,6 +21,9 @@ namespace Assets.Scripts.Shop
         [SerializeField] private WeaponManager weaponManager;
         [SerializeField] private PlayerInventory playerInventory;
         
+        [Header("Shop Data")]
+        [SerializeField] private WeaponUpgradeRepositorySO mainWeaponRepository; // Direct reference for builds
+        
         // Core services
         private WeaponUpgradeService upgradeService;
         private WeaponUpgradeRepositorySO weaponRepository;
@@ -102,23 +105,37 @@ namespace Assets.Scripts.Shop
         }
         
         /// <summary>
-        /// Automatically loads the MainWeaponRepository from the auto-generated assets
-        /// Uses the MainWeaponRepositoryProvider to get the repository instance
+        /// Loads the MainWeaponRepository using direct reference (for builds) with provider fallback (for editor)
         /// </summary>
         private void LoadMainWeaponRepository()
         {
-            weaponRepository = MainWeaponRepositoryProvider.Instance;
+            // First priority: Use direct inspector reference (works in builds)
+            if (mainWeaponRepository != null)
+            {
+                weaponRepository = mainWeaponRepository;
+                if (debugMode)
+                {
+                    Debug.Log($"ShopManager: Successfully loaded MainWeaponRepository from direct reference: {weaponRepository.name}");
+                }
+                return;
+            }
             
-            if (weaponRepository == null)
+            // Second priority: Use provider (works in editor)
+            weaponRepository = MainWeaponRepositoryProvider.Instance;
+            if (weaponRepository != null)
             {
-                Debug.LogError("ShopManager: MainWeaponRepository not found! Make sure to:\n" +
-                             "1. Run 'Tools/Shop/Generate All Weapon Upgrades (Automated)' first\n" +
-                             "2. The MainWeaponRepository.asset exists in Assets/ScriptableObjects/Shop/");
+                if (debugMode)
+                {
+                    Debug.Log($"ShopManager: Successfully loaded MainWeaponRepository from provider: {weaponRepository.name}");
+                }
+                return;
             }
-            else if (debugMode)
-            {
-                Debug.Log($"ShopManager: Successfully loaded MainWeaponRepository: {weaponRepository.name}");
-            }
+            
+            // Both methods failed
+            Debug.LogError("ShopManager: MainWeaponRepository not found! Make sure to:\n" +
+                         "1. Assign MainWeaponRepository in ShopManager inspector (Shop Data section)\n" +
+                         "2. OR run 'Tools/Shop/Generate All Weapon Upgrades (Automated)' first\n" +
+                         "3. The MainWeaponRepository.asset exists in Assets/ScriptableObjects/Shop/");
         }
         
         private void ValidateDependencies()
@@ -741,6 +758,48 @@ namespace Assets.Scripts.Shop
                 ConsumablePricingService.Instance.LogPriceBreakdown(ConsumableType.Medkit, 0);
                 ConsumablePricingService.Instance.LogPriceBreakdown(ConsumableType.TNT, 0);
             }
+        }
+        
+        [ContextMenu("Test Upgrade Descriptions")]
+        public void TestUpgradeDescriptions()
+        {
+            Debug.Log("=== Testing Upgrade Descriptions ===");
+            
+            if (weaponRepository == null)
+            {
+                Debug.LogError("❌ weaponRepository is null!");
+                return;
+            }
+            
+            if (upgradeService == null)
+            {
+                Debug.LogError("❌ upgradeService is null!");
+                return;
+            }
+            
+            // Test a few weapons
+            EWeapons[] testWeapons = { EWeapons.PISTOL, EWeapons.UZI, EWeapons.SHOTGUN };
+            
+            foreach (var weapon in testWeapons)
+            {
+                Debug.Log($"\n--- {weapon} ---");
+                for (int level = 2; level <= 4; level++)
+                {
+                    string description = upgradeService.GetUpgradeDescription(weapon, level);
+                    Debug.Log($"Level {level}: '{description}'");
+                }
+            }
+        }
+        
+        [ContextMenu("Validate Shop Setup")]
+        public void ValidateShopSetup()
+        {
+            Debug.Log("=== Shop Setup Validation ===");
+            Debug.Log($"Direct Reference: {(mainWeaponRepository != null ? mainWeaponRepository.name : "NULL")}");
+            Debug.Log($"Current Repository: {(weaponRepository != null ? weaponRepository.name : "NULL")}");
+            Debug.Log($"Upgrade Service: {(upgradeService != null ? "OK" : "NULL")}");
+            Debug.Log($"Provider Status: {MainWeaponRepositoryProvider.GetDebugInfo()}");
+            Debug.Log($"Provider Valid: {MainWeaponRepositoryProvider.IsValid()}");
         }
         
         #endregion

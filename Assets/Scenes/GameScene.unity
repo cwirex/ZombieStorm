@@ -4661,7 +4661,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.55739, y: 0.000000029450547, z: -0.000000019771665, w: 0.83025086}
+  m_LocalRotation: {x: 0.55739, y: -0.000000029450538, z: 0.000000019771658, w: 0.83025086}
   m_LocalPosition: {x: 0, y: 22, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9833,7 +9833,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608741655}
-  m_LocalRotation: {x: 0.55739, y: 0.000000029450547, z: -0.000000019771665, w: 0.83025086}
+  m_LocalRotation: {x: 0.55739, y: -0.000000029450538, z: 0.000000019771658, w: 0.83025086}
   m_LocalPosition: {x: 0, y: 22, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19636,6 +19636,8 @@ MonoBehaviour:
   autoOpenOnWaveEnd: 1
   weaponManager: {fileID: 0}
   playerInventory: {fileID: 0}
+  mainWeaponRepository: {fileID: 11400000, guid: 7accb5b15c7e3ec4ca1ded62cdd155bd,
+    type: 2}
 --- !u!1 &1257189880
 GameObject:
   m_ObjectHideFlags: 0
