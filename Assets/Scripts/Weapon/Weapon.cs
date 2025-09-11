@@ -102,14 +102,14 @@ namespace Assets.Scripts.Weapon {
         /// </summary>
         private float GetBaseReloadTimeForWeapon(EWeapons weaponType) {
             return weaponType switch {
-                EWeapons.PISTOL => 1.0f,        // Fastest - lightweight sidearm
-                EWeapons.UZI => 1.1f,           // Fast - compact SMG
-                EWeapons.SHOTGUN => 1.5f,       // Slower - shells take time to load
-                EWeapons.M4 => 1.5f,            // Medium - assault rifle
+                EWeapons.PISTOL => 0.8f,        // Fastest - lightweight sidearm
+                EWeapons.UZI => 0.9f,           // Fast - compact SMG
+                EWeapons.SHOTGUN => 1.2f,       // Slower - shells take time to load
+                EWeapons.M4 => 1.4f,            // Medium - assault rifle
                 EWeapons.AWP => 2.2f,           // Slow - heavy sniper rifle
-                EWeapons.M249 => 2.8f,          // Very slow - heavy machine gun
-                EWeapons.RPG7 => 2.2f,          // Slowest - rocket launcher
-                EWeapons.FLAMETHROWER =>1.9f,  // Slow - fuel tank refill
+                EWeapons.M249 => 2.5f,          // Very slow - heavy machine gun
+                EWeapons.RPG7 => 2f,          // Slowest - rocket launcher
+                EWeapons.FLAMETHROWER =>1.8f,  // Slow - fuel tank refill
                 _ => 1.0f                       // Default fallback
             };
         }

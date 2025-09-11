@@ -131,6 +131,9 @@ public class GameManager : MonoBehaviour {
         // Stop game over ambient music
         SoundEvents.TriggerGameOverEnd();
         
+        // Reset persistent game state before scene reload
+        ResetGameState();
+        
         // Mark that game has started (so next load goes to Playing)
         hasStartedGameBefore = true;
         
@@ -141,6 +144,28 @@ public class GameManager : MonoBehaviour {
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
         );
+    }
+    
+    private void ResetGameState() {
+        // Reset weapon levels and ownership (player keeps only pistol at level 1)
+        if (Assets.Scripts.Shop.WeaponLevelTracker.Instance != null) {
+            Assets.Scripts.Shop.WeaponLevelTracker.Instance.ResetAllWeapons();
+        }
+        
+        // Reset score to 0
+        if (ScoreManager.Instance != null) {
+            ScoreManager.Instance.ResetScore();
+        }
+        
+        // Reset wave progress
+        if (WaveManager.Instance != null) {
+            WaveManager.Instance.ResetWaveProgress();
+        }
+        
+        // Reset currency to starting amount (3000)
+        if (CurrencyManager.Instance != null) {
+            CurrencyManager.Instance.ResetCash();
+        }
     }
     
     // Wave management event handlers

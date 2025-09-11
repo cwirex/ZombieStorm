@@ -47,7 +47,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.3
+  m_Speed: 3.5
   m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 180
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 200
   Damage: 40
-  MovementSpeed: 3.3
+  MovementSpeed: 3.5
 --- !u!65 &2417881069764623800
 BoxCollider:
   m_ObjectHideFlags: 0

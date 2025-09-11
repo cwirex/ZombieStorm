@@ -710,6 +710,28 @@ public class WaveManager : MonoBehaviour
         return activeEnemyCount;
     }
     
+    public void ResetWaveProgress()
+    {
+        currentWaveNumber = 0;
+        currentWaveState = WaveState.Lobby;
+        currentEscapeArea = null;
+        currentGateState = GateState.AllOpen;
+        activeEnemyCount = 0;
+        totalEnemiesSpawned = 0;
+        allSpawnersComplete = false;
+        
+        // Stop all active spawners
+        foreach (var spawner in allSpawners)
+        {
+            if (spawner != null)
+            {
+                spawner.StopWave();
+            }
+        }
+        
+        Debug.Log("Wave progress reset to initial state");
+    }
+    
     private void OnDestroy()
     {
         // Unsubscribe from spawner events

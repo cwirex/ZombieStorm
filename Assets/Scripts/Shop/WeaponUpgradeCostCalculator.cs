@@ -18,7 +18,7 @@ namespace Assets.Scripts.Shop
             { EWeapons.FLAMETHROWER, 3600 },
             { EWeapons.M4, 2100 },
             { EWeapons.AWP, 3200 },
-            { EWeapons.M249, 2800 },
+            { EWeapons.M249, 3500 },
             { EWeapons.RPG7, 5000 }
         };
         

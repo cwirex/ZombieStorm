@@ -6,7 +6,7 @@ public class CurrencyManager : MonoBehaviour
     public static CurrencyManager Instance { get; private set; }
     
     [Header("Currency Settings")]
-    [SerializeField] private int startingCash = 0;
+    [SerializeField] private int startingCash = 3000;
     
     // Current cash and tracking
     private int currentCash = 0;

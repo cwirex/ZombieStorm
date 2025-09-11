@@ -16,7 +16,7 @@ MonoBehaviour:
   difficultySpeedModifier: 1
   difficultyBossModifier: 1
   finalPhaseScalingModifier: 1.1
-  learningPhaseSpeed: 0.5
+  learningPhaseSpeed: 0.4
   advancedPhaseSpeed: 0.3
   normalZombiePrefab: {fileID: 2774681883900447588, guid: 5525ff627bbff5844b8aa295c5f99386,
     type: 3}
@@ -32,7 +32,7 @@ MonoBehaviour:
   phoenixZombieUnlockWave: 7
   gigantZombiePrefab: {fileID: 2774681883900447588, guid: f1253ab07f18dfc4fa3be202cf8a7945,
     type: 3}
-  gigantZombieUnlockWave: 5
+  gigantZombieUnlockWave: 4
   gigantBomberZombiePrefab: {fileID: 2774681883900447588, guid: e3c2caa2700fabd4fa85b914c9acc1ed,
     type: 3}
   gigantBomberZombieUnlockWave: 7
@@ -46,7 +46,7 @@ MonoBehaviour:
     gigantZombieAmount: 1
     gigantBomberZombieAmount: 1
   combinationPhase:
-    enemyCountInc: 7
+    enemyCountInc: 2
     spawners: 2
     normalZombieAmount: 10
     toxicZombieAmount: 3
@@ -55,8 +55,8 @@ MonoBehaviour:
     gigantZombieAmount: 4
     gigantBomberZombieAmount: 1
   invertedPhase:
-    enemyCountInc: 6
-    spawners: 3
+    enemyCountInc: 2
+    spawners: 2
     normalZombieAmount: 2
     toxicZombieAmount: 3
     suiciderZombieAmount: 2
@@ -64,13 +64,13 @@ MonoBehaviour:
     gigantZombieAmount: 7
     gigantBomberZombieAmount: 1
   finalPhase:
-    enemyCountInc: 10
+    enemyCountInc: 5
     spawners: 3
     normalZombieAmount: 0
-    toxicZombieAmount: 5
-    suiciderZombieAmount: 4
-    phoenixZombieAmount: 5
-    gigantZombieAmount: 7
+    toxicZombieAmount: 6
+    suiciderZombieAmount: 0
+    phoenixZombieAmount: 4
+    gigantZombieAmount: 0
     gigantBomberZombieAmount: 2
   bossPhase:
     enemyCountInc: 11
