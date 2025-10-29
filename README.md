@@ -4,6 +4,9 @@
 
 *This is my first Unity project - an experimental venture into game development, showcasing various game mechanics and systems.*
 
+*Live game available at:* [Zombie Storm on Itch.io](https://cwirex.itch.io/zombie-storm)
+
+
 ## 🎮 Game Overview
 
 ZombieStorm is a top-down survival shooter featuring a sophisticated wave progression system where players face increasingly challenging encounters across four distinct phases. Between waves, players can shop for weapon upgrades and consumables using earned currency. The game combines strategic resource management, tactical positioning, and intense combat with a deep weapon upgrade system and dynamic battlefield control through smart gate mechanics.
